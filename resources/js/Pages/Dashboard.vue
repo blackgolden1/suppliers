@@ -7,6 +7,6 @@ import { Head } from '@inertiajs/vue3';
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-
+ tabla
     </AuthenticatedLayout>
 </template>

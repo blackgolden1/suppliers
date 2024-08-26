@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('invitation_supplier', function (Blueprint $table) {
             $table->foreignId('invitation_id')->constrained();
             $table->foreignId('supplier_id')->constrained();
+            $table->enum('status',['pending','accepted','rejected']);
+            $table->text('description');
             $table->timestamps();
         });
     }

@@ -18,5 +18,8 @@
         "vite": "^5.0",
         "vue": "^3.4.0",
         "vue-loader": "^17.4.2"
+    },
+    "dependencies": {
+        "@inertiajs/inertia": "^0.11.1"
     }
 }

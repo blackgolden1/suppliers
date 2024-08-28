@@ -40,6 +40,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Supplier extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'ciuu',
+        'phone',
+        'address',
+        'user_id',
+    ];
     protected $guarded = [];
     public function documents(): HasMany
     {
@@ -48,5 +55,11 @@ class Supplier extends Model
     public function invitations(): BelongsToMany
     {
         return $this->belongsToMany(Invitation::class);
+    }
+    public function getRole(): int
+    {
+        $user = auth()->user;
+        //dd($user->role);
+        return $user->role;
     }
 }

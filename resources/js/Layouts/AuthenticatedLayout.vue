@@ -5,9 +5,12 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import {Link} from '@inertiajs/vue3';
+import {Link, usePage} from '@inertiajs/vue3';
+import {computed} from 'vue';
 
 const showingNavigationDropdown = ref(false);
+const page = usePage();
+const role = computed(() => page.props.auth.user.role_id)
 </script>
 
 <template>
@@ -125,9 +128,8 @@ const showingNavigationDropdown = ref(false);
         </nav>
         <div class="flex">
             <div class="w-fit bg-blue text-white font-bold h-screen p-4 leading-10">
-                <div> <Link :href="route('dashboard')">Dashboard</Link> </div>
-                <div><Link :href="route('proveedores')">Proveedores</Link> </div>
-                <div><Link :href="route('convocatorias')">Convocatorias</Link> </div>
+                <div  v-if="role== '2' || role== '3'" ><Link :href="route('proveedores')">Proveedores</Link> </div>
+                <div ><Link :href="route('convocatorias')">Convocatorias </Link> </div>
 
             </div>
             <!-- Page Heading -->

@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invitation_supplier', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('invitation_id')->constrained();
             $table->foreignId('supplier_id')->constrained();
-            $table->enum('status',['pending','accepted','rejected']);
-            $table->text('description');
+            $table->enum('status',['pending','accepted','rejected'])->default('pending');
+            $table->text('description')->nullable();
+            $table->json('payload');
             $table->timestamps();
         });
     }

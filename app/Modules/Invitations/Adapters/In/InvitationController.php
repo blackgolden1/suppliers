@@ -20,7 +20,7 @@ class InvitationController extends Controller
 
     public function create(Request $request): void
     {
-        $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->description);
+        $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->description, $request->requirements);
     }
 
     public function edit(Request $request, $id): void
@@ -45,8 +45,8 @@ class InvitationController extends Controller
     {
         $this->invitationService->delete($id);
     }
-    public function find():\Inertia\Response{
-        $invitation = $this->invitationService->find(2);
+    public function find($id):\Inertia\Response{
+        $invitation = $this->invitationService->find($id);
         return Inertia::render('ConvocatoriasPerfil', ['invitation' => $invitation]);
 
     }

@@ -11,9 +11,8 @@ Route::get('/', function () {
 });
 
 Route::get('/proveedores', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'search'])->name('proveedores');
-Route::get('/proveedores-perfil/', function () {
-    return Inertia::render('ProveedorPerfil');
-})->name('proveedores.perfil');
+Route::get('/proveedores/{id}',[\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'find'])->name('proveedor.perfil');
+
 
 
 Route::get('/register-supplier', function () {
@@ -23,7 +22,7 @@ Route::post('/register-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierCo
 
 Route::post('/apply-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'apply'])->name('supplier.apply'); //aun no
 
-Route::get('/convocatoria-perfil', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'find'])->name('convocatoria.perfil');
+Route::get('/convocatoria/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'find'])->name('convocatoria.perfil');
 Route::get('/convocatorias', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'search'])->name('convocatorias')->middleware(['auth', 'verified']);
 
 Route::patch('update-invitation/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'edit'])->name('invitation.edit'); //aun no

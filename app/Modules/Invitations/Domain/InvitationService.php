@@ -16,9 +16,9 @@ private IInvitationRepository $invitationRepository;
         $this->invitationRepository = new InvitationMysqlRepository();
     }
 
-    public function create($name, $date_start, $date_finish, $active, $description): void
+    public function create($name, $date_start, $date_finish, $active, $description,$requirements): void
     {
-        $this->invitationRepository->create($name, $date_start, $date_finish, $active, $description);
+        $this->invitationRepository->create($name, $date_start, $date_finish, $active, $description,$requirements);
     }
 
     public function edit($name, $date_start, $date_finish, $active, $description,$id): void

@@ -52,7 +52,7 @@ const role = page.props.auth.user.role_id;
                         </div>
                     </td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <Link :href="route('convocatoria.perfil')"> {{ invitation.name }} </Link>
+                        <Link :href="route('convocatoria.perfil', { id: invitation.id })"> {{ invitation.name }} </Link>
                     </th>
                     <td class="px-6 py-4">
                         {{ invitation.date_start }}
@@ -107,6 +107,9 @@ const role = page.props.auth.user.role_id;
                     </li>
                 </ul>
             </nav>
+            <div class="bg-blue text-white rounded-lg w-fit p-3 mt-4">
+                <Link :href="route('registerInvitation')"> Nueva + </Link>
+            </div>
         </div>
 
     </AuthenticatedLayout>

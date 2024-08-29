@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 const selectedTab = ref('personal-info')
+const props = defineProps({supplier:Object})
+console.log(props.supplier);
 </script>
 <template>
     <AuthenticatedLayout>
@@ -64,7 +66,7 @@ const selectedTab = ref('personal-info')
                         </svg>
                         <p class="ml-2 text-gray-700">Name</p>
                     </div>
-                    <p class="text-gray-500">Irakli Talavadze</p>
+                    <p class="text-gray-500">{{supplier.name}}</p>
                 </div>
                 <div class="bg-white p-4 rounded-lg shadow-md">
                     <div class="flex items-center mb-2">

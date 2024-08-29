@@ -40,7 +40,7 @@ class SupplierMysqlRepository implements ISupplierRepository
     }
     public function find($id): SupplierEntity
     {
-        $supplier = Supplier::get()->where('id','=',$id);
+        $supplier = Supplier::find($id);
         return new SupplierEntity($supplier->toArray());
     }
     public function apply($invitation_id, $supplier_id, $status, $description): void

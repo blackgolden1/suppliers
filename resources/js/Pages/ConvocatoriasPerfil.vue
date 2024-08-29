@@ -69,7 +69,7 @@ console.log(props.invitation);
                             </svg>
                             <p class="ml-2 text-gray-700">Name</p>
                         </div>
-                        <p class="text-gray-500">Irakli Talavadze</p>
+                        <p class="text-gray-500">{{invitation.name}}</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md">
                         <div class="flex items-center mb-2">

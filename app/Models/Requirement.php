@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Requirement extends Model
 {
     use HasFactory;
+    protected $fillable= [
+        'invitation_id',
+        'type',
+        'description'
+    ];
     public function invitations (): BelongsTo{
         return $this->belongsTo(Invitation::class);
     }

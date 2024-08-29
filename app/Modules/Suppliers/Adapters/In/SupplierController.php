@@ -38,7 +38,7 @@ class SupplierController extends Controller
          $this->supplierService->edit($request->name,$request->ciuu, $request->phone, $request->address, $request->userId, $id);
     }
     public function find($id):\Inertia\Response{
-        $supplier = $this->supplierService->find(1);
+        $supplier = $this->supplierService->find($id);
         return Inertia::render('ProveedorPerfil', ['supplier'=>$supplier]);
     }
     public function apply($invitation_id, $supplier_id, $status, $description):void{

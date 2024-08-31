@@ -11,9 +11,10 @@ use Inertia\Inertia;
 class InvitationMysqlRepository implements IInvitationRepository
 {
 
-    public function create($name, $date_start, $date_finish, $active, $description, $requirements): void
+    public function create($name, $date_start, $date_finish, $active, $description, $requirements,$files): void
     {
-        $invitation = Invitation::create(['name' => $name, 'date_start' => $date_start, 'date_finish' => $date_finish, 'active' => $active, 'description' => $description]);
+
+        $invitation = Invitation::create(['name' => $name, 'date_start' => $date_start, 'date_finish' => $date_finish, 'active' => $active, 'description' => $description, 'files' => json_encode($files)]);
         $invitationId = $invitation->id;
         foreach ($requirements as $req) {
              Requirement::create(['invitation_id' => $invitationId, 'type' => $req['type'], 'description' => $req['description']]);

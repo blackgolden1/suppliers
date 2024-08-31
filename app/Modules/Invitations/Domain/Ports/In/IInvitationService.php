@@ -6,7 +6,7 @@ use App\Modules\Invitations\Domain\InvitationEntity;
 
 interface IInvitationService
 {
-public function create($name, $date_start, $date_finish, $active, $description,$requirements):void;
+public function create($name, $date_start, $date_finish, $active, $description,$requirements,$files):void;
     public function edit($name, $date_start, $date_finish, $active, $description,$id): void;
     public function search(): array;
     public function index(): array;

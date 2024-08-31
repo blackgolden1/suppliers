@@ -20,13 +20,27 @@ class InvitationController extends Controller
 
     public function create(Request $request): void
     {
-        $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->description, $request->requirements);
+        $paths=[];
+        if ($request->hasFile('files')){
+            foreach ($request->file('files') as $file){
+
+                $filename = $file->getClientOriginalName();
+//                $destinationPath = 'storage/';
+//                $file->move(public_path() . $destinationPath, $filename);
+//                $paths[]= $destinationPath . $filename;
+
+                $path = $file->storeAs('public/', $request->name . $filename );
+                $paths[]= $path;
+            }
+        }
+        $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->description, $request->requirements, $paths);
     }
 
     public function edit(Request $request, $id): void
+
     {
        // $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->description, $id);
-        $this->invitationService->create('hola', 2024/02/02, 2024/02/02, 1, 'helo', 1);
+        $this->invitationService->create('hola', 2024/02/02, 2024/02/02, 1, 'helo', 1,'');
     }
 
     public function search(): \Inertia\Response

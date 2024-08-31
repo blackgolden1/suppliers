@@ -1,18 +1,18 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import {ref} from "vue";
+
 const form = useForm({
     name: '',
     date_start: '',
     date_finish: '',
     active: '',
     description: '',
-    requirements:[{description:'', type:''}],
-
+    requirements: [{description: '', type: ''}],
+    files: [{}]
 });
 const addRequirement = () => {
-    form.requirements.push({ name: '',type:'' });
+    form.requirements.push({description: '', type: ''});
 
 };
 const removeRequirement = (index) => {
@@ -21,8 +21,24 @@ const removeRequirement = (index) => {
     }
 };
 
+const addFile = () => {
+    form.files.push({});
+
+};
+const removeFile = (index) => {
+    if (form.files.length > 1) {
+        form.files.splice(index, 1);
+    }
+};
+
+const handleFileChange = (event) => {
+    // Captura el primer archivo seleccionado
+    console.log(event);
+    form.files = event.target.files; // Asigna el archivo al modelo
+
+}
 const submit = () => {
-console.log(form.data());
+    console.log(form.data());
     form.post(route('invitation.create'), {});
 };
 </script>
@@ -157,20 +173,33 @@ console.log(form.data());
                 </div>
                 <div class="grid grid-cols-2 gap-6">
                     <div class="col-span-1">
-                        <h2 class="text-2xl font-semibold">Informacion Adicional</h2>
-                        <p class="mt-2 text-sm text-gray-600">Informacion adicional requerida para la postulacion.</p>
+                        <h2 class="text-2xl font-semibold">Adjuntar archivos</h2>
+                        <p class="mt-2 text-sm text-gray-600">Documentos de informacion sobre la postulacion.</p>
                     </div>
+                    <label for="file">Adjuntar archivo</label>
+                    <input type="file" id="file" accept="*/*" multiple @change="handleFileChange">
 
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="col-span-1">
+                        <h2 class="text-2xl font-semibold">Solicitar archivos</h2>
+                        <p class="mt-2 text-sm text-gray-600">Solicite documentos adicionales requeridos para la
+                            postulacion.</p>
+                    </div>
                     <div>
                         <div v-for="(requirement, index) in form.requirements" :key="index" class="mb-2 ">
                             <label for="type" class="text-sm font-medium text-gray-700">Tipo</label>
-                            <select id="type" v-model="form.requirements[index].type" class="px-3 py-2 mx-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <select id="type" v-model="form.requirements[index].type"
+                                    class="px-3 py-2 mx-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="texto">Texto</option>
                                 <option value="archivo">Archivo</option>
                                 <option value="numerico">Numerico</option>
                             </select>
-                            <label for="requirementName" class="text-sm font-medium text-gray-700">Descripcion {{ index + 1 }}</label>
+
+                            <label for="requirementName"  class="text-sm font-medium text-gray-700">Descripcion
+                                {{ index + 1 }}</label>
                             <input
+
                                 v-model="form.requirements[index].description"
                                 type="text"
                                 id="requirementName"
@@ -178,12 +207,19 @@ console.log(form.data());
                                 placeholder="Escribe el nombre de la mascota"
                             />
 
-                            <button type="button" @click="removeRequirement(index)" class="ml-2 text-lg text-red-600">-</button>
+
+                            <button type="button" @click="removeRequirement(index)" class="ml-2 text-lg text-red-600">
+                                -
+                            </button>
                         </div>
-                        <button type="button" @click="addRequirement" class="bg-blue text-white px-2 rounded-lg text-lg py-1">+</button>
+
+                        <button type="button" @click="addRequirement"
+                                class="bg-blue text-white px-2 rounded-lg text-lg py-1">+
+                        </button>
 
                     </div>
                 </div>
+
                 <button class="bg-blue text-white rounded-lg p-4 mt-8" type="submit">Enviar</button>
             </form>
         </div>

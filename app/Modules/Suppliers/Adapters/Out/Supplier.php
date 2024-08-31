@@ -56,10 +56,4 @@ class Supplier extends Model
     {
         return $this->belongsToMany(Invitation::class);
     }
-    public function getRole(): int
-    {
-        $user = auth()->user;
-        //dd($user->role);
-        return $user->role;
-    }
 }

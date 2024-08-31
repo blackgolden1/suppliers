@@ -12,6 +12,7 @@ class InvitationEntity
     public string $date_finish;
     public bool $active;
     public string $description;
+    public array $files;
 
     public function __construct(array $attributes = [])
     {

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date_finish');
             $table->boolean('active');
             $table->string('description');
+            $table->json('files')->nullable();
             $table->timestamps();
         });
     }

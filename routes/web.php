@@ -16,12 +16,13 @@ Route::get('/proveedores/{id}',[\App\Modules\Suppliers\Adapters\In\SupplierContr
 
 
 Route::get('/register-supplier', function () {
-    return Inertia::render('ProveedoresRegistro'); //ojo ese no es el componente
+    return Inertia::render('ProveedoresRegistro');
 })->name('registerSupplier');
 Route::post('/register-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'create'])->name('supplier.create');
 
-Route::post('/apply-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'apply'])->name('supplier.apply'); //aun no
-
+//Route::post('/apply-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'apply'])->name('supplier.apply'); //aun no
+Route::get('/apply-supplier', function () {
+    return Inertia::render('Postularse');})->name('apply');
 Route::get('/convocatoria/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'find'])->name('convocatoria.perfil');
 Route::get('/convocatorias', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'search'])->name('convocatorias')->middleware(['auth', 'verified']);
 

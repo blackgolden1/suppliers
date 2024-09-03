@@ -17,9 +17,9 @@ use function Laravel\Prompts\table;
 class SupplierMysqlRepository implements ISupplierRepository
 {
 
-    public function create($name, $ciuu, $phone, $address, $userId): SupplierEntity
+    public function create($name, $ciuu, $phone, $address, $userId,$createdBy, $modifiedBy): SupplierEntity
     {
-        $newSupplier = Supplier::create(['name' => $name, 'ciuu' => $ciuu, 'phone' => $phone, 'address' => $address, 'user_id' => $userId]);
+        $newSupplier = Supplier::create(['name' => $name, 'ciuu' => $ciuu, 'phone' => $phone, 'address' => $address, 'user_id' => $userId, 'created_by'=>$createdBy, 'modified_by'=>$modifiedBy ]);
         return new SupplierEntity($newSupplier->toArray());
     }
 

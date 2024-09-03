@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, usePage, Link} from '@inertiajs/vue3';
-
+import Postularse from "@/Layouts/MainLayout.vue";
 const props = defineProps({invitations: Array});
 const active = props.invitations.active;
 const page = usePage();
@@ -12,10 +12,10 @@ const role = page.props.auth.user.role_id;
 <template>
     <Head title="Proveedores"/>
 
-    <AuthenticatedLayout>
+<!--    <AuthenticatedLayout>-->
+<Postularse>
 
-
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg pr-36 w-screen center px-8 py-4">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg pr-24 w-full center px-8 py-4">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -111,6 +111,6 @@ const role = page.props.auth.user.role_id;
                 <Link :href="route('registerInvitation')"> Nueva + </Link>
             </div>
         </div>
-
-    </AuthenticatedLayout>
+</Postularse>
+<!--    </AuthenticatedLayout>-->
 </template>

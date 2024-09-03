@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, usePage, Link} from '@inertiajs/vue3';
-
+import MainLayout from "@/Layouts/MainLayout.vue";
 const props = defineProps({suppliers: Array});
 const page = usePage();
 
@@ -11,62 +11,8 @@ const role = page.props.auth.user.role_id;
 <template>
     <Head title="Proveedores" />
 
-    <AuthenticatedLayout>
-
-<!--            <div class="max-w-3xl mx-auto p-4">-->
-<!--                &lt;!&ndash; Barra de búsqueda &ndash;&gt;-->
-<!--                <div class="flex items-center bg-gray-100 rounded-full p-2">-->
-<!--                    <svg class="w-5 h-5 text-gray-500 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m2.85-6.65A8.5 8.5 0 1114 2.5a8.5 8.5 0 015.5 12.5z"></path>-->
-<!--                    </svg>-->
-<!--                    <input type="text" placeholder="Buscar en Drive" class="flex-grow bg-gray-100 focus:outline-none px-4 py-2 rounded-full">-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; Filtros &ndash;&gt;-->
-<!--                <div class="flex space-x-2 mt-4">-->
-<!--                    <div class="flex items-center space-x-1 bg-gray-100 px-4 py-2 rounded-full">-->
-<!--                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a2 2 0 012-2h14a2 2 0 012 2v16a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path>-->
-<!--                        </svg>-->
-<!--                        <span class="text-gray-600">Tipo</span>-->
-<!--                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>-->
-<!--                        </svg>-->
-<!--                    </div>-->
-
-<!--                    <div class="flex items-center space-x-1 bg-gray-100 px-4 py-2 rounded-full">-->
-<!--                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A12.083 12.083 0 0112 15.75a12.083 12.083 0 016.879 2.054A6 6 0 1118 6a6 6 0 10-7.25 7.25"></path>-->
-<!--                        </svg>-->
-<!--                        <span class="text-gray-600">Personas</span>-->
-<!--                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>-->
-<!--                        </svg>-->
-<!--                    </div>-->
-
-<!--                    <div class="flex items-center space-x-1 bg-gray-100 px-4 py-2 rounded-full">-->
-<!--                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 7h10m-6 4h2"></path>-->
-<!--                        </svg>-->
-<!--                        <span class="text-gray-600">Modificado</span>-->
-<!--                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>-->
-<!--                        </svg>-->
-<!--                    </div>-->
-
-<!--                    <div class="flex items-center space-x-1 bg-gray-100 px-4 py-2 rounded-full">-->
-<!--                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"></path>-->
-<!--                        </svg>-->
-<!--                        <span class="text-gray-600">Ubicación</span>-->
-<!--                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>-->
-<!--                        </svg>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg pr-36 w-screen center px-8 py-4">
+    <MainLayout>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg pr-36 w-full center px-8 py-4">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -148,5 +94,5 @@ const role = page.props.auth.user.role_id;
             </nav>
         </div>
 
-    </AuthenticatedLayout>
+    </MainLayout>
 </template>

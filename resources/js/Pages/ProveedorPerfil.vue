@@ -1,12 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import MainLayout from "@/Layouts/MainLayout.vue";
 const selectedTab = ref('personal-info')
 const props = defineProps({supplier:Object})
 console.log(props.supplier);
 </script>
 <template>
-    <AuthenticatedLayout>
+    <MainLayout>
     <div class=" h-screen w-full m-0 relative flex flex-col">
         <!-- Sidebar -->
         <div class=" bg-white p-8 center">
@@ -17,7 +18,7 @@ console.log(props.supplier);
                         :class="{'text-blue': selectedTab === 'personal-info'}"
                         class="text-left w-full mb-4 p-2 hover:text-blue"
                     >
-                        Personal information
+                        Informacion Personal
                     </button>
                 </li>
                 <li>
@@ -95,7 +96,7 @@ console.log(props.supplier);
             </div>
         </div>
     </div>
-    </AuthenticatedLayout>
+    </MainLayout>
 </template>
 
 

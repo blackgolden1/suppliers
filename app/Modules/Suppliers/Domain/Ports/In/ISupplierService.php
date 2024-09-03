@@ -8,7 +8,7 @@ use phpDocumentor\Reflection\Types\Void_;
 
 interface ISupplierService
 {
-    public function create($name, $ciuu, $phone, $address, $userId): SupplierEntity;
+    public function create($name, $ciuu, $phone, $address, $userId, $createdBy, $modifiedBy): SupplierEntity;
 
     public function edit($name, $ciuu, $phone, $address, $userId,$id): void;
     public function find($id):SupplierEntity;

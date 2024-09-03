@@ -29,7 +29,7 @@ class InvitationController extends Controller
 //                $file->move(public_path() . $destinationPath, $filename);
 //                $paths[]= $destinationPath . $filename;
 
-                $path = $file->storeAs('public/', $request->name . $filename );
+                $path = $file->storeAs('public/', $request->name . '-' .  $filename );
                 $paths[]= $path;
             }
         }

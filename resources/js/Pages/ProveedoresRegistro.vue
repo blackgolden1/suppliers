@@ -1,8 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
+import {ref} from 'vue';
+import {Inertia} from '@inertiajs/inertia';
 
 const file = ref(null);
 
@@ -13,10 +13,24 @@ const form = useForm({
     address: '',
     userId: ''
 });
-const docs = useForm({file:''})
+const categories = ref([
+    'Académicas: Asesorías Académicas',
+    'Accesorios y Materiales de Reparación de Equipos',
+    'Aseo y Cafetería',
+    'Base de Datos',
+    'Construcción y Adecuación de Ambientes Escolares',
+    'Contratación de Servicios',
+    'Dotaciones',
+    'Elementos de Robótica',
+    'Equipos de Cómputo',
+    'Equipos de Comunicaciones - Audiovisuales',
+    'Equipos de Piscina',
+]);
+const selectedCategories = ref([]);
+const docs = useForm({file: ''})
 const submit = () => {
     form.post(route('supplier.create'), {});
-    docs.post(route('file.store'),{});
+    docs.post(route('file.store'), {});
 };
 
 const handleFileUpload = (event) => {
@@ -35,172 +49,177 @@ const handleFileUpload = (event) => {
             <form @submit.prevent="submit">
                 <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-1 mr-20">
-                        <h2 class="text-2xl font-semibold">Personal Information</h2>
-                        <p class="mt-2 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+                        <h2 class="text-2xl font-semibold">Informacion Basica</h2>
                     </div>
 
                     <div class="col-span-2">
 
-                        <div class="grid grid-cols-2 gap-6 mb-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="first-name">First
-                                    name</label>
-                                <input id="first-name" type="text" v-model="form.name"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="last-name">Last name</label>
-                                <input id="last-name" type="text" v-model="form.ciuu"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                        </div>
-<!--                                                <div class="mb-4">-->
-<!--                                                    <label class="block text-sm font-medium text-gray-700" for="email">Email address</label>-->
-<!--                                                    <input id="email" type="email"-->
-<!--                                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>-->
-<!--                                                </div>-->
-
-<!--                                                <div class="mb-4">-->
-<!--                                                    <label class="block text-sm font-medium text-gray-700" for="country">Tipo de Identificacion</label>-->
-<!--                                                    <select id="country"-->
-<!--                                                            class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">-->
-<!--                                                        <option>Cedula</option>-->
-<!--                                                        <option>NIT </option>-->
-<!--                                                        &lt;!&ndash; Agrega más opciones según sea necesario &ndash;&gt;-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="street-address">Street
-                                address</label>
-                            <input id="street-address" type="text" v-model="form.phone"
-                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                        </div>
-
                         <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="city">City</label>
+                                <label class="block text-sm font-medium text-gray-700" for="first-name">Nombre completo</label>
+                                <input id="last-name" type="text" v-model="form.ciuu"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="first-name">Tipo de
+                                    Identificacion</label>
+                                <select id="first-name" v-model="form.name"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option>Cedula</option>
+                                    <option>NIT</option>
+                                    <option>RUT</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="last-name" >Numero de
+                                    identificacion</label>
+                                <input id="last-name" type="number" v-model="form.ciuu"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="first-name">Tipo persona</label>
+                                <select id="first-name" v-model="form.name"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option>Cedula</option>
+                                    <option>NIT</option>
+                                    <option>RUT</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="last-name" >Razon Social</label>
+                                <input id="last-name" type="number" v-model="form.ciuu"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="zip">Nombre Comercial
+                                   </label>
+                                <input id="zip" type="text"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="city">Email</label>
                                 <input id="city" type="text" v-model="form.address"
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="state">State /
-                                    Province</label>
+                                <label class="block text-sm font-medium text-gray-700" for="state">Pagina web</label>
                                 <input id="state" type="text" v-model="form.userId"
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
 
+
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="zip">ZIP / Postal
-                                    code</label>
+                                <label class="block text-sm font-medium text-gray-700" for="zip">Regimen
+                                </label>
                                 <input id="zip" type="text"
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
-                        </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="city">Auto Retenedor</label>
+                                <input id="city" type="text" v-model="form.address"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
 
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="state">Gran contribuyente</label>
+                                <input id="state" type="text" v-model="form.userId"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="zip">Contribuyente de Ica
+                                </label>
+                                <input id="zip" type="text"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="city">Telefono</label>
+                                <input id="city" type="text" v-model="form.address"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="state">mas? menos?</label>
+                                <input id="state" type="text" v-model="form.userId"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
                 <!-- Sección 2 -->
                 <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-1">
-                        <h2 class="text-2xl font-semibold">Employment Information</h2>
-                        <p class="mt-2 text-sm text-gray-600">Provide details about your current employment status.</p>
+                        <h2 class="text-2xl font-semibold">Productos y servicios</h2>
                     </div>
-
                     <div class="col-span-2">
 
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700" for="job-title">Job Title</label>
-                            <input id="job-title" type="text"
-                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="company-name">Company
-                                Name</label>
-                            <input id="company-name" type="text"
-                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-6 mb-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="start-date">Start
-                                    Date</label>
-                                <input id="start-date" type="date"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="end-date">End Date</label>
-                                <input id="end-date" type="date"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="employment-status">Employment
-                                Status</label>
-                            <select id="employment-status"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option>Full-time</option>
-                                <option>Part-time</option>
-                                <option>Contract</option>
-                                <option>Unemployed</option>
+                            <select name="" multiple id="categories"
+                                    v-model="selectedCategories">
+                                <option
+                                    v-for="category in categories"
+                                    :key="category"
+                                    :value="category"
+                                >
+                                    {{ category }}
+                                </option>
                             </select>
+                            <div class="mt-4">
+                                <h3>Categorías seleccionadas:</h3>
+                                <ul>
+                                    <li v-for="(category, index) in selectedCategories" :key="index">
+                                        {{ category }}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Sección 3 -->
                 <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-1">
                         <h2 class="text-2xl font-semibold">Documentos Adjuntos</h2>
-                        <p class="mt-2 text-sm text-gray-600">Provide details about your current employment status.</p>
                     </div>
 
                     <div class="col-span-1">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload
-                            file</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">RUT</label>
                         <input
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help" id="user_avatar" type="file" ref="file" @change="handleFileUpload">
-                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile
-                            picture is useful to confirm your are logged into your account
-                        </div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload
-                            file</label>
+                            aria-describedby="user_avatar_help" id="user_avatar" type="file" ref="file"
+                            @change="handleFileUpload">
+
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Certificacion Bancaria</label>
                         <input
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="user_avatar" type="file">
-                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile
-                            picture is useful to confirm your are logged into your account
-                        </div>
-
-
                     </div>
                     <div class="col-span-1">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload
-                            file</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Copia documento representante legal</label>
                         <input
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="user_avatar" type="file">
-                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile
-                            picture is useful to confirm your are logged into your account
-                        </div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload
-                            file</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Calidad ISO 9001</label>
                         <input
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="user_avatar" type="file">
-                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile
-                            picture is useful to confirm your are logged into your account
-                        </div>
-
-
                     </div>
+
+
 
                 </div>
 
-                <button type="submit">Enviar</button>
+                <button class="bg-blue text-white p-4 rounded-lg mt-4 flex" type="submit">Enviar</button>
 
             </form>
         </div>

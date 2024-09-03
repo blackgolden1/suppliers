@@ -22,7 +22,7 @@ class SupplierController extends Controller
 
     public function create(Request $request): SupplierEntity
     {
-        return $this->supplierService->create($request->name,$request->ciuu, $request->phone, $request->address, $request->userId);
+        return $this->supplierService->create($request->name,$request->ciuu, $request->phone, $request->address, $request->userId, $request->created_by, $request->modified_by);
     }
 
     public function search(): \Inertia\Response

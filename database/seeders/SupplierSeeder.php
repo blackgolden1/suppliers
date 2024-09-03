@@ -17,7 +17,10 @@ class SupplierSeeder extends Seeder
             'name'=>'hola',
             'ciuu'=>'hola',
             'phone'=>'hola',
-            'address'=>'hola',
+            'email'=>'hola@gmail.com',
+            'created_by'=>'1',
+            'modified_by'=>'1',
+            'address'=>'torre',
             'user_id'=>'1'
         ]);
     }

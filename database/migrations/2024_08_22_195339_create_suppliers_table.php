@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('ciuu');
             $table->string('phone');
+            $table->string('email');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('modified_by')->nullable();
             $table->string('address');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

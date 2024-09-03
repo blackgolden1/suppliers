@@ -5,6 +5,8 @@ namespace App\Modules\Suppliers\Domain;
 class SupplierEntity
 {
     public int $id;
+    public int $created_by;
+    public int $modified_by;
     public string $name;
     public string $ciuu;
     public string $phone;

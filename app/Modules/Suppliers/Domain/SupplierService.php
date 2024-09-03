@@ -16,9 +16,9 @@ class SupplierService implements ISupplierService
         $this->supplierRepository = new SupplierMysqlRepository();
     }
 
-    public function create($name, $ciuu, $phone, $address,$userId): SupplierEntity
+    public function create($name, $ciuu, $phone, $address,$userId,$createdBy, $modifiedBy): SupplierEntity
     {
-        return $this->supplierRepository->create($name, $ciuu, $phone, $address,$userId);
+        return $this->supplierRepository->create($name, $ciuu, $phone, $address,$userId,$createdBy, $modifiedBy);
     }
 
     public function index(): array

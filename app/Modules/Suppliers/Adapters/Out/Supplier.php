@@ -40,18 +40,35 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Supplier extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'ciuu',
         'phone',
-        'address',
+        'id_type',
+        'identification_number',
+        'person_type',
+        'company_name',
+        'comercial_name',
+        'web_page',
+        'regimen',
+        'retainer',
+        'ica',
         'user_id',
+        'email',
+        'contributor',
+        'rut',
+        'bank_certification',
+        'iso_9001',
+        'copy_doc_represent'
     ];
     protected $guarded = [];
+
     public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
     }
+
     public function invitations(): BelongsToMany
     {
         return $this->belongsToMany(Invitation::class);

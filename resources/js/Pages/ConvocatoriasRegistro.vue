@@ -61,13 +61,12 @@ const submit = () => {
 
                         <div class="grid grid-cols-2 gap-6 mb-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="first-name">First
-                                    name</label>
+                                <label class="block text-sm font-medium text-gray-700" for="first-name">Nombre</label>
                                 <input id="first-name" type="text" v-model="form.name"
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="last-name">Last name</label>
+                                <label class="block text-sm font-medium text-gray-700" for="last-name">Fecha de inicio</label>
                                 <input id="last-name" type="date" v-model="form.date_start"
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
@@ -89,22 +88,23 @@ const submit = () => {
                         <!--                        </div>-->
 
                         <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="street-address">Street
-                                address</label>
+                            <label class="block text-sm font-medium text-gray-700" for="street-address">Fecha final</label>
                             <input id="street-address" type="date" v-model="form.date_finish"
                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                         </div>
 
                         <div class="grid grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="city">City</label>
-                                <input id="city" type="text" v-model="form.active"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            <div> Activa:
+                                <label class=" text-sm font-medium text-gray-700" for="city" >Si</label>
+                                <input class="mr-4" id="city" type="radio" v-model="form.active" value="1"/>
+                                <label class=" text-sm font-medium text-gray-700" for="city" >No</label>
+                                <input  id="city" type="radio" v-model="form.active" value="0"
+                                        class=""/>
+
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="state">State /
-                                    Province</label>
+                                <label class="block text-sm font-medium text-gray-700" for="state">Descripcion</label>
                                 <input id="state" type="text" v-model="form.description"
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
@@ -120,57 +120,6 @@ const submit = () => {
                     </div>
                 </div>
 
-
-                <!-- Sección 2 -->
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="col-span-1">
-                        <h2 class="text-2xl font-semibold">Employment Information</h2>
-                        <p class="mt-2 text-sm text-gray-600">Provide details about your current employment status.</p>
-                    </div>
-
-                    <div class="col-span-2">
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="job-title">Job Title</label>
-                            <input id="job-title" type="text"
-                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="company-name">Company
-                                Name</label>
-                            <input id="company-name" type="text"
-                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-6 mb-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="start-date">Start
-                                    Date</label>
-                                <input id="start-date" type="date"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="end-date">End Date</label>
-                                <input id="end-date" type="date"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="employment-status">Employment
-                                Status</label>
-                            <select id="employment-status"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option>Full-time</option>
-                                <option>Part-time</option>
-                                <option>Contract</option>
-                                <option>Unemployed</option>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
                 <div class="grid grid-cols-2 gap-6">
                     <div class="col-span-1">
                         <h2 class="text-2xl font-semibold">Adjuntar archivos</h2>

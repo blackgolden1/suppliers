@@ -15,6 +15,7 @@ class DocumentSeeder extends Seeder
     {
         DB::table('documents')->insert([
             'name'=>'hola',
+            'supplier_id'=>'1',
             'url'=>'hola',
         ]);
     }

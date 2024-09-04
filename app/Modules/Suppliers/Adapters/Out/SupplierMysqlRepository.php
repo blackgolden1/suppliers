@@ -2,6 +2,7 @@
 
 namespace App\Modules\Suppliers\Adapters\Out;
 
+use App\Models\Document;
 use App\Modules\Invitations\Adapters\Out\Invitation;
 use App\Modules\Suppliers\Domain\Ports\Out\ISupplierRepository;
 use App\Modules\Suppliers\Domain\SupplierEntity;
@@ -17,10 +18,19 @@ use function Laravel\Prompts\table;
 class SupplierMysqlRepository implements ISupplierRepository
 {
 
-    public function create($name, $ciuu, $phone, $address, $userId,$createdBy, $modifiedBy): SupplierEntity
+    public function create($name, $ciuu, $phone, $userId, $id_type,$identification_number,$person_type,$company_name,$comercial_name, $email,
+                           $web_page, $regimen, $retainer,$contributor, $ica,$rut, $copy_doc_represent,$bank_certification,$iso_9001 ): void
     {
-        $newSupplier = Supplier::create(['name' => $name, 'ciuu' => $ciuu, 'phone' => $phone, 'address' => $address, 'user_id' => $userId, 'created_by'=>$createdBy, 'modified_by'=>$modifiedBy ]);
-        return new SupplierEntity($newSupplier->toArray());
+        $userId = auth()->id();
+        $supplier = Supplier::create(['name' => $name, 'ciuu' => $ciuu, 'phone' => $phone, 'user_id' => $userId,
+            'id_type'=>$id_type,'identification_number'=>$identification_number,'person_type'=>$person_type,'company_name'=>$company_name, 'comercial_name'=>$comercial_name,
+            'email'=>$email,'web_page'=>$web_page, 'regimen'=>$regimen,'retainer'=>$retainer,  'contributor'=>$contributor, 'ica'=>$ica, 'rut'=>$rut, 'copy_doc_represent'=>$copy_doc_represent, 'bank_certification'=>$bank_certification, 'iso_9001'=>$iso_9001]);
+        $supplierId = $supplier->id;
+        Document::create(['supplier_id'=>$supplierId, 'name'=>'rut','url'=>$rut]);
+        Document::create(['supplier_id'=>$supplierId, 'name'=>'iso','url'=>$iso_9001]);
+        Document::create(['supplier_id'=>$supplierId, 'name'=>'copia_documento_representante','url'=>$copy_doc_represent]);
+        Document::create(['supplier_id'=>$supplierId, 'name'=>'certificado_bancario','url'=>$bank_certification]);
+
     }
 
     public function search(): array

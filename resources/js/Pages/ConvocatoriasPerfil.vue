@@ -1,6 +1,7 @@
 <script setup>
 import {ref} from 'vue'
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import MainLayout from "@/Layouts/MainLayout.vue";
 import {Link} from '@inertiajs/vue3';
 const selectedTab = ref('personal-info')
 
@@ -8,7 +9,7 @@ const props = defineProps({invitation: Object});
 console.log(props.invitation);
 </script>
 <template>
-    <AuthenticatedLayout>
+    <MainLayout>
         <div class=" h-screen w-full m-0 relative flex flex-col">
             <!-- Sidebar -->
             <div class=" bg-white p-8 center">
@@ -100,10 +101,10 @@ console.log(props.invitation);
             </div>
 
             <div>
-                <Link :href="route('supplier.apply')">Postularme</Link>
+<!--                <Link :href="route('supplier.apply')">Postularme</Link>-->
             </div>
         </div>
-    </AuthenticatedLayout>
+    </MainLayout>
 </template>
 
 

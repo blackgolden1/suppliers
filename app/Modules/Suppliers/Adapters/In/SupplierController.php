@@ -7,6 +7,7 @@ use App\Modules\Suppliers\Adapters\Out\Supplier;
 use App\Modules\Suppliers\Domain\Ports\In\ISupplierService;
 use App\Modules\Suppliers\Domain\SupplierEntity;
 use App\Modules\Suppliers\Domain\SupplierService;
+use App\Modules\Users\Adapters\Out\User;
 use http\Message;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -20,9 +21,19 @@ class SupplierController extends Controller
         $this->supplierService = new SupplierService();
     }
 
-    public function create(Request $request): SupplierEntity
+    public function create(Request $request): void
     {
-        return $this->supplierService->create($request->name,$request->ciuu, $request->phone, $request->address, $request->userId, $request->created_by, $request->modified_by);
+
+        $rutPath = $request->file('rut')->storeAs(
+            'proveedores/'. $request->name,  'RUT'.  '_' .$request->name . '-' . \Str::random(5) . '.pdf');
+        $isoPath = $request->file('iso_9001')->storeAs(
+            'proveedores/'. $request->name, 'ISO_9001'. '_' . $request->name . '-' . \Str::random(5) . '.pdf');
+        $copyPath = $request->file('copy_doc_represent')->storeAs(
+            'proveedores/'. $request->name, 'Copia_Documento_Representante'. '_' .  $request->name .'-'. \Str::random(5) . '.pdf');
+        $bankPath = $request->file('bank_certification')->storeAs(
+            'proveedores/'. $request->name, 'Certificado_Bancario'. '_' . $request->name .'-'. \Str::random(5) . '.pdf');
+         $this->supplierService->create($request->name,$request->ciuu, $request->phone, $request->userId, $request->id_type,$request->identification_number,
+            $request->person_type, $request->company_name, $request->comercial_name, $request->email, $request->web_page, $request->regimen, $request->retainer, $request->contributor, $request->ica, $rutPath, $copyPath,$bankPath,$isoPath );
     }
 
     public function search(): \Inertia\Response

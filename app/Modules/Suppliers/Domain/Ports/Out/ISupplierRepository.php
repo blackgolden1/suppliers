@@ -8,7 +8,8 @@ use phpDocumentor\Reflection\Types\Void_;
 
 interface ISupplierRepository
 {
-    public function create($name, $ciuu, $phone, $address,$userId,$createdBy, $modifiedBy):SupplierEntity;
+    public function create($name, $ciuu, $phone, $userId, $id_type,$identification_number,$person_type,$company_name,$comercial_name, $email,
+                           $web_page, $regimen, $retainer,$contributor, $ica,$rut, $copy_doc_represent,$bank_certification,$iso_9001):void;
     public function search(): array;
     public function index(): array;
     public function apply($invitation_id, $supplier_id, $status, $description): void;

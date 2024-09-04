@@ -1,9 +1,10 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import {ref} from 'vue';
+import {Link,} from "@inertiajs/vue3";
+
 import MainLayout from "@/Layouts/MainLayout.vue";
-import {Inertia} from '@inertiajs/inertia';
+
 
 const file = ref(null);
 
@@ -242,7 +243,7 @@ const handleFileUpload = (event) => {
                 </div>
 
                 <button class="bg-blue text-white p-4 rounded-lg mt-4 flex" type="submit">Enviar</button>
-
+<!--                <Link href="{{url('/')}}/{{ Storage::disk('local')->url('file.txt')}}">hola</Link>-->
             </form>
         </div>
 

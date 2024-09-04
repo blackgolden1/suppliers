@@ -20,9 +20,8 @@ Route::get('/register-supplier', function () {
 })->name('registerSupplier');
 Route::post('/register-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'create'])->name('supplier.create');
 
-//Route::post('/apply-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'apply'])->name('supplier.apply'); //aun no
-Route::get('/apply-supplier', function () {
-    return Inertia::render('Postularse');})->name('apply');
+Route::post('/apply-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'apply'])->name('supplier.apply'); //aun no
+
 Route::get('/convocatoria/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'find'])->name('convocatoria.perfil');
 Route::get('/convocatorias', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'search'])->name('convocatorias')->middleware(['auth', 'verified']);
 
@@ -30,15 +29,16 @@ Route::patch('update-invitation/{id}', [\App\Modules\Invitations\Adapters\In\Inv
 
 
 Route::get('/register-invitation', function () {
-    return Inertia::render('ConvocatoriasRegistro');
+    return Inertia::render('ConvocatoriasCreacion');
 })->name('registerInvitation');
 Route::post('/register-invitation', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'create'])->name('invitation.create');
 
 //Route::get('/test',[\App\Modules\Users\Adapters\In\UserController::class, 'find'])->name('convocatorias');
 
-Route::get('/convocatorias-iframe', function () {
-    return Inertia::render('ConvocatoriasIframe');
-})->name('convocatoriasIframe');
+//Route::get('/convocatorias-iframe', function () {
+//    return Inertia::render('ConvocatoriasIframe');
+//})->name('convocatoriasIframe');
+Route::get('/convocatorias-iframe', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'show'])->name('convocatoriasIframe');
 
 Route::post('file-upload', [FileController::class, 'store'])->name('file.store'); //aun no
 

@@ -16,14 +16,14 @@ private IInvitationRepository $invitationRepository;
         $this->invitationRepository = new InvitationMysqlRepository();
     }
 
-    public function create($name, $date_start, $date_finish, $active, $description,$requirements,$files): void
+    public function create($name, $date_start, $date_finish, $active, $quantity,$description,$requirements,$files): void
     {
-        $this->invitationRepository->create($name, $date_start, $date_finish, $active, $description,$requirements,$files);
+        $this->invitationRepository->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files);
     }
 
-    public function edit($name, $date_start, $date_finish, $active, $description,$id): void
+    public function edit($name, $date_start, $date_finish, $active, $quantity,$description,$id): void
     {
-        $this->invitationRepository->edit($name, $date_start, $date_finish, $active, $description, $id);
+        $this->invitationRepository->edit($name, $date_start, $date_finish, $active,$quantity, $description, $id);
     }
 
     public function search(): array

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Link } from '@inertiajs/vue3';
 import MainLayout from "@/Layouts/MainLayout.vue";
 const selectedTab = ref('personal-info')
 const props = defineProps({supplier:Object})
@@ -27,7 +28,7 @@ console.log(props.supplier);
                         :class="{'text-blue': selectedTab === 'billing'}"
                         class="text-left w-full mb-4 p-2 hover:text-blue"
                     >
-                        Billing & Payments
+                        Documentos
                     </button>
                 </li>
                 <li>
@@ -84,7 +85,7 @@ console.log(props.supplier);
             <!-- You can add similar sections for Billing, Order History, and Gift Cards -->
             <div v-if="selectedTab === 'billing'">
                 <!-- Billing Content -->
-                <p>Billing & Payments content goes here...</p>
+                <a :href="'/storage/' + supplier.rut" target="_blank">RUT</a>
             </div>
             <div v-if="selectedTab === 'order-history'">
                 <!-- Order History Content -->

@@ -30,9 +30,7 @@ class SupplierMysqlRepository implements ISupplierRepository
         Document::create(['supplier_id'=>$supplierId, 'name'=>'iso','url'=>$iso_9001]);
         Document::create(['supplier_id'=>$supplierId, 'name'=>'copia_documento_representante','url'=>$copy_doc_represent]);
         Document::create(['supplier_id'=>$supplierId, 'name'=>'certificado_bancario','url'=>$bank_certification]);
-
     }
-
     public function search(): array
     {
         return Supplier::get()->all();
@@ -53,12 +51,13 @@ class SupplierMysqlRepository implements ISupplierRepository
         $supplier = Supplier::find($id);
         return new SupplierEntity($supplier->toArray());
     }
-    public function apply($invitation_id, $supplier_id, $status, $description): void
+    public function apply($invitation_id, $supplier_id, $status, $description, $payload): void
     {
         $supplier = Supplier::find($supplier_id);
         $supplier->invitations()->attach($invitation_id, [
             'status' => $status,
-            'description' => $description,]);
+            'description' => $description,
+            'payload'=>$payload]);
     }
 
 }

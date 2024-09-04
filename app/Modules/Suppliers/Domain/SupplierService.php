@@ -42,8 +42,8 @@ class SupplierService implements ISupplierService
     {
         return $this->supplierRepository->find($id);
     }
-    public function apply($invitation_id, $supplier_id, $status, $description): void
+    public function apply($invitation_id, $supplier_id, $status, $description, $payload): void
     {
-        // TODO: Implement apply() method.
+        $this->supplierRepository->apply($invitation_id, $supplier_id, $status, $description, $payload);
     }
 }

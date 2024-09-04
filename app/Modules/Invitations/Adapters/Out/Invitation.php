@@ -44,6 +44,7 @@ class Invitation extends Model
          'date_start',
          'date_finish',
          'active',
+         'quantity',
          'description',
          'files',
      ];

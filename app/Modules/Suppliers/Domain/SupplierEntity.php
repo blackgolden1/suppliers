@@ -24,6 +24,7 @@ class SupplierEntity
     public string $bank_certification;
     public string $copy_doc_represent;
     public string $iso_9001;
+    public array $payload;
 
     public int $user_id;
 

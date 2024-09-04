@@ -25,13 +25,13 @@ class SupplierController extends Controller
     {
 
         $rutPath = $request->file('rut')->storeAs(
-            'proveedores/'. $request->name,  'RUT'.  '_' .$request->name . '-' . \Str::random(5) . '.pdf');
+            'public/proveedores/'. $request->name,  'RUT'.  '_' .$request->name . '-' . \Str::random(5) . '.pdf');
         $isoPath = $request->file('iso_9001')->storeAs(
-            'proveedores/'. $request->name, 'ISO_9001'. '_' . $request->name . '-' . \Str::random(5) . '.pdf');
+            'public/proveedores/'. $request->name, 'ISO_9001'. '_' . $request->name . '-' . \Str::random(5) . '.pdf');
         $copyPath = $request->file('copy_doc_represent')->storeAs(
-            'proveedores/'. $request->name, 'Copia_Documento_Representante'. '_' .  $request->name .'-'. \Str::random(5) . '.pdf');
+            'public/proveedores/'. $request->name, 'Copia_Documento_Representante'. '_' .  $request->name .'-'. \Str::random(5) . '.pdf');
         $bankPath = $request->file('bank_certification')->storeAs(
-            'proveedores/'. $request->name, 'Certificado_Bancario'. '_' . $request->name .'-'. \Str::random(5) . '.pdf');
+            'public/proveedores/'. $request->name, 'Certificado_Bancario'. '_' . $request->name .'-'. \Str::random(5) . '.pdf');
          $this->supplierService->create($request->name,$request->ciuu, $request->phone, $request->userId, $request->id_type,$request->identification_number,
             $request->person_type, $request->company_name, $request->comercial_name, $request->email, $request->web_page, $request->regimen, $request->retainer, $request->contributor, $request->ica, $rutPath, $copyPath,$bankPath,$isoPath );
     }
@@ -52,8 +52,8 @@ class SupplierController extends Controller
         $supplier = $this->supplierService->find($id);
         return Inertia::render('ProveedorPerfil', ['supplier'=>$supplier]);
     }
-    public function apply($invitation_id, $supplier_id, $status, $description):void{
-        $this->supplierService->apply(1,1,'pending','yei');
+    public function apply($invitation_id, $supplier_id, $status, $description, $payload):void{
+        $this->supplierService->apply(1,1,'pending','yei',['uno','dos']);
     }
 
 }

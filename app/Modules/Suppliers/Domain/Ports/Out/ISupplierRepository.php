@@ -12,7 +12,7 @@ interface ISupplierRepository
                            $web_page, $regimen, $retainer,$contributor, $ica,$rut, $copy_doc_represent,$bank_certification,$iso_9001):void;
     public function search(): array;
     public function index(): array;
-    public function apply($invitation_id, $supplier_id, $status, $description): void;
+    public function apply($invitation_id, $supplier_id, $status, $description, $payload): void;
     public function find($id):SupplierEntity;
     public function edit($name, $ciuu, $phone, $address,$userId,$id):void;
 

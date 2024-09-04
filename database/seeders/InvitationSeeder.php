@@ -18,6 +18,7 @@ class InvitationSeeder extends Seeder
             'date_start'=>'2024-08-22',
             'date_finish'=>'2024-08-22',
             'active'=>'1',
+            'quantity'=>56,
             'description'=>'hola',
             'files'=>[['file_name' => 'documento.pdf',
                 'file_path' => '/uploads/documento.pdf']]

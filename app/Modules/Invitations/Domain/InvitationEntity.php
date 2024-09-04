@@ -13,6 +13,7 @@ class InvitationEntity
     public bool $active;
     public string $description;
     public string $files;
+    public float $quantity;
 
     public function __construct(array $attributes = [])
     {

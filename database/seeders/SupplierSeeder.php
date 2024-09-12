@@ -28,7 +28,6 @@ class SupplierSeeder extends Seeder
             'ica'=>'hola@gmail.com',
             'phone'=>'hola',
             'ciuu'=>'hola',
-//            'created_by'=>'1',
             'user_id'=>'1',
             'rut'=>'/nose',
             'iso_9001'=>'/nose',

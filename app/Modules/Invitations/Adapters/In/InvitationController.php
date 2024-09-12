@@ -64,6 +64,13 @@ class InvitationController extends Controller
 
         return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
     }
+    public function iframe(): \Inertia\Response
+    {
+        $invitations = $this->invitationService->search();
+        $authh = Auth::user();
+
+        return Inertia::render('ConvoIframe', ['invitations' => $invitations]);
+    }
 
     public function index(): array
     {
@@ -79,5 +86,6 @@ class InvitationController extends Controller
         return Inertia::render('ConvocatoriasPerfil', ['invitation' => $invitation]);
 
     }
+
 
 }

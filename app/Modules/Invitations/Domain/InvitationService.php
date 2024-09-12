@@ -39,7 +39,11 @@ private IInvitationRepository $invitationRepository;
     public function delete($id):void{
         $this->invitationRepository->delete($id);
     }
-    public function find($id): InvitationEntity
+//    public function find($id): InvitationEntity
+//    {
+//        return $this->invitationRepository->find($id);
+//    }
+    public function find($id): array
     {
         return $this->invitationRepository->find($id);
     }

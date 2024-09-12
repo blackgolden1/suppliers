@@ -4,6 +4,7 @@ import {ref} from 'vue';
 import {Link,} from "@inertiajs/vue3";
 
 import MainLayout from "@/Layouts/MainLayout.vue";
+import {Inertia} from "@inertiajs/inertia";
 
 
 const file = ref(null);
@@ -47,8 +48,10 @@ const selectedCategories = ref([]);
 const docs = useForm({file: ''})
 const submit = () => {
     console.log(form);
-    form.post(route('supplier.create'), {});
-    // docs.post(route('file.store'), {});
+    form.post(route('supplier.create'), {onSuccess: () => {
+            Inertia.visit(route('convocatorias'));
+        }
+    });
 };
 
 const handleFileUpload = (event) => {
@@ -218,26 +221,26 @@ const handleFileUpload = (event) => {
                     <div class="col-span-1">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="rut">RUT</label>
                         <input
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="rut" type="file" ref="file" @input="form.rut=$event.target.files[0]"/>
 
 
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="certificacion">Certificacion
                             Bancaria</label>
                         <input
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="certificacion" id="user_avatar" type="file" @input="form.bank_certification=$event.target.files[0]"/>
                     </div>
                     <div class="col-span-1">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="copia">Copia
                             documento representante legal</label>
                         <input
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="copia" type="file" @input="form.copy_doc_represent=$event.target.files[0]"/>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="iso">Calidad
                             ISO 9001</label>
                         <input
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="iso" type="file" @input="form.iso_9001=$event.target.files[0]"/>
                     </div>
                 </div>

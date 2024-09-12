@@ -15,8 +15,18 @@ class RequirementSeeder extends Seeder
     {
         DB::table('requirements')->insert([
             'invitation_id'=>1,
-            'type'=>'texto',
-            'description'=>'hola',
+            'type'=>'archivo',
+            'description'=>'hoja de vida',
+        ]);
+        DB::table('requirements')->insert([
+            'invitation_id'=>2,
+            'type'=>'archivo',
+            'description'=>'imagenes',
+        ]);
+        DB::table('requirements')->insert([
+            'invitation_id'=>3,
+            'type'=>'archivo',
+            'description'=>'rut',
         ]);
     }
 }

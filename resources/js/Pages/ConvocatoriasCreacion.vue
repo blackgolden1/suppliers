@@ -22,15 +22,15 @@ const removeRequirement = (index) => {
     }
 };
 
-const addFile = () => {
-    form.files.push({});
-
-};
-const removeFile = (index) => {
-    if (form.files.length > 1) {
-        form.files.splice(index, 1);
-    }
-};
+// const addFile = () => {
+//     form.files.push({});
+//
+// };
+// const removeFile = (index) => {
+//     if (form.files.length > 1) {
+//         form.files.splice(index, 1);
+//     }
+// };
 
 const handleFileChange = (event) => {
     // Captura el primer archivo seleccionado

@@ -1,24 +1,43 @@
 <script setup>
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import {Link} from '@inertiajs/vue3';
+
 const selectedTab = ref('personal-info')
 
 const props = defineProps({invitation: Object});
 console.log(props.invitation);
+
+const excludeKeys = ['files', 'active', 'name', 'description','applications','suppliers'];
+const displayNames = {
+    name: 'Nombre',
+    quantity: 'Cuantia',
+    description: 'Descripcion',
+    date_start: 'Fecha Inicio',
+    date_finish: 'Fecha final',
+};
+const filteredObject = computed(() => {
+    return Object.keys(props.invitation)
+        .filter(key => !excludeKeys.includes(key))
+        .reduce((obj, key) => {
+            obj[key] = props.invitation[key];
+            return obj;
+        }, {});
+
+});
 </script>
 <template>
     <MainLayout>
         <div class=" h-screen w-full m-0 relative flex flex-col">
             <!-- Sidebar -->
-            <div class=" bg-white p-8 center">
-                <ul class=" flex justify-between ">
+            <div class=" bg-white px-4 center">
+                <ul class=" flex justify-around ">
                     <li>
                         <button
                             @click="selectedTab = 'personal-info'"
                             :class="{'text-blue': selectedTab === 'personal-info'}"
-                            class="text-left w-full mb-4 p-2 hover:text-blue"
+                            class="text-left w-full  p-2 hover:text-blue"
                         >
                             Personal information
                         </button>
@@ -27,27 +46,9 @@ console.log(props.invitation);
                         <button
                             @click="selectedTab = 'billing'"
                             :class="{'text-blue': selectedTab === 'billing'}"
-                            class="text-left w-full mb-4 p-2 hover:text-blue"
+                            class="text-left w-full  p-2 hover:text-blue"
                         >
-                            Billing & Payments
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            @click="selectedTab = 'order-history'"
-                            :class="{'text-blue': selectedTab === 'order-history'}"
-                            class="text-left w-full mb-4 p-2 hover:text-blue"
-                        >
-                            Order History
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            @click="selectedTab = 'gift-cards'"
-                            :class="{'text-blue': selectedTab === 'gift-cards'}"
-                            class="text-left w-full mb-4 p-2 hover:text-blue"
-                        >
-                            Gift Cards
+                            Postulaciones
                         </button>
                     </li>
                 </ul>
@@ -55,53 +56,79 @@ console.log(props.invitation);
 
             <!-- Main Content -->
             <div class=" p-8 max-w-2/3">
-                <h2 class="text-2xl font-semibold mb-6">Personal information</h2>
-                <p class="text-gray-500 mb-8">
-                    Manage your personal information, including phone numbers and email
-                    address where you can be contacted.
-                </p>
 
-                <div v-if="selectedTab === 'personal-info'" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-white p-4 rounded-lg shadow-md">
+                <div v-if="selectedTab === 'personal-info'" class="">
+                    <h2 class="text-2xl font-semibold mb-6">{{ invitation.name }}</h2>
+                    <p class="text-gray-500 mb-8">
+                        {{ invitation.description }}
+                    </p>
+                    <div class="grid grid-cols-3 gap-8">
+                    <div v-for="(filter,key) in filteredObject" :key="key" class="bg-white p-4 rounded-lg shadow-md">
                         <div class="flex items-center mb-2">
                             <svg class="w-6 h-6 text-blue" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                             </svg>
-                            <p class="ml-2 text-gray-700">Name</p>
+                            <p class="ml-2 text-gray-700">{{ displayNames[key] || key }}</p>
                         </div>
-                        <p class="text-gray-500">{{invitation.name}}</p>
+                        <p class="text-gray-500">{{ filter }}</p>
+
                     </div>
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        <div class="flex items-center mb-2">
-                            <svg class="w-6 h-6 text-blue" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M16 12c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0-2c2.76 0 5 2.24 5 5 0 1.48-.62 2.8-1.61 3.74L16 18.94V22h-2v-3.06l-3.39-3.2A4.997 4.997 0 0111 15c0-2.76 2.24-5 5-5zm-4 2V5h-2v7h-2v2h2v5h2v-5h2v-2h-2z"/>
-                            </svg>
-                            <p class="ml-2 text-gray-700">Date of Birth</p>
-                        </div>
-                        <p class="text-gray-500">07 July 1993</p>
                     </div>
-                    <!-- Add more cards as necessary -->
+                        <p class="font-bold text-lg mt-8">Documentos relacionados de la convocatoria</p>
+                    <div v-for="(file,index) in JSON.parse(invitation.files)" class="flex flex-cols">
+                        <a :href="'/storage/'+  file" target="_blank">Documento {{index+1}}</a>
+                    </div>
                 </div>
 
                 <!-- You can add similar sections for Billing, Order History, and Gift Cards -->
                 <div v-if="selectedTab === 'billing'">
                     <!-- Billing Content -->
-                    <p>Billing & Payments content goes here...</p>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+
+                            <th scope="col" class="px-6 py-3">
+                                Proveedor
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Estado
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Observaciones
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Documentos
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(application,index) in invitation.applications" class="border-b">
+
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <Link :href="route('convocatoria.perfil', { id: invitation.id })"> {{ invitation.name }} </Link>
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ application.description }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ application.status }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ application.description }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
                 </div>
-                <div v-if="selectedTab === 'order-history'">
-                    <!-- Order History Content -->
-                    <p>Order History content goes here...</p>
-                </div>
-                <div v-if="selectedTab === 'gift-cards'">
-                    <!-- Gift Cards Content -->
-                    <p>Gift Cards content goes here...</p>
-                </div>
+
             </div>
 
             <div>
-<!--                <Link :href="route('supplier.apply')">Postularme</Link>-->
             </div>
         </div>
     </MainLayout>

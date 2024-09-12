@@ -43,9 +43,16 @@ class InvitationMysqlRepository implements IInvitationRepository
         Invitation::destroy($id);
     }
 
-    public function find($id): InvitationEntity
+//    public function find($id): InvitationEntity
+//    {
+//        $invitation = Invitation::with('applications')->find($id);
+//        dd($invitation);
+//        return new InvitationEntity($invitation->toArray());
+//    }
+    public function find($id): array
     {
-        $invitation = Invitation::find($id);
+        return Invitation::with('applications')->with('suppliers')->find($id)->toArray();
+        dd($invitation);
         return new InvitationEntity($invitation->toArray());
     }
 }

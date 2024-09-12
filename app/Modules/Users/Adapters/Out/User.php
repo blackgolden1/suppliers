@@ -4,8 +4,10 @@ namespace App\Modules\Users\Adapters\Out;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Role;
+use App\Modules\Suppliers\Adapters\Out\Supplier;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -47,11 +49,16 @@ class User extends Authenticatable
     public function role (): BelongsTo{
         return $this->belongsTo(Role::class);
     }
+    public function supplier (): HasOne{
+        return $this->hasOne(Supplier::class);
+    }
 
     protected $fillable = [
         'name',
         'email',
         'password',
+        'type_id',
+        'identification_number',
         'role_id'
     ];
 

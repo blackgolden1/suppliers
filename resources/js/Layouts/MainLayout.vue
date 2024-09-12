@@ -1,6 +1,8 @@
 <script setup>
 import {computed, ref} from 'vue';
 import {Link, usePage} from "@inertiajs/vue3";
+import DropdownLink from "@/Components/DropdownLink.vue";
+import Dropdown from "@/Components/Dropdown.vue";
 
 const page = usePage();
 const role = computed(() => page.props.auth.user.role_id)
@@ -19,9 +21,12 @@ function toggleMenu() {
                 <!-- Contenido del menú -->
                 <div  v-if="role== '2' || role== '3'" ><Link :href="route('proveedores')">Proveedores</Link> </div>
                 <div ><Link :href="route('convocatorias')">Convocatorias </Link> </div>
-                <div ><Link :href="route('convocatorias')">Mi perfil </Link> </div>
+                <div ><Link :href="route('profile.edit')">Mi perfil </Link> </div>
+                <div ><Link :href="route('logout')" >Cerrar Sesion </Link> </div>
+
             </div>
         </div>
+
 
         <!-- Main Content -->
         <div  class="flex-1 transition-all duration-300 p-4">

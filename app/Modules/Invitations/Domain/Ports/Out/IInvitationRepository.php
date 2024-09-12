@@ -10,7 +10,8 @@ interface IInvitationRepository
     public function edit($name, $date_start, $date_finish, $active, $quantity,$description,$id): void;
     public function search(): array;
     public function index(): array;
-    public function find($id): InvitationEntity;
+//    public function find($id): InvitationEntity;
+    public function find($id): array;
     public function delete($id): void;
 
 }

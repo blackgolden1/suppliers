@@ -1,9 +1,10 @@
 <script setup>
-import MainLayout from "@/Layouts/MainLayout.vue";
-import {ref, watch} from 'vue'
-import {useForm} from "@inertiajs/vue3";
+// import MainLayout from "@/Layouts/MainLayout.vue";
+import {computed, ref, watch} from 'vue'
+import {useForm, usePage} from "@inertiajs/vue3";
 
 const props = defineProps({invitations: Array});
+const authenticated = computed(() => usePage().props.auth.user)
 
 const form = useForm({
     invitation_id:'',
@@ -41,8 +42,8 @@ const submit = () => {
 </script>
 
 <template>
-    <MainLayout>
-        <div class="flex h-4/5 px-6 overflow-y-hidden">
+<!--    <MainLayout>-->
+        <div class="flex h-4/5 p-6 overflow-y-hidden">
             <!-- Sidebar con tarjetas -->
             <div class="w-1/4 pr-4 overflow-y-auto ">
                 <div
@@ -69,7 +70,7 @@ const submit = () => {
 
                         <p class="font-bold">Documentos relacionados:</p>
 
-                        <div v-if="1===1" class="mb-4">
+                        <div v-if="authenticated" class="mb-4">
                             <div v-for="(requirement, index) in selectedItem.requirements">
 
                                 <label for="file" class="mr-2">Cargar el documento:
@@ -99,8 +100,12 @@ const submit = () => {
                             <button @click="openModal" class="bg-blue text-white px-4 py-2 rounded">Ver documentos
                             </button>
 
-                            <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="submit"
+                            <button v-if="authenticated" data-modal-target="default-modal" data-modal-toggle="default-modal" type="submit"
                                     class="bg-gray-300 text-blue border-blue border-4 border-solid px-4 py-2 rounded">Postularme
+                            </button>
+                            <button v-else
+                                    class="bg-gray-300 text-blue border-blue border-4 border-solid px-4 py-2 rounded"><a
+                                :href="route('convocatoriasIframe')">Postularme</a>
                             </button>
 
 
@@ -114,6 +119,6 @@ const submit = () => {
 
             </div>
         </div>
-    </MainLayout>
+<!--    </MainLayout>-->
 </template>
 

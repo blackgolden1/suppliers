@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
+use App\Modules\Applications\Adapters\In\ApplicationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,10 +21,11 @@ Route::get('/register-supplier', function () {
 })->name('registerSupplier');
 Route::post('/register-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'create'])->name('supplier.create');
 
-Route::post('/apply-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'apply'])->name('supplier.apply'); //aun no
+Route::post('/apply-supplier', [\App\Modules\Applications\Adapters\In\ApplicationController::class, 'apply'])->name('supplier.apply'); //aun no
 
 Route::get('/convocatoria/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'find'])->name('convocatoria.perfil');
 Route::get('/convocatorias', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'search'])->name('convocatorias')->middleware(['auth', 'verified']);
+Route::get('/iframe', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'iframe'])->name('iframe');
 
 Route::patch('update-invitation/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'edit'])->name('invitation.edit'); //aun no
 
@@ -38,7 +40,7 @@ Route::post('/register-invitation', [\App\Modules\Invitations\Adapters\In\Invita
 //Route::get('/convocatorias-iframe', function () {
 //    return Inertia::render('ConvocatoriasIframe');
 //})->name('convocatoriasIframe');
-Route::get('/convocatorias-iframe', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'show'])->name('convocatoriasIframe');
+Route::get('/convocatorias-iframe', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'show'])->name('convocatoriasIframe')->middleware(['auth', 'verified']);
 
 Route::post('file-upload', [FileController::class, 'store'])->name('file.store'); //aun no
 

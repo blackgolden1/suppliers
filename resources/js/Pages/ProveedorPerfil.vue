@@ -38,13 +38,13 @@ console.log(filteredObject.value);
     <MainLayout>
         <div class=" h-screen w-full m-0 relative flex flex-col">
             <!-- Sidebar -->
-            <div class=" bg-white p-4 center">
+            <div class=" bg-white px-4  center">
                 <ul class=" flex justify-around ">
                     <li>
                         <button
                             @click="selectedTab = 'personal-info'"
                             :class="{'text-blue': selectedTab === 'personal-info'}"
-                            class="text-left w-full mb-4 p-2 hover:text-blue"
+                            class="text-left w-full mb-4 p-2 hover:text-blue font-semibold"
                         >
                             Informacion Personal
                         </button>
@@ -53,7 +53,7 @@ console.log(filteredObject.value);
                         <button
                             @click="selectedTab = 'billing'"
                             :class="{'text-blue': selectedTab === 'billing'}"
-                            class="text-left w-full mb-4 p-2 hover:text-blue"
+                            class="text-left w-full mb-4 p-2 hover:text-blue font-semibold"
                         >
                             Documentos
                         </button>
@@ -81,15 +81,12 @@ console.log(filteredObject.value);
 
             <!-- Main Content -->
             <div class=" p-8 max-w-2/3">
-                <h2 class="text-2xl font-semibold mb-6">Personal information</h2>
-                <p class="text-gray-500 mb-8">
-                    Manage your personal information, including phone numbers and email
-                    address where you can be contacted.
-                </p>
+                <h2 class="text-2xl font-semibold mb-6">Informacion Personal</h2>
+
 
                 <div v-if="selectedTab === 'personal-info'"
                      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <div v-for="(filter,key) in filteredObject" :key="key" class="bg-white p-4 rounded-lg shadow-md">
+                    <div v-for="(filter,key) in filteredObject" :key="key" class="bg-white p-4 rounded-lg shadow-md border border-gray-400">
                         <div class="flex items-center mb-2">
                             <svg class="w-6 h-6 text-blue" fill="currentColor" viewBox="0 0 24 24">
                                 <path

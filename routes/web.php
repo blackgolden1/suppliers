@@ -33,6 +33,10 @@ Route::patch('update-invitation/{id}', [\App\Modules\Invitations\Adapters\In\Inv
 Route::get('/register-invitation', function () {
     return Inertia::render('ConvocatoriasCreacion');
 })->name('registerInvitation');
+
+Route::get('/login-prov', function () {
+    return Inertia::render('LoginProv');
+})->name('loginProv');
 Route::post('/register-invitation', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'create'])->name('invitation.create');
 
 //Route::get('/test',[\App\Modules\Users\Adapters\In\UserController::class, 'find'])->name('convocatorias');

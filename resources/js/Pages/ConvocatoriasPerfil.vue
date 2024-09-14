@@ -37,7 +37,7 @@ const filteredObject = computed(() => {
                         <button
                             @click="selectedTab = 'personal-info'"
                             :class="{'text-blue': selectedTab === 'personal-info'}"
-                            class="text-left w-full  p-2 hover:text-blue"
+                            class="text-left w-full p-2 hover:text-blue font-semibold"
                         >
                             Personal information
                         </button>
@@ -46,8 +46,7 @@ const filteredObject = computed(() => {
                         <button
                             @click="selectedTab = 'billing'"
                             :class="{'text-blue': selectedTab === 'billing'}"
-                            class="text-left w-full  p-2 hover:text-blue"
-                        >
+                            class="text-left w-full p-2 hover:text-blue font-semibold">
                             Postulaciones
                         </button>
                     </li>
@@ -63,7 +62,7 @@ const filteredObject = computed(() => {
                         {{ invitation.description }}
                     </p>
                     <div class="grid grid-cols-3 gap-8">
-                    <div v-for="(filter,key) in filteredObject" :key="key" class="bg-white p-4 rounded-lg shadow-md">
+                    <div v-for="(filter,key) in filteredObject" :key="key" class="bg-white p-4 rounded-lg border border-gray-400 shadow-md">
                         <div class="flex items-center mb-2">
                             <svg class="w-6 h-6 text-blue" fill="currentColor" viewBox="0 0 24 24">
                                 <path

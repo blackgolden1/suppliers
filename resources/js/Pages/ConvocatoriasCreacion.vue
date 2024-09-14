@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
+import Postularse from "@/Layouts/MainLayout.vue";
 
 const form = useForm({
     name: '',
@@ -39,23 +40,26 @@ const handleFileChange = (event) => {
 
 }
 const submit = () => {
-    form.post(route('invitation.create'), {});
-
+    form.post(route('invitation.create'), {
+        onSuccess: () => {
+            window.location.href = route('convocatorias');
+        }
+    });
 };
+
 </script>
 
 <template>
     <Head title="Convocatorias"/>
 
-    <AuthenticatedLayout>
+    <Postularse>
 
-        <div class="w-scren mx-auto p-8 bg-white rounded-lg shadow-md space-y-8">
+        <div class="w-scren mx-32 px-8 py-8  bg-white rounded-lg border border-blueFigma shadow-2xl space-y-8">
             <!-- Sección 1 -->
             <form @submit.prevent="submit">
                 <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-1">
-                        <h2 class="text-2xl font-semibold">Personal Information</h2>
-                        <p class="mt-2 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+                        <h2 class="text-2xl font-semibold">Informacion Basica</h2>
                     </div>
 
                     <div class="col-span-2">
@@ -63,13 +67,13 @@ const submit = () => {
                         <div class="grid grid-cols-2 gap-6 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="first-name">Nombre</label>
-                                <input id="first-name" type="text" v-model="form.name"
+                                <input id="first-name" type="text" v-model="form.name" required
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="last-name">Fecha de
                                     inicio</label>
-                                <input id="last-name" type="date" v-model="form.date_start"
+                                <input id="last-name" type="date" v-model="form.date_start" required
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
                         </div>
@@ -92,29 +96,29 @@ const submit = () => {
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700" for="street-address">Fecha
                                 final</label>
-                            <input id="street-address" type="date" v-model="form.date_finish"
+                            <input id="street-address" type="date" v-model="form.date_finish" required
                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                         </div>
 
                         <div class="grid grid-cols-3 gap-4 mb-4 items-center">
                             <div> Activa:
                                 <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
-                                <input class="mr-4" id="city" type="radio" v-model="form.active" value="1"/>
+                                <input class="mr-4" id="city" type="radio" v-model="form.active" value="1" required/>
                                 <label class=" text-sm font-medium text-gray-700" for="city">No</label>
-                                <input id="city" type="radio" v-model="form.active" value="0"
+                                <input id="city" type="radio" v-model="form.active" value="0" required
                                        class=""/>
 
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="state">Descripcion</label>
-                                <input id="state" type="text" v-model="form.description"
+                                <input id="state" type="text" v-model="form.description" required
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="zip">Cuantia</label>
-                                <input id="zip" type="number" v-model="form.quantity"
+                                <input id="zip" type="number" v-model="form.quantity" required
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
                         </div>
@@ -129,7 +133,7 @@ const submit = () => {
                     </div>
                     <div class="col-span-1">
                         <label for="file">Adjuntar archivo</label>
-                        <input type="file" id="file" accept="*/*" multiple @change="handleFileChange">
+                        <input type="file" id="file" accept="*/*" multiple @change="handleFileChange" required>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-6 mt-8 items-center">
@@ -141,17 +145,17 @@ const submit = () => {
                     <div>
                         <div v-for="(requirement, index) in form.requirements" :key="index" class="mb-2 ">
                             <label for="type" class="text-sm font-medium text-gray-700">Tipo</label>
-                            <select id="type" v-model="form.requirements[index].type"
+                            <select id="type" v-model="form.requirements[index].type" required
                                     class="px-3 py-2 mx-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <!--                                <option value="texto">Texto</option>-->
-                                <option value="archivo" >Archivo</option>
+                                <option value="archivo">Archivo</option>
                                 <!--                                <option value="numerico">Numerico</option>-->
                             </select>
 
                             <label for="requirementName" class="text-sm font-medium text-gray-700">Descripcion
                                 {{ index + 1 }}</label>
                             <input
-
+                                required
                                 v-model="form.requirements[index].description"
                                 type="text"
                                 id="requirementName"
@@ -160,22 +164,23 @@ const submit = () => {
                             />
 
                             <button type="button" @click="removeRequirement(index)"
-                                    class="bg-red-700 text-white px-2 rounded-lg text-lg py-1 ml-4">
+                                    class="bg-white text-blueFigma border border-blueFigma font-bold px-2 rounded-lg text-lg py-1 ml-4">
                                 -
                             </button>
                             <button type="button" @click="addRequirement"
-                                    class="bg-green-600 text-white px-2 rounded-lg text-lg py-1 ml-4">+
+                                    class="bg-blueFigma text-white px-2 rounded-lg text-lg py-1 ml-4">+
                             </button>
                         </div>
 
 
                     </div>
                 </div>
-
-                <button class="bg-blue text-white rounded-lg p-4 mt-8" type="submit">Enviar</button>
+                <div class="flex justify-end ">
+                    <button class="bg-blueFigma text-white rounded-lg px-8 py-2 mt-8" type="submit">Enviar</button>
+                </div>
             </form>
         </div>
 
 
-    </AuthenticatedLayout>
+    </Postularse>
 </template>

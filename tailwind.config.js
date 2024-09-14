@@ -13,10 +13,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                blue: '#00376d'
+                blue: '#00376d',
+                blueFigma: '#173AD7',
+                lblue:'#C5D7FF',
             }
         },
     },

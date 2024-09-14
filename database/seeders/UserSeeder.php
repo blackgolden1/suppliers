@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name'=>'director',
+            'name'=>'camara',
             'email'=>'sara.cuya.ramirez@gmail.com',
             'type_id'=>'cedula',
             'identification_number'=>'numerodeculaa',
@@ -32,22 +32,5 @@ class UserSeeder extends Seeder
             'password'=>Hash::make('hola')
         ]);
 
-        DB::table('users')->insert([
-            'name'=>'presidente',
-            'email'=>'saraa.cuy.ramirez@gmail.com',
-            'type_id'=>'cedula',
-            'identification_number'=>'numerodeculaaa',
-            'role_id'=>'3',
-            'password'=>Hash::make('hola')
-        ]);
-
-        DB::table('users')->insert([
-            'name'=>'junta',
-            'email'=>'saraa.cukjy.ramirez@gmail.com',
-            'type_id'=>'cedula',
-            'identification_number'=>'numerodeculaaaa',
-            'role_id'=>'4',
-            'password'=>Hash::make('hola')
-        ]);
     }
 }

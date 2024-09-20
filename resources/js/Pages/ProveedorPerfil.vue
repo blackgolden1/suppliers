@@ -58,28 +58,10 @@ console.log(filteredObject.value);
                             Documentos
                         </button>
                     </li>
-                    <!--                <li>-->
-                    <!--                    <button-->
-                    <!--                        @click="selectedTab = 'order-history'"-->
-                    <!--                        :class="{'text-blue': selectedTab === 'order-history'}"-->
-                    <!--                        class="text-left w-full mb-4 p-2 hover:text-blue"-->
-                    <!--                    >-->
-                    <!--                        Order History-->
-                    <!--                    </button>-->
-                    <!--                </li>-->
-                    <!--                <li>-->
-                    <!--                    <button-->
-                    <!--                        @click="selectedTab = 'gift-cards'"-->
-                    <!--                        :class="{'text-blue': selectedTab === 'gift-cards'}"-->
-                    <!--                        class="text-left w-full mb-4 p-2 hover:text-blue"-->
-                    <!--                    >-->
-                    <!--                        Gift Cards-->
-                    <!--                    </button>-->
-                    <!--                </li>-->
                 </ul>
             </div>
 
-            <!-- Main Content -->
+
             <div class=" p-8 max-w-2/3">
                 <h2 class="text-2xl font-semibold mb-6">Informacion Personal</h2>
 

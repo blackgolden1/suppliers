@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
 /**
  *
@@ -52,7 +53,9 @@ class User extends Authenticatable
     public function supplier (): HasOne{
         return $this->hasOne(Supplier::class);
     }
-
+    public function isAdmin ():bool{
+        return $this->role->name == 'admin';
+    }
     protected $fillable = [
         'name',
         'email',
@@ -84,4 +87,5 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
 }

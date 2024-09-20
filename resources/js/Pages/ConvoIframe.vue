@@ -5,15 +5,14 @@ import {useForm, usePage} from "@inertiajs/vue3";
 
 const props = defineProps({invitations: Array});
 const authenticated = computed(() => usePage().props.auth.user)
-
+const actualInvitations = ref(props.invitations);
 const form = useForm({
     invitation_id: '',
     payload: [],
 })
 const isModalOpen = ref(false);
-
 const selectedItem = ref(null);
-
+const searchQuery = ref('');
 const selectItem = (invitation) => {
     selectedItem.value = invitation;
 
@@ -24,7 +23,11 @@ watch(() => selectedItem.value, (newSelectedItem) => {
         form.invitation_id = newSelectedItem.id;
     }
 });
-
+watch(() => props.invitations.value, (newSelectedItem) => {
+    if (newSelectedItem) {
+        invitation_id.value = newSelectedItem.id;
+    }
+});
 const openModal = (invitation) => {
     isModalOpen.value = true;
 }
@@ -35,22 +38,39 @@ const getFileName = (file) => {
     const words = file.split('/');
     return words[words.length - 1]
 }
+
 const submit = () => {
     console.log(form);
     form.post(route('supplier.apply'), {});
 };
+const fetchInvitations = async (query) => {
+
+    try {
+        const response = await axios.get('/convocatorias-filter', {
+            params: { name: query },
+        });
+        actualInvitations.value = response.data;
+        console.log(actualInvitations.value)
+    } catch (error) {
+        console.error('Error fetching invitations:', error);
+    }
+};
+const handleFilter = () => {
+    fetchInvitations(searchQuery.value);
+}
 </script>
 
 <template>
 <div class="overflow-hidden h-screen w-screen">
     <div class="py-8 px-12 w-screen">
-        <input class="w-full rounded-3xl" type="text" placeholder="Buscar por empresa o referencia">
+        <input @keyup.enter="handleFilter" v-model="searchQuery"
+            class="w-full rounded-3xl" type="text" placeholder="Buscar por empresa o referencia">
     </div>
     <div class="flex h-4/5 py-4 px-12 overflow-y-hidden">
         <!-- Sidebar con tarjetas -->
         <div class="w-2/5 overflow-y-auto mr-8">
             <div
-                v-for="(invitation, index) in props.invitations"
+                v-for="(invitation, index) in actualInvitations"
 
                 @click="selectItem(invitation)"
                 :class="['p-4 mb-4 border-2 border-blueFigma  rounded-lg cursor-pointer', selectedItem && selectedItem.id === invitation.id ? 'border-blueFigma' : 'border-gray-300']"

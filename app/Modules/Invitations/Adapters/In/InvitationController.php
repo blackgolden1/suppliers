@@ -3,9 +3,6 @@
 namespace App\Modules\Invitations\Adapters\In;
 
 use App\Http\Controllers\Controller;
-use App\Models\Document;
-use App\Models\Requirement;
-use App\Modules\Invitations\Adapters\Out\Invitation;
 use App\Modules\Invitations\Domain\InvitationService;
 use App\Modules\Invitations\Domain\Ports\In\IInvitationService;
 use Illuminate\Http\Request;
@@ -21,23 +18,21 @@ class InvitationController extends Controller
         $this->invitationService = new InvitationService();
     }
 
-
     public function create(Request $request): void
     {
-        $paths=[];
-        if ($request->hasFile('files')){
-            foreach ($request->file('files') as $file){
+        $paths = [];
+
+        if ($request->hasFile('files')) {
+
+            foreach ($request->file('files') as $file) {
 
                 $filename = $file->getClientOriginalName();
-                $filename = str_replace(' ','_',$filename);
-//                $destinationPath = 'storage/';
-//                $file->move(public_path() . $destinationPath, $filename);
-//                $paths[]= $destinationPath . $filename;
-
-                $path = $file->storeAs('public/convocatorias/'.$request->name,   $filename );
-                $paths[]= $path;
+                $filename = str_replace(' ', '_', $filename);
+                $path = $file->storeAs('public/convocatorias/' . $request->name, $filename);
+                $paths[] = $path;
             }
-        }
+        };
+
         $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->quantity, $request->description, $request->requirements, $paths);
 
     }
@@ -45,25 +40,45 @@ class InvitationController extends Controller
     public function edit(Request $request, $id): void
 
     {
-       // $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->description, $id);
-        $this->invitationService->create('hola', 2024/02/02, 2024/02/02, 1,56, 'helo', 1,'');
+
+
+        $paths = [];
+
+        if ($request->hasFile('files')) {
+
+            foreach ($request->file('files') as $file) {
+
+                $filename = $file->getFilename();
+                $filename = str_replace(' ', '_', $filename);
+                $path = $file->storeAs('public/convocatorias/' . $request->name, $filename);
+                $paths[] = $path;
+            }
+        };
+        $this->invitationService->edit($request->name, $request->date_start, $request->date_finish, $request->active, $request->quantity, $request->description, $request->requirements, $paths, $id);
     }
 
     public function search(): \Inertia\Response
     {
+
         $invitations = $this->invitationService->search();
 
-        //dd($suppliers);
+        $user = Auth::user()->isAdmin();
 
-        return Inertia::render('Convocatorias', ['invitations' => $invitations]);
+        if ($user) {
+            return Inertia::render('Convocatorias', ['invitations' => $invitations]);
+        } else return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+
     }
+
     public function show(): \Inertia\Response
     {
         $invitations = $this->invitationService->search();
-        $authh = Auth::user();
-
-        return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+        $user = Auth::user()->isAdmin();
+        if ($user) {
+            return Inertia::render('Convocatorias', ['invitations' => $invitations]);
+        } else return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
     }
+
     public function iframe(): \Inertia\Response
     {
         $invitations = $this->invitationService->search();
@@ -81,10 +96,42 @@ class InvitationController extends Controller
     {
         $this->invitationService->delete($id);
     }
-    public function find($id):\Inertia\Response{
-        $invitation = $this->invitationService->find($id);
-        return Inertia::render('ConvocatoriasPerfil', ['invitation' => $invitation]);
 
+    public function find($id): \Inertia\Response
+    {
+        $invitation = $this->invitationService->find($id);
+        $invitations = $this->invitationService->search();
+        $user = Auth::user()->isAdmin();
+
+        if ($user) {
+            return Inertia::render('ConvocatoriasPerfil', ['invitation' => $invitation]);
+        } else return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+
+
+    }
+    public function filter(Request $request):array{
+       return $this->invitationService->filter($request->name);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function setPaths(Request $request): array
+    {
+        $paths = [];
+
+        if ($request->hasFile('File')) {
+
+            foreach ($request->file('File') as $file) {
+
+                $filename = $file->getClientOriginalName();
+                $filename = str_replace(' ', '_', $filename);
+                $path = $file->storeAs('public/convocatorias/' . $request->name, $filename);
+                $paths[] = $path;
+            }
+        }
+        return $paths;
     }
 
 

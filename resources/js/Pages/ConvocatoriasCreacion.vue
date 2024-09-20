@@ -35,11 +35,12 @@ const removeRequirement = (index) => {
 
 const handleFileChange = (event) => {
     // Captura el primer archivo seleccionado
-    console.log(event);
+
     form.files = event.target.files; // Asigna el archivo al modelo
 
 }
 const submit = () => {
+    console.log(form);
     form.post(route('invitation.create'), {
         onSuccess: () => {
             window.location.href = route('convocatorias');
@@ -134,6 +135,7 @@ const submit = () => {
                     <div class="col-span-1">
                         <label for="file">Adjuntar archivo</label>
                         <input type="file" id="file" accept="*/*" multiple @change="handleFileChange" required>
+                    {{form.files}}
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-6 mt-8 items-center">

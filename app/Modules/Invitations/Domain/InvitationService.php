@@ -20,10 +20,13 @@ private IInvitationRepository $invitationRepository;
     {
         $this->invitationRepository->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files);
     }
-
-    public function edit($name, $date_start, $date_finish, $active, $quantity,$description,$id): void
+    public function filter($name): array
     {
-        $this->invitationRepository->edit($name, $date_start, $date_finish, $active,$quantity, $description, $id);
+        return $this->invitationRepository->filter($name);
+    }
+    public function edit($name, $date_start, $date_finish, $active,$quantity, $description, $requirements,$files,$id): void
+    {
+        $this->invitationRepository->edit($name, $date_start, $date_finish, $active,$quantity, $description, $requirements,$files,$id);
     }
 
     public function search(): array

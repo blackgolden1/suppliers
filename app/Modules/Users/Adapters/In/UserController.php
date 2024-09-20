@@ -7,7 +7,7 @@ use App\Modules\Users\Adapters\Out\UserMysqlRepository;
 use App\Modules\Users\Domain\Ports\In\IUserService;
 use App\Modules\Users\Domain\Ports\Out\IUserRepository;
 use App\Modules\Users\Domain\UserService;
-
+use Illuminate\Support\Facades\Gate;
 class UserController extends Controller
 {
     private IUserService $userService;
@@ -20,6 +20,8 @@ class UserController extends Controller
     {
         dd ($this->userService->find(1));
     }
+
+
 
 
 

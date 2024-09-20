@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import aAuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, usePage, Link} from '@inertiajs/vue3';
 import MainLayout from "@/Layouts/MainLayout.vue";
 const props = defineProps({suppliers: Array});

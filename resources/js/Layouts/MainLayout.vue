@@ -2,9 +2,6 @@
 import {computed, ref} from 'vue';
 import {Link, usePage} from "@inertiajs/vue3";
 
-import DropdownLink from "@/Components/DropdownLink.vue";
-import Dropdown from "@/Components/Dropdown.vue";
-
 const page = usePage();
 const role = computed(() => page.props.auth.user.role_id)
 
@@ -20,7 +17,7 @@ function toggleMenu() {
         <div :class="menuOpen ? 'w-36' : 'w-0'" class="bg-blue transition-all duration-300 overflow-hidden">
             <div class="h-1/2 p-4 text-white flex flex-col justify-around">
                 <!-- Contenido del menú -->
-                <div>
+                <div v-show="role === 2">
                     <Link :href="route('proveedores')">Proveedores</Link>
                 </div>
                 <div>
@@ -45,9 +42,13 @@ function toggleMenu() {
                 <button @click="toggleMenu" class="p-2 bg-blue-500 text-blue rounded">
                     ☰
                 </button>
+                <div v-show="role === 1">
+
+
                 <div class="flex flex-col justify-center items-center">
                 <div class="font-bold text-2xl">¡Bienvenido! <br></div>
                 <div class="text-xl">{{ page.props.auth.user.name }}</div>
+                </div>
                 </div>
             </div>
             <!-- Contenido principal -->

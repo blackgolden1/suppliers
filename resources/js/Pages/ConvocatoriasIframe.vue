@@ -44,24 +44,47 @@ const handleFileChange = (event, name) => {
     payload.value = [...payload.value, {name: name, file: selectedFiles}];
 
 };
+// const submit = async () => {
+//     try {
+//         let formData = new FormData();
+//
+//         formData.append('invitation_id', invitation_id.value);
+//         payload.value.forEach((file, index) => {
+//             formData.append(file.name, file.file);
+//         });
+//         const response = await axios.post('/apply-supplier', formData, {
+//             headers: {
+//                 'Content-Type': 'multipart/form-data'
+//             }
+//         })
+//
+//     } catch (error) {
+//     }
+// };
 const submit = async () => {
     try {
         let formData = new FormData();
 
         formData.append('invitation_id', invitation_id.value);
-        payload.value.forEach((file, index) => {
-            formData.append(file.name, file.file);
+
+        // Recorrer y agregar cada archivo en el array
+        payload.value.forEach((fileObj, index) => {
+            formData.append(`files[${index}]`, fileObj.file);  // 'files[]' puede ser el nombre de tu campo de archivos
+            formData.append(`names[${index}]`, fileObj.name);  // Si también necesitas enviar los nombres
         });
+
         const response = await axios.post('/apply-supplier', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        })
+        });
 
     } catch (error) {
+        console.error(error);
     }
-
 };
+
+
 const searchQuery = ref('');
 
 const fetchInvitations = async (query) => {

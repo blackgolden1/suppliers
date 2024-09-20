@@ -25,14 +25,16 @@ class ApplicationController extends Controller
 
     public function apply(Request $request): void
     {
+        //dd($request->all());
         $supplierId = Auth::user()->supplier->id;
         $existingApplication = Application::where('invitation_id', $request->invitation_id)
             ->where('supplier_id', $supplierId)
             ->first();
 
         $paths = [];
-        //dd($request->files);
-        if ($request->hasFile('file')) {
+
+        if ($request->hasFile('files')) {
+//dd($request->all());
             foreach ($request->file('file') as $file) {
 
                 $filename = $file->getClientOriginalName();
@@ -41,7 +43,7 @@ class ApplicationController extends Controller
                 $paths[] = $path;
             }
         }
-        //dd($paths);
+       // dd('noentre');
         if (!$existingApplication) {
             $this->applicationService->apply($request->invitation_id, $supplierId, 'pending', $paths);
         }

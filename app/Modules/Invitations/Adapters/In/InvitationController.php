@@ -20,8 +20,9 @@ class InvitationController extends Controller
 
     public function create(Request $request): void
     {
-        $paths = [];
 
+        $paths = [];
+        //dd($request->all());
         if ($request->hasFile('files')) {
 
             foreach ($request->file('files') as $file) {
@@ -40,7 +41,6 @@ class InvitationController extends Controller
     public function edit(Request $request, $id): void
 
     {
-
 
         $paths = [];
 

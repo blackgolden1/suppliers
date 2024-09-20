@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('postulations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('invitation_id')->constrained();
             $table->foreignId('supplier_id')->constrained();
-            $table->foreignId('supplier_id')->constrained();
+            $table->integer('radicado');
             $table->enum('status',['pending','accepted','rejected'])->default('pending');
-            $table->text('description')->nullable()->default('Sin observaciones');
+            $table->text('description')->nullable();
             $table->json('payload');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('applications');
+        Schema::dropIfExists('postulations');
     }
 };

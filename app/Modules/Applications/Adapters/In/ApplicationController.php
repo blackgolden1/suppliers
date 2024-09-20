@@ -3,7 +3,7 @@
 namespace App\Modules\Applications\Adapters\In;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Applications\Adapters\Out\Application;
+use App\Modules\Applications\Adapters\Out\Postulation;
 use App\Modules\Applications\Domain\ApplicationService;
 use App\Modules\Applications\Domain\Ports\In\IApplicationService;
 use App\Modules\Suppliers\Adapters\Out\Supplier;
@@ -27,23 +27,19 @@ class ApplicationController extends Controller
     {
         //dd($request->all());
         $supplierId = Auth::user()->supplier->id;
-        $existingApplication = Application::where('invitation_id', $request->invitation_id)
+        $existingApplication = Postulation::where('invitation_id', $request->invitation_id)
             ->where('supplier_id', $supplierId)
             ->first();
 
         $paths = [];
 
-        if ($request->hasFile('files')) {
-//dd($request->all());
-            foreach ($request->file('file') as $file) {
+            foreach ($request->file('files') as $file) {
 
                 $filename = $file->getClientOriginalName();
                 $filename = str_replace(' ', '_', $filename);
                 $path = $file->storeAs('public/convocatorias/' . $request->name, $filename);
                 $paths[] = $path;
             }
-        }
-       // dd('noentre');
         if (!$existingApplication) {
             $this->applicationService->apply($request->invitation_id, $supplierId, 'pending', $paths);
         }

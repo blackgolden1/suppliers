@@ -26,6 +26,8 @@ class InvitationMysqlRepository implements IInvitationRepository
     public function edit($name, $date_start, $date_finish, $active,$quantity, $description, $requirements,$files, $id): void
     {
         $invitation = Invitation::find($id);
+        $oldFiles = json_decode($invitation->files);
+        array_push($oldFiles, ...$files);
         if (!$invitation) {
             error('Invitación no encontrada');
         }
@@ -35,6 +37,7 @@ class InvitationMysqlRepository implements IInvitationRepository
         $invitation->active = $active;
         $invitation->quantity = $quantity;
         $invitation->description = $description;
+        $invitation->files = json_encode($oldFiles);
 
         if (!empty($requirements)) {
             Requirement::where('invitation_id', $id)->delete();
@@ -70,8 +73,9 @@ class InvitationMysqlRepository implements IInvitationRepository
 
     public function find($id): array
     {
-        return Invitation::with('applications')->with('suppliers')->with('requirements')->find($id)->toArray();
-        dd($invitation);
+        $invitation = Invitation::with('postulations')->with('suppliers')->with('requirements')->find($id)->toArray();
+        $invitation['files']=json_decode($invitation['files']);
+        return $invitation;
         return new InvitationEntity($invitation->toArray());
     }
 }

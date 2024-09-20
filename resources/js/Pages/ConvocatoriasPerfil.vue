@@ -31,7 +31,9 @@ const removeRequirement = (index) => {
         form.requirements.splice(index, 1);
     }
 };
-
+const deleteFile = async(index)=>{
+    await axios.delete(route('convocatoria.deleteFile',{id:props.invitation.id, index}))
+}
 const handleFileChange = (event) => {
     form.files = event.target.files; // Asigna el archivo al modelo
 }
@@ -223,8 +225,9 @@ const handleFileChange = (event) => {
                             <div class="col-span-1">
                                 <h2 class="text-2xl font-semibold">Archivos Adjuntos</h2>
 
-                                <div v-for="(file,index) in JSON.parse(invitation.files)" class="flex flex-cols">-->
+                                <div v-for="(file,index) in invitation.files" class="flex flex-cols">-->
                                   <a :href="'/storage/'+  file" target="_blank" class="text-blueFigma font-semibold">Documento {{ index + 1 }}</a>
+                                    <button @click="deleteFile(index)" >Borrar</button>
                                 </div>
                             </div>
                             <div class="col-span-1">
@@ -271,7 +274,7 @@ const handleFileChange = (event) => {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(application,index) in invitation.applications" class="border-b"  :key="index">
+                        <tr v-for="(application,index) in invitation.postulations" class="border-b"  :key="index">
 
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

@@ -9,8 +9,7 @@ const actualInvitations = ref(props.invitations);
 const payload = ref([]);
 
 const isModalOpen = ref(false);
-const successMessage = ref(null);
-const errorMessage = ref(null);
+
 const selectedItem = ref(null);
 
 const selectItem = (invitation) => {
@@ -27,13 +26,7 @@ watch(() => props.invitations.value, (newSelectedItem) => {
         invitation_id.value = newSelectedItem.id;
     }
 });
-console.log(invitation_id.value)
-const openModal = (invitation) => {
-    isModalOpen.value = true;
-}
-const closeModal = (invitation) => {
-    isModalOpen.value = false;
-}
+
 const getFileName = (file) => {
     const words = file.split('/');
     return words[words.length - 1]
@@ -44,33 +37,14 @@ const handleFileChange = (event, name) => {
     payload.value = [...payload.value, {name: name, file: selectedFiles}];
 
 };
-// const submit = async () => {
-//     try {
-//         let formData = new FormData();
-//
-//         formData.append('invitation_id', invitation_id.value);
-//         payload.value.forEach((file, index) => {
-//             formData.append(file.name, file.file);
-//         });
-//         const response = await axios.post('/apply-supplier', formData, {
-//             headers: {
-//                 'Content-Type': 'multipart/form-data'
-//             }
-//         })
-//
-//     } catch (error) {
-//     }
-// };
+
 const submit = async () => {
     try {
         let formData = new FormData();
-
         formData.append('invitation_id', invitation_id.value);
-
-        // Recorrer y agregar cada archivo en el array
         payload.value.forEach((fileObj, index) => {
-            formData.append(`files[${index}]`, fileObj.file);  // 'files[]' puede ser el nombre de tu campo de archivos
-            formData.append(`names[${index}]`, fileObj.name);  // Si también necesitas enviar los nombres
+            formData.append(`files[${index}]`, fileObj.file);
+            formData.append(`names[${index}]`, fileObj.name);
         });
 
         const response = await axios.post('/apply-supplier', formData, {
@@ -89,11 +63,9 @@ const searchQuery = ref('');
 
 const fetchInvitations = async (query) => {
     try {
-
         const response = await axios.get('/convocatorias-filter', {
             params: { name: query },
         });
-        // Actualiza las convocatorias con las que devuelva la consulta
         actualInvitations.value = response.data;
 
     } catch (error) {

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Application extends Model
+class Postulation extends Model
 {
     use HasFactory;
 
@@ -18,6 +18,7 @@ class Application extends Model
         'invitation_id',
         'supplier_id',
         'status',
+        'radicado',
         'description',
         'payload',
     ];

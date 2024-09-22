@@ -12,16 +12,17 @@ class ApplicationMysqlRepository implements IApplicationRepository
     public function apply($invitation_id, $supplier_id, $status, $payload): void
     {
         // Verifica si ya existe una aplicación con ese invitation_id y supplier_id
-        $existingApplication = Application::where('invitation_id', $invitation_id)
+        $existingApplication = Postulation::where('invitation_id', $invitation_id)
             ->where('supplier_id', $supplier_id)
             ->first();
 
         // Si no existe, crea el registro
         if (!$existingApplication) {
-            Application::create([
+            Postulation::create([
                 'invitation_id' => $invitation_id,
                 'supplier_id'   => $supplier_id,
                 'status'        => $status,
+                'radicado'        => $invitation_id,
                 'payload'       => json_encode($payload)
             ]);
         }

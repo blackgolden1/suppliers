@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('invitation_id')->constrained();
             $table->foreignId('supplier_id')->constrained();
-            $table->integer('radicado');
+            $table->integer('radicado')->autoIncrement();
             $table->enum('status',['pending','accepted','rejected'])->default('pending');
             $table->text('description')->nullable();
             $table->json('payload');

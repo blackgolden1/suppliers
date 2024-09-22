@@ -56,6 +56,9 @@ class User extends Authenticatable
     public function isAdmin ():bool{
         return $this->role->name == 'admin';
     }
+    public function isSupplier ():bool{
+        return $this->supplier !== null;
+    }
     protected $fillable = [
         'name',
         'email',

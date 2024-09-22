@@ -25,7 +25,6 @@ class ApplicationController extends Controller
 
     public function apply(Request $request): void
     {
-        //dd($request->all());
         $supplierId = Auth::user()->supplier->id;
         $existingApplication = Postulation::where('invitation_id', $request->invitation_id)
             ->where('supplier_id', $supplierId)

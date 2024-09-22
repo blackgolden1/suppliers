@@ -61,33 +61,43 @@ class InvitationController extends Controller
 
     public function search(): \Inertia\Response
     {
-
         $invitations = $this->invitationService->search();
-
+        $isAdmin = Auth::user()->isAdmin();
         $user = Auth::user()->isAdmin();
+        $isSupplier = Auth::user()->isSupplier();
 
-        if ($user) {
-            return Inertia::render('Convocatorias', ['invitations' => $invitations]);
-        } else return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+        if (!$isAdmin) {
+            if (!$isSupplier) {
+                return Inertia::render('ProveedoresRegistro');
+            }
+            return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+        }
+        return Inertia::render('Convocatorias', ['invitations' => $invitations]);
 
     }
 
-    public function deleteFile($id, $index):void
+    public function deleteFile($id, $index): void
     {
         $invitation = Invitation::find($id);
-        $files = json_decode( $invitation->files);
-       array_splice( $files,$index,1);
-       $invitation->files = $files;
-       $invitation->save();
+        $files = json_decode($invitation->files);
+        array_splice($files, $index, 1);
+        $invitation->files = $files;
+        $invitation->save();
     }
 
-    public function show(): \Inertia\Response
+    public function show(): \Inertia\Response //convo-iframe
     {
         $invitations = $this->invitationService->search();
-        $user = Auth::user()->isAdmin();
-        if (!$user) {
-            return Inertia::render('Convocatorias', ['invitations' => $invitations]);
-        } else return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+        $isAdmin = Auth::user()->isAdmin();
+        $isSupplier = Auth::user()->isSupplier();
+        //dd($isSupplier);
+        if (!$isAdmin) {
+            if (!$isSupplier) {
+                return Inertia::render('ProveedoresRegistro');
+            }
+            return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+        }
+        return Inertia::render('Convocatorias', ['invitations' => $invitations]);
     }
 
     public function iframe(): \Inertia\Response
@@ -130,22 +140,5 @@ class InvitationController extends Controller
      * @param Request $request
      * @return array
      */
-    public function setPaths(Request $request): array
-    {
-        $paths = [];
-
-        if ($request->hasFile('File')) {
-
-            foreach ($request->file('File') as $file) {
-
-                $filename = $file->getClientOriginalName();
-                $filename = str_replace(' ', '_', $filename);
-                $path = $file->storeAs('public/convocatorias/' . $request->name, $filename);
-                $paths[] = $path;
-            }
-        }
-        return $paths;
-    }
-
 
 }

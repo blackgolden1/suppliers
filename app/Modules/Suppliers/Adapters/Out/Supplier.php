@@ -3,7 +3,7 @@
 namespace App\Modules\Suppliers\Adapters\Out;
 
 use App\Models\Document;
-use App\Modules\Applications\Adapters\Out\Application;
+use App\Modules\Applications\Adapters\Out\Postulation;
 use App\Modules\Invitations\Adapters\Out\Invitation;
 use App\Modules\Users\Adapters\Out\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -73,7 +73,7 @@ class Supplier extends Model
     }
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class);
+        return $this->hasMany(Postulation::class);
     }
 
     public function user(): HasOne

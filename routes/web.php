@@ -27,6 +27,7 @@ Route::get('/convocatorias', [\App\Modules\Invitations\Adapters\In\InvitationCon
 Route::get('/iframe', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'iframe'])->name('iframe');
 
 Route::post('convocatoria/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'edit'])->name('convocatoria.update'); //aun no
+Route::delete('convocatoria/{id}/files/{index}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'deleteFile'])->name('convocatoria.deleteFile'); //aun no
 
 
 Route::get('/register-invitation', function () {

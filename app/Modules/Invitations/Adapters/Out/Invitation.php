@@ -4,7 +4,7 @@ namespace App\Modules\Invitations\Adapters\Out;
 
 use App\Models\Document;
 use App\Models\Requirement;
-use App\Modules\Applications\Adapters\Out\Application;
+use App\Modules\Applications\Adapters\Out\Postulation;
 use App\Modules\Suppliers\Adapters\Out\Supplier;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -53,14 +53,14 @@ class Invitation extends Model
 
     public function suppliers(): BelongsToMany
     {
-        return $this->belongsToMany(Supplier::class,'applications','invitation_id','supplier_id');
+        return $this->belongsToMany(Supplier::class,'postulations','invitation_id','supplier_id');
     }
     public function requirements(): HasMany
     {
         return $this->hasMany(Requirement::class);
     }
-    public function applications(): HasMany
+    public function postulations(): HasMany
     {
-        return $this->hasMany(Application::class);
+        return $this->hasMany(Postulation::class);
     }
 }

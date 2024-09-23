@@ -34,7 +34,7 @@ Route::get('/register-invitation', function () {
 })->name('registerInvitation')->middleware('can:isAdmin');
 
 Route::get('/login-prov', function () {
-    return Inertia::render('isSupplier');
+    return Inertia::render('LoginProv');
 })->name('loginProv');
 Route::post('/register-invitation', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'create'])->name('invitation.create');
 

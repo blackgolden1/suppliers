@@ -54,7 +54,7 @@ class InvitationMysqlRepository implements IInvitationRepository
 
     public function search(): array
     {
-        return Invitation::with('requirements')->get()->toArray();
+        return Invitation::with('requirements')->with('postulations')->get()->toArray();
     }
 
     public function index(): array

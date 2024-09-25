@@ -3,7 +3,7 @@ import MainLayout from "@/Layouts/MainLayout.vue";
 import {ref, watch} from 'vue'
 
 const props = defineProps({invitations: Array, errors: Object,});
-
+console.log(props.invitations);
 let invitation_id = ref(0);
 const actualInvitations = ref(props.invitations);
 const payload = ref([]);
@@ -60,11 +60,11 @@ const submit = async () => {
 
 
 const searchQuery = ref('');
-
+const currentView = ref('estado')
 const fetchInvitations = async (query) => {
     try {
         const response = await axios.get('/convocatorias-filter', {
-            params: { name: query },
+            params: {name: query},
         });
         actualInvitations.value = response.data;
 
@@ -73,9 +73,7 @@ const fetchInvitations = async (query) => {
     }
 };
 const handleFilter = () => {
-
-        fetchInvitations(searchQuery.value);
-
+    fetchInvitations(searchQuery.value);
 }
 </script>
 
@@ -83,7 +81,7 @@ const handleFilter = () => {
     <MainLayout>
         <div class="mb-4 px-6">
             <input @keyup.enter="handleFilter" v-model="searchQuery"
-                class="w-full rounded-3xl" type="text" placeholder="Buscar por empresa o referencia">
+                   class="w-full rounded-3xl" type="text" placeholder="Buscar por empresa o referencia">
         </div>
 
         <div class="flex h-4/5 px-6 overflow-y-hidden mt-8 space-x-12">
@@ -103,7 +101,7 @@ const handleFilter = () => {
             </div>
 
             <!-- Cuadro de descripción a la derecha -->
-            <div class="w-2/3 p-4 border rounded-2xl h-full border-2 border-gray-400">
+            <div class="w-2/3 p-4 border rounded-2xl h-full border-2 border-gray-400 overflow-y-auto">
                 <form @submit.prevent="submit">
                     <div v-if="selectedItem">
                         <h2 class="text-2xl font-bold mb-4">{{ selectedItem.name }}</h2>
@@ -115,52 +113,123 @@ const handleFilter = () => {
                             <a class="text-blue font-semibold cursor-pointer" :href="'/storage/'+file"
                                target="_blank">{{ getFileName(file) }}</a>
                         </div>
-                        <div class="mb-4">
-                            <div v-for="(requirement, index) in selectedItem.requirements">
+                        <div v-show="selectedItem.postulations.length === 0">
+                            <div class="mb-4">
+                                <div v-for="(requirement, index) in selectedItem.requirements">
 
-                                <label for="file" class="mr-2">Cargar el documento:
-                                    {{ requirement.description }}</label>
+                                    <label for="file" class="mr-2">Cargar el documento:
+                                        {{ requirement.description }}</label>
 
-                                <input type="file" required
-                                       @change="(event) => handleFileChange(event,requirement.description)">
-                                <!--                                <file-pond allow-multiple="true" max-files="3" @input="form.payload = $event.target.files[0]" server="/api"  />-->
+                                    <input type="file" required
+                                           @change="(event) => handleFileChange(event,requirement.description)">
+                                </div>
                             </div>
+                            <div class="flex gap-4">
+                                <button data-modal-target="default-modal" data-modal-toggle="default-modal"
+                                        type="submit"
+                                        class="bg-blueFigma text-white px-4 py-2 rounded">Postularme
+                                </button>
+                            </div>
+
                         </div>
-                        <!--                        <div v-if="isModalOpen"-->
-                        <!--                             class="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-75">-->
-                        <!--                            <div class="bg-white p-6 rounded-lg shadow-xl max-w-2/3 ">-->
-                        <!--                                <h3 class="text-xl font-bold mb-4">Documentos Relacionados</h3>-->
-                        <!--                                <div v-for="file in JSON.parse(selectedItem.files)">-->
-                        <!--                                    <a class="text-blue font-semibold cursor-pointer" :href="'/storage/'+file"-->
-                        <!--                                       target="_blank">{{ getFileName(file) }}</a>-->
-                        <!--                                </div>-->
-                        <!--                                <div class="flex justify-end ">-->
-                        <!--                                    <button @click="closeModal" class="bg-blue text-white px-4 py-2 rounded mt-4">-->
-                        <!--                                        Cerrar-->
-                        <!--                                    </button>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
 
-                        <!-- Botones -->
-                        <div class="flex gap-4">
-                            <!--                    <button class="bg-blue text-white px-4 py-2 rounded">Postularse</button>-->
-                            <!--                            <button @click="openModal" class="bg-blue text-white px-4 py-2 rounded">Ver documentos-->
-                            <!--                            </button>-->
 
-                            <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="submit"
-                                    class="bg-blueFigma text-white px-4 py-2 rounded">Postularme
+                        <!--                        Estado postulaciones-->
+                        <div class="p-6 border rounded-lg" v-show="selectedItem.postulations.length > 0 ">
+                            <!-- Tabs -->
+                            <div class="flex mb-6">
+                                <button
+                                    :class="currentView === 'estado' ? 'bg-blueFigma text-white' : 'bg-blueFigma bg-opacity-60 text-white'"
+                                    class="px-4 py-2 font-semibold  focus:outline-none rounded-l-xl"
+                                    @click="currentView = 'estado'"
+                                >
+                                    Estado
+                                </button>
+                                <button
+                                    :class="currentView === 'documentos' ? 'bg-blueFigma text-white' : 'bg-blueFigma bg-opacity-60 text-white'"
+                                    class="px-4 py-2 font-semibold  focus:outline-none rounded-r-xl"
+                                    @click="currentView = 'documentos'"
+                                >
+                                    Documentos
+                                </button>
+                            </div>
+
+                            <!-- Vista del historial de postulacion (estado) -->
+                            <div v-if="currentView === 'estado'">
+                                <div class="relative">
+                                    <!-- Postulado -->
+                                    <div class="flex flex-col mb-8 align-baseline h-fit">
+                                        <div class="flex  items-center">
+                                            <span class="w-4 h-4 bg-green-500 rounded-full inline-block"></span>
+                                            <h3 class="text-lg font-semibold">Postulado</h3>
+                                        </div>
+                                        <div class="flex relative items-center">
+                                                <p class="text-gray-500 border p-3 rounded-lg bg-gray-100 ml-6">
+                                                    Tus documentos están en proceso de revisión, te invitamos a que
+                                                    consultes el estado de tu postulación en las próximas horas.
+                                                </p>
+                                                <div class="absolute h-2/3 w-0.5 bg-gray-300 mr-8"></div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Documentos aprobados -->
+                                    <div class="flex items-start mb-8">
+                                        <div class="flex-shrink-0">
+                                            <span class="w-4 h-4 bg-blue-500 rounded-full inline-block"></span>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h3 class="text-lg font-semibold">Documentos aprobados</h3>
+                                        </div>
+                                    </div>
+
+                                    <!-- En contacto -->
+                                    <div class="flex items-start mb-8">
+                                        <div class="flex-shrink-0">
+                                            <span class="w-4 h-4 bg-blue-500 rounded-full inline-block"></span>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h3 class="text-lg font-semibold">En contacto</h3>
+                                        </div>
+                                    </div>
+
+                                    <!-- Contratado -->
+                                    <div class="flex items-start mb-8">
+                                        <div class="flex-shrink-0">
+                                            <span class="w-4 h-4 bg-blue-500 rounded-full inline-block"></span>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h3 class="text-lg font-semibold">Contratado</h3>
+                                        </div>
+                                    </div>
+
+                                    <!-- Line -->
+                                    <!--                                    <div class="absolute top-4 left-2.5 h-full w-0.5 bg-gray-300"></div>-->
+                                </div>
+                            </div>
+
+                            <!-- Vista de documentos -->
+                            <div v-if="currentView === 'documentos'">
+                                <div class="border p-4 rounded-lg bg-gray-100">
+                                    <h3 class="text-lg font-semibold">Documentos requeridos</h3>
+                                    <ul class="list-disc ml-6 text-gray-600">
+                                        <li>Documento de identidad</li>
+                                        <li>Certificado de estudios</li>
+                                        <li>Currículum Vitae</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Cancelar postulación button -->
+                            <button class="mt-6 px-6 py-3 bg-red-600 text-white font-bold rounded-full">
+                                Cancelar postulación
                             </button>
-
-                            <div v-if="errors.Errores">
-                                error
-                            </div>
                         </div>
-
                     </div>
                     <div v-else>
                         <p class="text-gray-500">Selecciona una convocatoria para ver los detalles.</p>
                     </div>
+
                 </form>
 
             </div>

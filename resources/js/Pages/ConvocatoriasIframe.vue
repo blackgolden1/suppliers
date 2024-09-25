@@ -11,6 +11,7 @@ const payload = ref([]);
 const isModalOpen = ref(false);
 
 const selectedItem = ref(null);
+const previews = ref([]);
 
 const selectItem = (invitation) => {
     selectedItem.value = invitation;
@@ -33,11 +34,34 @@ const getFileName = (file) => {
 }
 const handleFileChange = (event, name) => {
 
-    const selectedFiles = event.target.files[0];
-    payload.value = [...payload.value, {name: name, file: selectedFiles}];
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+        payload.value = [...payload.value, { name: name, file: selectedFile }];
+    }
+};
+const openFile = (file) => {
+    const url = URL.createObjectURL(file);
+    window.open(url, '_blank');
+};
+const base64ToArrayBuffer = (base64Str) => {
+    const binaryString = window.atob(base64Str);
+    const binaryLen = binaryString.length;
+    const bytes = new Uint8Array(binaryLen);
 
+    for (let i = 0; i < binaryLen; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return bytes;
 };
 
+const showDocument = (base64Str, contentType) => {
+    const byteArray = base64ToArrayBuffer(base64Str);
+    const blob = new Blob([byteArray], {type: contentType});
+    const url = URL.createObjectURL(blob);
+
+    window.open(url, '_blank');
+};
 const submit = async () => {
     try {
         let formData = new FormData();
@@ -52,8 +76,13 @@ const submit = async () => {
                 'Content-Type': 'multipart/form-data'
             }
         });
+        if (window.confirm('Gracias por postularte. Revisa tus postulaciones')) {
+            // Si el usuario hace clic en "Aceptar"
+            location.reload();}
 
     } catch (error) {
+        window.confirm('No fue posible realizar la potulacion')
+        console.log('no pude')
         console.error(error);
     }
 };
@@ -74,7 +103,7 @@ const fetchInvitations = async (query) => {
 };
 const handleFilter = () => {
     fetchInvitations(searchQuery.value);
-}
+};
 </script>
 
 <template>
@@ -108,8 +137,9 @@ const handleFilter = () => {
 
                         <p class="text-gray-700 mb-4">{{ selectedItem.description }}</p>
 
-                        <p class="font-bold">Para poder postularte, ten en cuenta la siguiente documentación </p>
+                        <p class="font-bold">Ten en cuenta la siguiente documentación para la postulacion </p>
                         <div v-for="file in JSON.parse(selectedItem.files)">
+
                             <a class="text-blue font-semibold cursor-pointer" :href="'/storage/'+file"
                                target="_blank">{{ getFileName(file) }}</a>
                         </div>
@@ -120,8 +150,17 @@ const handleFilter = () => {
                                     <label for="file" class="mr-2">Cargar el documento:
                                         {{ requirement.description }}</label>
 
-                                    <input type="file" required
+                                    <input type="file" required id="file" accept="*/*"
                                            @change="(event) => handleFileChange(event,requirement.description)">
+
+                                    <div v-if="payload.length">
+                                        <h3>Archivo seleccionado:</h3>
+                                        <div class="preview-container">
+                                            <a href="#" @click.prevent="openFile(payload[0].file)">{{ payload[0].file.name }}</a>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="flex gap-4">
@@ -132,7 +171,6 @@ const handleFilter = () => {
                             </div>
 
                         </div>
-
 
                         <!--                        Estado postulaciones-->
                         <div class="p-6 border rounded-lg" v-show="selectedItem.postulations.length > 0 ">
@@ -164,11 +202,11 @@ const handleFilter = () => {
                                             <h3 class="text-lg font-semibold">Postulado</h3>
                                         </div>
                                         <div class="flex relative items-center">
-                                                <p class="text-gray-500 border p-3 rounded-lg bg-gray-100 ml-6">
-                                                    Tus documentos están en proceso de revisión, te invitamos a que
-                                                    consultes el estado de tu postulación en las próximas horas.
-                                                </p>
-                                                <div class="absolute h-2/3 w-0.5 bg-gray-300 mr-8"></div>
+                                            <p class="text-gray-500 border p-3 rounded-lg bg-gray-100 ml-6">
+                                                Tus documentos están en proceso de revisión, te invitamos a que
+                                                consultes el estado de tu postulación en las próximas horas.
+                                            </p>
+                                            <div class="absolute h-2/3 w-0.5 bg-gray-300 mr-8"></div>
 
                                         </div>
                                     </div>
@@ -211,7 +249,8 @@ const handleFilter = () => {
                             <!-- Vista de documentos -->
                             <div v-if="currentView === 'documentos'">
                                 <div class="border p-4 rounded-lg bg-gray-100">
-                                    <h3 class="text-lg font-semibold">Documentos requeridos</h3>
+                                    <h3 class="text-lg font-semibold">Documentos Subidos</h3>
+                                    <div v-for="file in JSON.parse(selectedItem.files)"></div>
                                     <ul class="list-disc ml-6 text-gray-600">
                                         <li>Documento de identidad</li>
                                         <li>Certificado de estudios</li>

@@ -29,10 +29,13 @@ Route::get('/iframe', [\App\Modules\Invitations\Adapters\In\InvitationController
 Route::post('convocatoria/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'edit'])->name('convocatoria.update'); //aun no
 Route::delete('convocatoria/{id}/files/{index}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'deleteFile'])->name('convocatoria.deleteFile'); //aun no
 
+Route::get('postulaciones', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'myPostulations'])->name('misPostulaciones')->middleware('can:isSupplier'); //aun no
+
 
 Route::get('/register-invitation', function () {
     return Inertia::render('ConvocatoriasCreacion');
 })->name('registerInvitation')->middleware('can:isAdmin');
+
 
 Route::get('/login-prov', function () {
     return Inertia::render('isSupplier');

@@ -1,21 +1,59 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
+use App\Modules\Applications\Adapters\In\ApplicationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Login', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect()->route('convocatorias');
 });
 
+Route::get('/proveedores', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'search'])->name('proveedores');
+Route::get('/proveedores/{id}',[\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'find'])->name('proveedor.perfil');
+
+Route::get('/register-supplier', function () {
+    return Inertia::render('ProveedoresRegistro');
+})->name('registerSupplier');
+Route::post('/register-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'create'])->name('supplier.create');
+
+Route::post('/apply-supplier', [\App\Modules\Applications\Adapters\In\ApplicationController::class, 'apply'])->name('supplier.apply'); //aun no
+
+Route::get('/convocatoria/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'find'])->name('convocatoria.perfil');
+
+Route::get('/convocatorias', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'search'])->name('convocatorias')->middleware(['auth', 'verified']);
+Route::get('/iframe', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'iframe'])->name('iframe');
+
+Route::post('convocatoria/{id}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'edit'])->name('convocatoria.update'); //aun no
+Route::delete('convocatoria/{id}/files/{index}', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'deleteFile'])->name('convocatoria.deleteFile'); //aun no
+
+Route::get('postulaciones', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'myPostulations'])->name('misPostulaciones')->middleware('can:isSupplier'); //aun no
+
+
+Route::get('/register-invitation', function () {
+    return Inertia::render('ConvocatoriasCreacion');
+})->name('registerInvitation')->middleware('can:isAdmin');
+
+
+Route::get('/login-prov', function () {
+    return Inertia::render('isSupplier');
+})->name('loginProv');
+Route::post('/register-invitation', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'create'])->name('invitation.create');
+
+//Route::get('/test',[\App\Modules\Users\Adapters\In\UserController::class, 'find'])->name('convocatorias');
+
+//Route::get('/convocatorias-iframe', function () {
+//    return Inertia::render('ConvocatoriasIframe');
+//})->name('convocatoriasIframe');
+Route::get('/convocatorias-iframe', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'show'])->name('convocatoriasIframe')->middleware(['auth', 'verified']);
+Route::get('/convocatorias-filter', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'filter'])->name('convocatoriasFilter')->middleware(['auth', 'verified']);
+
+Route::post('file-upload', [FileController::class, 'store'])->name('file.store'); //aun no
+
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect('convocatorias');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -24,4 +62,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';

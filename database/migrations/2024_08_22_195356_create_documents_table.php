@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('documents', function (Blueprint $table) {
-            $table->id()->autoIncrement();
+            $table->id();
+            $table->foreignId('supplier_id');
             $table->string('name');
             $table->string('url');
             $table->timestamps();

@@ -18,9 +18,6 @@ class RoleSeeder extends Seeder
             'name'=>'proveedor',
         ]);
         DB::table('roles')->insert([
-            'name'=>'director',
-        ]);
-        DB::table('roles')->insert([
             'name'=>'admin',
         ]);
     }

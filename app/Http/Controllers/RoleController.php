@@ -9,8 +9,5 @@ use Inertia\Response;
 
 class RoleController extends Controller
 {
-    public function create(Role $roles): Response
-    {
-        return Inertia::render('Role/Index', ['roles' => $roles]);
-    }
+
 }

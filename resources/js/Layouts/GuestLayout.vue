@@ -4,10 +4,14 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+    <div class="min-h-screen">
+    <div class="bg-blue w-full h-20 top-0 overflow-hidden"></div>
+    <div class=" flex flex-col sm:justify-center items-center pt-6 sm:pt-4 bg-gray-100">
+
         <div>
             <Link href="/">
-                <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+<!--                <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />-->
+                <img src="/images/cci-logo.png" >
             </Link>
         </div>
 
@@ -16,5 +20,7 @@ import { Link } from '@inertiajs/vue3';
         >
             <slot />
         </div>
+
+    </div>
     </div>
 </template>

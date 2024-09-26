@@ -14,9 +14,25 @@ return new class extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('name');
-            $table->string('ciuu');
+            $table->enum('id_type',['cedula','rut','nit']);
+            $table->string('identification_number');
+            $table->enum('person_type',['natural','juridica']);
+            $table->string('company_name');
+            $table->string('comercial_name');
+            $table->string('email');
+            $table->string('web_page');
+            $table->string('regimen');
+            $table->string('retainer');
+            $table->string('contributor');
+            $table->string('ica');
             $table->string('phone');
-            $table->string('address');
+            $table->string('ciuu');
+            $table->string('rut');
+            $table->string('iso_9001');
+            $table->string('copy_doc_represent');
+            $table->string('bank_certification');
+
+//            $table->unsignedBigInteger('created_by');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

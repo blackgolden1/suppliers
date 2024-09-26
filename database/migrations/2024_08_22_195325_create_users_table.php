@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('user');
+            $table->string('name');
+            $table->enum('type_id',['cedula','rut','nit']);
+            $table->string('identification_number')->unique();
             $table->string('email')->unique();
-            $table->foreignId('role_id')->default(1)->constrained();
+            $table->foreignId('role_id')->default(null)->nullable()->constrained();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

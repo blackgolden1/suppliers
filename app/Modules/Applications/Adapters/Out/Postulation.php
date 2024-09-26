@@ -25,10 +25,10 @@ class Postulation extends Model
 
     public function invitations(): BelongsTo
     {
-        return $this->belongsTo(Invitation::class);
+        return $this->belongsTo(Invitation::class, 'invitation_id');
     }
     public function suppliers(): BelongsTo
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 }

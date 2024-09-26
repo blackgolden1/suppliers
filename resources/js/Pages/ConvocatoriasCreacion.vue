@@ -2,7 +2,27 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import Postularse from "@/Layouts/MainLayout.vue";
+import 'filepond/dist/filepond.min.css';
+import {ref} from "vue";
 
+import vueFilePond from 'vue-filepond';
+
+// Import plugins
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+
+// Import styles
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+
+// Create FilePond component
+const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+const previews = ref([]);
+
+const handleFilePondUpdateFile = (files) => {
+    const map = files.map(files => files.file)
+    console.log(map);
+}
 const form = useForm({
     name: '',
     date_start: '',
@@ -23,22 +43,44 @@ const removeRequirement = (index) => {
     }
 };
 
-// const addFile = () => {
-//     form.files.push({});
-//
-// };
-// const removeFile = (index) => {
-//     if (form.files.length > 1) {
-//         form.files.splice(index, 1);
-//     }
-// };
-
 const handleFileChange = (event) => {
-    // Captura el primer archivo seleccionado
 
-    form.files = event.target.files; // Asigna el archivo al modelo
+    form.files = event.target.files;
+    previews.value = [];
 
+    for (const file of form.files) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const base64Str = e.target.result.split(',')[1];
+            previews.value.push({
+                base64: base64Str,
+                name: file.name,
+                type: file.type,
+            });
+        };
+        reader.readAsDataURL(file);
+    }
 }
+const base64ToArrayBuffer = (base64Str) => {
+    const binaryString = window.atob(base64Str);
+    const binaryLen = binaryString.length;
+    const bytes = new Uint8Array(binaryLen);
+
+    for (let i = 0; i < binaryLen; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return bytes;
+};
+
+const showDocument = (base64Str, contentType) => {
+    const byteArray = base64ToArrayBuffer(base64Str);
+    const blob = new Blob([byteArray], { type: contentType });
+    const url = URL.createObjectURL(blob);
+
+    window.open(url, '_blank');
+};
 const submit = () => {
     console.log(form);
     form.post(route('invitation.create'), {
@@ -78,21 +120,6 @@ const submit = () => {
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
                         </div>
-
-                        <!--                        <div class="mb-4">-->
-                        <!--                            <label class="block text-sm font-medium text-gray-700" for="email">Email address</label>-->
-                        <!--                            <input id="email" type="email"-->
-                        <!--                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>-->
-                        <!--                        </div>-->
-
-                        <!--                        <div class="mb-4">-->
-                        <!--                            <label class="block text-sm font-medium text-gray-700" for="country">Country</label>-->
-                        <!--                            <select id="country"-->
-                        <!--                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">-->
-                        <!--                                <option>United States</option>-->
-                        <!--                                &lt;!&ndash; Agrega más opciones según sea necesario &ndash;&gt;-->
-                        <!--                            </select>-->
-                        <!--                        </div>-->
 
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700" for="street-address">Fecha
@@ -135,7 +162,25 @@ const submit = () => {
                     <div class="col-span-1">
                         <label for="file">Adjuntar archivo</label>
                         <input type="file" id="file" accept="*/*" multiple @change="handleFileChange" required>
-                    {{form.files}}
+<!--                                                <FilePond allowMultiple="true" ref="pond" v-on:updatefiles="handleFilePondUpdateFile" />-->
+
+                        <!-- Previsualización de las imágenes seleccionadas -->
+<!--                        <div v-if="previews.length">-->
+<!--                            <h3>Previsualización:</h3>-->
+<!--                            <div v-for="(file, index) in previews" :key="index" class="preview-container">-->
+<!--                                <img v-if="file.type.startsWith('image/')" :src="file.url" alt="Previsualización de imagen" class="preview-image" />-->
+<!--                                <iframe v-if="file.type === 'application/pdf'" :src="file.url" class="preview-pdf">{{file.url}}</iframe>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                        <div v-if="previews.length">
+                            <h3>Archivos seleccionados:</h3>
+                            <div v-for="(file, index) in previews" :key="index" class="preview-container">
+                                <!-- Mostrar nombre de cualquier archivo y abrir en nueva pestaña al hacer clic -->
+                                <a class="text-blueFigma font-semibold" href="#" @click.prevent="showDocument(file.base64, file.type)">{{ file.name }}</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-6 mt-8 items-center">

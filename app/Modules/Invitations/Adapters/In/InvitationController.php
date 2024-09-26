@@ -100,6 +100,12 @@ class InvitationController extends Controller
         return Inertia::render('Convocatorias', ['invitations' => $invitations]);
     }
 
+    public function myPostulations(): \Inertia\Response
+    {
+        $postulations = $this->invitationService->myPostulations();
+        return Inertia::render('MisConvocatorias', ['postulations' => $postulations]);
+    }
+
     public function iframe(): \Inertia\Response
     {
         $invitations = $this->invitationService->search();

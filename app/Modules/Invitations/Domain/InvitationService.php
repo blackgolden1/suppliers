@@ -34,7 +34,10 @@ private IInvitationRepository $invitationRepository;
         return $this->invitationRepository->search();
 
     }
-
+    public function myPostulations(): array
+    {
+        return $this->invitationRepository->myPostulations();
+    }
     public function index(): array
     {
        return $this->invitationRepository->index();

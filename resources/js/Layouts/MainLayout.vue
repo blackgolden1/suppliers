@@ -14,7 +14,7 @@ function toggleMenu() {
 <template>
     <div class="flex h-screen ">
         <!-- Sidebar -->
-        <div :class="menuOpen ? 'w-36' : 'w-0'" class="bg-blue transition-all duration-300 overflow-hidden">
+        <div :class="menuOpen ? 'w-36' : 'w-0'" class="bg-blueFigma transition-all duration-300 overflow-hidden">
             <div class="h-1/2 p-4 text-white flex flex-col justify-around">
                 <!-- Contenido del menú -->
                 <div v-show="role === 2">
@@ -22,6 +22,9 @@ function toggleMenu() {
                 </div>
                 <div>
                     <Link :href="route('convocatorias')">Convocatorias</Link>
+                </div>
+                <div>
+                    <Link :href="route('misPostulaciones')">Mis postulaciones</Link>
                 </div>
                 <div>
                     <Link :href="route('profile.edit')">Mi perfil</Link>

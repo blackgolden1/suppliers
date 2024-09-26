@@ -42,5 +42,6 @@ class ApplicationController extends Controller
         if (!$existingApplication) {
             $this->applicationService->apply($request->invitation_id, $supplierId, 'pending', $paths);
         }
+        else error('errorrrrrrr');
     }
 }

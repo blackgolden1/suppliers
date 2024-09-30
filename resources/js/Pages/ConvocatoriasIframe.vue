@@ -1,6 +1,7 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import {ref, watch} from 'vue'
+import {Head} from "@inertiajs/vue3";
 
 const props = defineProps({invitations: Array, errors: Object,});
 console.log(props.invitations);
@@ -22,11 +23,12 @@ watch(() => selectedItem.value, (newSelectedItem) => {
         invitation_id.value = newSelectedItem.id;
     }
 });
-watch(() => props.invitations.value, (newSelectedItem) => {
-    if (newSelectedItem) {
-        invitation_id.value = newSelectedItem.id;
-    }
-});
+
+// watch(() => props.invitations.value, (newSelectedItem) => {
+//     if (newSelectedItem) {
+//         invitation_id.value = newSelectedItem.id;
+//     }
+// });
 
 const getFileName = (file) => {
     const words = file.split('/');
@@ -34,10 +36,12 @@ const getFileName = (file) => {
 }
 const handleFileChange = (event, name) => {
 
-    const selectedFile = event.target.files[0];
+    let selectedFile = event.target.files[0];
     if (selectedFile) {
-        payload.value = [...payload.value, { name: name, file: selectedFile }];
+        payload.value = [...payload.value, {name: name, file: selectedFile}];
     }
+    selectedFile = null;
+
 };
 const openFile = (file) => {
     const url = URL.createObjectURL(file);
@@ -54,7 +58,6 @@ const base64ToArrayBuffer = (base64Str) => {
 
     return bytes;
 };
-
 const showDocument = (base64Str, contentType) => {
     const byteArray = base64ToArrayBuffer(base64Str);
     const blob = new Blob([byteArray], {type: contentType});
@@ -78,7 +81,8 @@ const submit = async () => {
         });
         if (window.confirm('Gracias por postularte. Revisa tus postulaciones')) {
             // Si el usuario hace clic en "Aceptar"
-            location.reload();}
+            location.reload();
+        }
 
     } catch (error) {
         window.confirm('No fue posible realizar la potulacion')
@@ -86,7 +90,6 @@ const submit = async () => {
         console.error(error);
     }
 };
-
 
 const searchQuery = ref('');
 const currentView = ref('estado')
@@ -107,6 +110,7 @@ const handleFilter = () => {
 </script>
 
 <template>
+    <Head title="Convocatorias"/>
     <MainLayout>
         <div class="mb-4 px-6">
             <input @keyup.enter="handleFilter" v-model="searchQuery"
@@ -150,13 +154,14 @@ const handleFilter = () => {
                                     <label for="file" class="mr-2">Cargar el documento:
                                         {{ requirement.description }}</label>
 
-                                    <input type="file" required id="file" accept="*/*"
+                                    <input type="file" id="file" accept="*/*"
                                            @change="(event) => handleFileChange(event,requirement.description)">
 
                                     <div v-if="payload.length">
                                         <h3>Archivo seleccionado:</h3>
                                         <div class="preview-container">
-                                            <a href="#" @click.prevent="openFile(payload[0].file)">{{ payload[0].file.name }}</a>
+                                            <a href="#"
+                                               @click.prevent="openFile(payload[0].file)">{{ payload[0].file.name }}</a>
 
                                         </div>
                                     </div>
@@ -184,6 +189,7 @@ const handleFilter = () => {
                                     Estado
                                 </button>
                                 <button
+                                    type="button"
                                     :class="currentView === 'documentos' ? 'bg-blueFigma text-white' : 'bg-blueFigma bg-opacity-60 text-white'"
                                     class="px-4 py-2 font-semibold  focus:outline-none rounded-r-xl"
                                     @click="currentView = 'documentos'"
@@ -250,12 +256,10 @@ const handleFilter = () => {
                             <div v-if="currentView === 'documentos'">
                                 <div class="border p-4 rounded-lg bg-gray-100">
                                     <h3 class="text-lg font-semibold">Documentos Subidos</h3>
-                                    <div v-for="file in JSON.parse(selectedItem.files)"></div>
-                                    <ul class="list-disc ml-6 text-gray-600">
-                                        <li>Documento de identidad</li>
-                                        <li>Certificado de estudios</li>
-                                        <li>Currículum Vitae</li>
-                                    </ul>
+<!--                                    <div v-for="file in JSON.parse(selectedItem)">-->
+
+<!--                                    </div>-->
+
                                 </div>
                             </div>
 

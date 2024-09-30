@@ -1,8 +1,6 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import {Head, Link, useForm} from '@inertiajs/vue3';
 
@@ -19,8 +17,7 @@ const submit = () => {
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
         onSuccess: () => {
-            // Redirige a la página deseada
-            window.location.href = route('registerSupplier'); // o cualquier otra ruta a la que quieras redirigir
+           // window.location.href = route('registerSupplier');
         }
     });
 };
@@ -72,7 +69,6 @@ const submit = () => {
                     <select name="" id="type_id"
                             class="mt-1 block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
                             v-model="form.type_id" required>hola
-                        <option> Cedula</option>
                         <option> RUT</option>
                         <option> NIT</option>
                     </select>

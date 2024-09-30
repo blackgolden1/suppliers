@@ -23,7 +23,7 @@ function toggleMenu() {
                 <div>
                     <Link :href="route('convocatorias')">Convocatorias</Link>
                 </div>
-                <div>
+                <div v-if="role === 1">
                     <Link :href="route('misPostulaciones')">Mis postulaciones</Link>
                 </div>
                 <div>

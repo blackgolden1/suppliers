@@ -1,5 +1,4 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import Postularse from "@/Layouts/MainLayout.vue";
 import 'filepond/dist/filepond.min.css';
@@ -30,11 +29,11 @@ const form = useForm({
     active: '',
     quantity: '',
     description: '',
-    requirements: [{description: '', type: ''}],
+    requirements: [{description: '', type: 'archivo'}],
     files: [{}]
 });
 const addRequirement = () => {
-    form.requirements.push({description: '', type: ''});
+    form.requirements.push({description: '', type: 'archivo'});
 
 };
 const removeRequirement = (index) => {
@@ -116,7 +115,7 @@ const submit = () => {
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="last-name">Fecha de
                                     inicio</label>
-                                <input id="last-name" type="date" v-model="form.date_start" required
+                                <input id="last-name" type="datetime-local" v-model="form.date_start" required
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
                         </div>
@@ -124,7 +123,7 @@ const submit = () => {
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700" for="street-address">Fecha
                                 final</label>
-                            <input id="street-address" type="date" v-model="form.date_finish" required
+                            <input id="street-address" type="datetime-local" v-model="form.date_finish" required
                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                         </div>
 
@@ -191,13 +190,6 @@ const submit = () => {
                     </div>
                     <div>
                         <div v-for="(requirement, index) in form.requirements" :key="index" class="mb-2 ">
-                            <label for="type" class="text-sm font-medium text-gray-700">Tipo</label>
-                            <select id="type" v-model="form.requirements[index].type" required
-                                    class="px-3 py-2 mx-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <!--                                <option value="texto">Texto</option>-->
-                                <option value="archivo">Archivo</option>
-                                <!--                                <option value="numerico">Numerico</option>-->
-                            </select>
 
                             <label for="requirementName" class="text-sm font-medium text-gray-700">Descripcion
                                 {{ index + 1 }}</label>

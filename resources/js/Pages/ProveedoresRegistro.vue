@@ -1,8 +1,6 @@
 <script setup>
 import {Head, useForm} from '@inertiajs/vue3';
 import {ref} from 'vue';
-import {Link,} from "@inertiajs/vue3";
-
 import MainLayout from "@/Layouts/MainLayout.vue";
 import {Inertia} from "@inertiajs/inertia";
 
@@ -10,11 +8,11 @@ import {Inertia} from "@inertiajs/inertia";
 const file = ref(null);
 
 const form = useForm({
-    name: '',
+    // name: '',
     ciuu: '',
     phone: '',
-    id_type: '',
-    identification_number: '',
+    // id_type: '',
+    // identification_number: '',
     person_type: '',
     company_name: '',
     comercial_name: '',
@@ -23,7 +21,7 @@ const form = useForm({
     retainer: '',
     contributor: '',
     ica: '',
-    email: '',
+    // email: '',
     rut: '',
     iso_9001: '',
     copy_doc_represent: '',

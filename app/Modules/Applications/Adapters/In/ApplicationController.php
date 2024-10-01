@@ -40,7 +40,7 @@ class ApplicationController extends Controller
                 $paths[] = $path;
             }
         if (!$existingApplication) {
-            $this->applicationService->apply($request->invitation_id, $supplierId, 'pending', $paths);
+            $this->applicationService->apply($request->invitation_id, $supplierId, 'postulado', $paths);
         }
         else error('errorrrrrrr');
     }

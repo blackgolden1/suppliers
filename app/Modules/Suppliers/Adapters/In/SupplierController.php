@@ -11,7 +11,7 @@ use App\Modules\Users\Adapters\Out\User;
 use http\Message;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
+use Carbon\Carbon;
 class SupplierController extends Controller
 {
     private ISupplierService $supplierService;
@@ -23,9 +23,9 @@ class SupplierController extends Controller
 
     public function create(Request $request): void
     {
-
+        $currentTime = Carbon::now();
         $rutPath = $request->file('rut')->storeAs(
-            'public/proveedores/'. $request->name,  'RUT'.  '_' .$request->name . '-' . \Str::random(5) . '.pdf');
+            'public/proveedores/'. $request->name,  'RUT'.  '_' . $currentTime . '.pdf');
         $isoPath = $request->file('iso_9001')->storeAs(
             'public/proveedores/'. $request->name, 'ISO_9001'. '_' . $request->name . '-' . \Str::random(5) . '.pdf');
         $copyPath = $request->file('copy_doc_represent')->storeAs(

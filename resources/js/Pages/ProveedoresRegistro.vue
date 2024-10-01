@@ -6,7 +6,6 @@ import {Inertia} from "@inertiajs/inertia";
 
 
 const file = ref(null);
-
 const form = useForm({
     // name: '',
     ciuu: '',
@@ -29,20 +28,7 @@ const form = useForm({
 
 
 });
-const categories = ref([
-    'Académicas: Asesorías Académicas',
-    'Accesorios y Materiales de Reparación de Equipos',
-    'Aseo y Cafetería',
-    'Base de Datos',
-    'Construcción y Adecuación de Ambientes Escolares',
-    'Contratación de Servicios',
-    'Dotaciones',
-    'Elementos de Robótica',
-    'Equipos de Cómputo',
-    'Equipos de Comunicaciones - Audiovisuales',
-    'Equipos de Piscina',
-]);
-const selectedCategories = ref([]);
+
 const docs = useForm({file: ''})
 const submit = () => {
     console.log(form);
@@ -59,7 +45,7 @@ const handleFileUpload = (event) => {
 </script>
 
 <template>
-    <Head title="Registro Proveedores"/>
+    <Head title="Registro Proveedores"></Head>
 
     <MainLayout>
 
@@ -73,30 +59,6 @@ const handleFileUpload = (event) => {
 
                     <div class="col-span-2">
 
-                        <div class="grid grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="first-name">Nombre
-                                    completo</label>
-                                <input id="last-name" type="text" v-model="form.name"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="first-name">Tipo de
-                                    Identificacion</label>
-                                <select id="first-name" v-model="form.id_type"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option>Cedula</option>
-                                    <option>NIT</option>
-                                    <option>RUT</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="last-name">Numero de
-                                    identificacion</label>
-                                <input id="last-name" type="text" v-model="form.identification_number"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                        </div>
                         <div class="grid grid-cols-2 gap-6 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="first-name">Tipo
@@ -122,11 +84,6 @@ const handleFileUpload = (event) => {
                                 <input id="zip" type="text" v-model="form.comercial_name"
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="city">Email</label>
-                                <input id="city" type="email" v-model="form.email"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="state">Pagina web</label>
@@ -145,23 +102,32 @@ const handleFileUpload = (event) => {
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="city">Auto Retenedor</label>
-                                <input id="city" type="text" v-model="form.retainer"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
+                                <input class="mr-4" id="city" type="radio" v-model="form.retainer" value="Si" required/>
+                                <label class=" text-sm font-medium text-gray-700" for="city">No</label>
+                                <input id="city" type="radio" v-model="form.retainer" value="No" required
+                                       class=""/>
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="state">Gran
                                     contribuyente</label>
-                                <input id="state" type="text" v-model="form.contributor"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
+                                <input class="mr-4" id="city" type="radio" v-model="form.contributor" value="Si" required/>
+                                <label class=" text-sm font-medium text-gray-700" for="city">No</label>
+                                <input id="city" type="radio" v-model="form.contributor" value="No" required
+                                       class=""/>
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="zip">Contribuyente de Ica
                                 </label>
-                                <input id="zip" type="text" v-model="form.ica"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
+                                <input class="mr-4" id="city" type="radio" v-model="form.ica" value="Si" required/>
+                                <label class=" text-sm font-medium text-gray-700" for="city">No</label>
+                                <input id="city" type="radio" v-model="form.ica" value="No" required
+                                       class=""/>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="city">Telefono</label>
@@ -169,7 +135,7 @@ const handleFileUpload = (event) => {
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="city">Telefono</label>
+                                <label class="block text-sm font-medium text-gray-700" for="city">ciuu</label>
                                 <input id="city" type="text" v-model="form.ciuu"
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
                             </div>

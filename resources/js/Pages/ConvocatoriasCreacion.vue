@@ -42,6 +42,7 @@ const removeRequirement = (index) => {
     }
 };
 
+
 const handleFileChange = (event) => {
 
     form.files = event.target.files;
@@ -75,7 +76,7 @@ const base64ToArrayBuffer = (base64Str) => {
 
 const showDocument = (base64Str, contentType) => {
     const byteArray = base64ToArrayBuffer(base64Str);
-    const blob = new Blob([byteArray], { type: contentType });
+    const blob = new Blob([byteArray], {type: contentType});
     const url = URL.createObjectURL(blob);
 
     window.open(url, '_blank');
@@ -106,28 +107,43 @@ const submit = () => {
 
                     <div class="col-span-2">
 
-                        <div class="grid grid-cols-2 gap-6 mb-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="first-name">Nombre</label>
-                                <input id="first-name" type="text" v-model="form.name" required
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="last-name">Fecha de
-                                    inicio</label>
-                                <input id="last-name" type="datetime-local" v-model="form.date_start" required
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-                        </div>
-
                         <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="street-address">Fecha
-                                final</label>
-                            <input id="street-address" type="datetime-local" v-model="form.date_finish" required
-                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700" for="name">Nombre</label>
+                                <input id="name" type="text" v-model="form.name" required
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
+               focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700" for="date-start">Fecha de
+                                        inicio</label>
+                                    <input id="date-start" type="datetime-local" v-model="form.date_start" required
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
+                   focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700" for="date-finish">Fecha
+                                        final</label>
+                                    <input id="date-finish" type="datetime-local" v-model="form.date_finish" required
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
+                   focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700" for="state">Descripcion</label>
+                            <input type="text" id="state"  v-model="form.description" required
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
+                                      focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+<!--                            <textarea id="state" type="textarea" v-model="form.description" required-->
+<!--                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none -->
+<!--                                      focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"> </textarea>-->
                         </div>
 
-                        <div class="grid grid-cols-3 gap-4 mb-4 items-center">
+                        <div class="grid grid-cols-2 gap-4 mb-4 items-center">
                             <div> Activa:
                                 <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
                                 <input class="mr-4" id="city" type="radio" v-model="form.active" value="1" required/>
@@ -136,13 +152,6 @@ const submit = () => {
                                        class=""/>
 
                             </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700" for="state">Descripcion</label>
-                                <input id="state" type="text" v-model="form.description" required
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                            </div>
-
                             <div>
                                 <label class="block text-sm font-medium text-gray-700" for="zip">Cuantia</label>
                                 <input id="zip" type="number" v-model="form.quantity" required
@@ -161,22 +170,23 @@ const submit = () => {
                     <div class="col-span-1">
                         <label for="file">Adjuntar archivo</label>
                         <input type="file" id="file" accept="*/*" multiple @change="handleFileChange" required>
-<!--                                                <FilePond allowMultiple="true" ref="pond" v-on:updatefiles="handleFilePondUpdateFile" />-->
+                        <!--                                                <FilePond allowMultiple="true" ref="pond" v-on:updatefiles="handleFilePondUpdateFile" />-->
 
                         <!-- Previsualización de las imágenes seleccionadas -->
-<!--                        <div v-if="previews.length">-->
-<!--                            <h3>Previsualización:</h3>-->
-<!--                            <div v-for="(file, index) in previews" :key="index" class="preview-container">-->
-<!--                                <img v-if="file.type.startsWith('image/')" :src="file.url" alt="Previsualización de imagen" class="preview-image" />-->
-<!--                                <iframe v-if="file.type === 'application/pdf'" :src="file.url" class="preview-pdf">{{file.url}}</iframe>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div v-if="previews.length">-->
+                        <!--                            <h3>Previsualización:</h3>-->
+                        <!--                            <div v-for="(file, index) in previews" :key="index" class="preview-container">-->
+                        <!--                                <img v-if="file.type.startsWith('image/')" :src="file.url" alt="Previsualización de imagen" class="preview-image" />-->
+                        <!--                                <iframe v-if="file.type === 'application/pdf'" :src="file.url" class="preview-pdf">{{file.url}}</iframe>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
 
                         <div v-if="previews.length">
                             <h3>Archivos seleccionados:</h3>
                             <div v-for="(file, index) in previews" :key="index" class="preview-container">
                                 <!-- Mostrar nombre de cualquier archivo y abrir en nueva pestaña al hacer clic -->
-                                <a class="text-blueFigma font-semibold" href="#" @click.prevent="showDocument(file.base64, file.type)">{{ file.name }}</a>
+                                <a class="text-blueFigma font-semibold" href="#"
+                                   @click.prevent="showDocument(file.base64, file.type)">{{ file.name }}</a>
                             </div>
                         </div>
 

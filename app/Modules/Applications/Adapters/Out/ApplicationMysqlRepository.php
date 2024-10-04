@@ -30,4 +30,10 @@ class ApplicationMysqlRepository implements IApplicationRepository
         else error('errorrrrrrr');
     }
 
+    public function getRadicado($invitation_id): int
+    {
+        $supplierId = auth()->user()->supplier->id;
+        return Postulation::where('invitation_id','=',$invitation_id)
+            ->where('supplier_id', $supplierId)->value('radicado');
+    }
 }

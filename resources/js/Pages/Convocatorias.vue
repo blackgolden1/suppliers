@@ -31,8 +31,7 @@ const role = page.props.auth.user.role_id;
                     <th scope="col" class="px-6 py-3 w-full text-center">
                         Descripcion
                     </th>
-                    <th scope="col" class="px-6 py-3 w-full text-center">
-                    </th>
+
                     <th scope="col" class="px-6 py-3 w-full text-center">
                     </th>
                 </tr>
@@ -53,9 +52,7 @@ const role = page.props.auth.user.role_id;
                     <td class="px-6 py-4">
                         {{ invitation.description }}
                     </td>
-                    <td class="px-6 py-4 w-fit" >
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                    </td>
+
                     <td class="px-6 py-4 w-fit" >
                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
                     </td>

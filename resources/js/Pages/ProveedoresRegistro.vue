@@ -145,38 +145,6 @@ const handleFileUpload = (event) => {
                     </div>
                 </div>
 
-                <!-- Sección 2 -->
-                <!--                <div class="grid grid-cols-3 gap-6">-->
-                <!--                    <div class="col-span-1">-->
-                <!--                        <h2 class="text-2xl font-semibold">Productos y servicios</h2>-->
-                <!--                    </div>-->
-                <!--                    <div class="col-span-2">-->
-
-                <!--                        <div class="mb-4">-->
-                <!--                            <label class="block text-sm font-medium text-gray-700" for="job-title">Job Title</label>-->
-                <!--                            <select name="" multiple id="categories"-->
-                <!--                                    v-model="selectedCategories">-->
-                <!--                                <option-->
-                <!--                                    v-for="category in categories"-->
-                <!--                                    :key="category"-->
-                <!--                                    :value="category"-->
-                <!--                                >-->
-                <!--                                    {{ category }}-->
-                <!--                                </option>-->
-                <!--                            </select>-->
-                <!--                            <div class="mt-4">-->
-                <!--                                <h3>Categorías seleccionadas:</h3>-->
-                <!--                                <ul>-->
-                <!--                                    <li v-for="(category, index) in selectedCategories" :key="index">-->
-                <!--                                        {{ category }}-->
-                <!--                                    </li>-->
-                <!--                                </ul>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-                <!-- Sección 3 -->
                 <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-1">
                         <h2 class="text-2xl font-semibold">Documentos Adjuntos</h2>
@@ -186,34 +154,31 @@ const handleFileUpload = (event) => {
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="rut">RUT</label>
                         <input
                             required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help" id="rut" type="file" ref="file" @input="form.rut=$event.target.files[0]"/>
+                            aria-describedby="user_avatar_help" id="rut" type="file" accept="application/pdf" ref="file" @input="form.rut=$event.target.files[0]"/>
 
 
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="certificacion">Certificacion
                             Bancaria</label>
                         <input
                             required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="certificacion" id="user_avatar" type="file" @input="form.bank_certification=$event.target.files[0]"/>
+                            aria-describedby="certificacion" id="user_avatar" type="file"accept="application/pdf" @input="form.bank_certification=$event.target.files[0]"/>
                     </div>
                     <div class="col-span-1">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="copia">Copia
                             documento representante legal</label>
                         <input
                             required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help" id="copia" type="file" @input="form.copy_doc_represent=$event.target.files[0]"/>
+                            aria-describedby="user_avatar_help" id="copia" type="file" accept="application/pdf" @input="form.copy_doc_represent=$event.target.files[0]"/>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="iso">Calidad
                             ISO 9001</label>
                         <input
                             required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help" id="iso" type="file" @input="form.iso_9001=$event.target.files[0]"/>
+                            aria-describedby="user_avatar_help" id="iso" type="file" accept="application/pdf" @input="form.iso_9001=$event.target.files[0]"/>
                     </div>
                 </div>
 
                 <button class="bg-blue text-white p-4 rounded-lg mt-4 flex" type="submit">Enviar</button>
-<!--                <Link href="{{url('/')}}/{{ Storage::disk('local')->url('file.txt')}}">hola</Link>-->
             </form>
         </div>
-
-
     </MainLayout>
 </template>

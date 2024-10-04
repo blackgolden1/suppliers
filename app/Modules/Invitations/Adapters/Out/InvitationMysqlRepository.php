@@ -7,6 +7,7 @@ use App\Modules\Applications\Adapters\Out\Postulation;
 use App\Modules\Invitations\Domain\InvitationEntity;
 use App\Modules\Invitations\Domain\Ports\Out\IInvitationRepository;
 use App\Modules\Users\Adapters\Out\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -55,21 +56,25 @@ class InvitationMysqlRepository implements IInvitationRepository
         $invitation->save();
     }
 
-    public function search(): array
+    public function getActiveInvitations(): array
     {
-        return Invitation::with('requirements')->with('postulations')->get()->toArray();
+        return Invitation::where('date_finish', '<', Carbon::now())
+            ->with('requirements')
+            ->with('postulations')
+            ->get()
+            ->toArray();
     }
 
     public function myPostulations(): array
     {
-        $supplier = Auth::user()->supplier; // Accedemos al objeto del proveedor relacionado
-        $supplierId = $supplier->id; // Obtenemos el ID del proveedor
+        $supplier = Auth::user()->supplier;
+        $supplierId = $supplier->id;
         return Postulation::with('invitations')->where('supplier_id','=',$supplierId)->get()->toArray();
     }
 
     public function index(): array
     {
-        return DB::table('invitations')->get()->all();
+        return Invitation::with('requirements')->with('postulations')->get()->toArray();
     }
 
     public function filter($name): array
@@ -87,6 +92,6 @@ class InvitationMysqlRepository implements IInvitationRepository
         $invitation = Invitation::with('postulations')->with('suppliers')->with('requirements')->find($id)->toArray();
         $invitation['files'] = json_decode($invitation['files']);
         return $invitation;
-        return new InvitationEntity($invitation->toArray());
+//        return new InvitationEntity($invitation->toArray());
     }
 }

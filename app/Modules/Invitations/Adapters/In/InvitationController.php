@@ -66,7 +66,7 @@ class InvitationController extends Controller
         $isAdmin = Auth::user()->isAdmin();
 
         if (!$isAdmin) {
-            return Inertia::render('ConvocatoriasIframe', ['invitations' => $allInvitations]);
+            return Inertia::render('ConvocatoriasIframe', ['invitations' => $activeInvitations]);
         }
         return Inertia::render('Convocatorias', ['invitations' => $allInvitations]);
 

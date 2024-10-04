@@ -58,7 +58,8 @@ class InvitationMysqlRepository implements IInvitationRepository
 
     public function getActiveInvitations(): array
     {
-        return Invitation::where('date_finish', '<', Carbon::now())
+        $dateNow = Carbon::now()->toDateTimeString();
+        return Invitation::where('date_finish', '>', $dateNow)
             ->with('requirements')
             ->with('postulations')
             ->get()

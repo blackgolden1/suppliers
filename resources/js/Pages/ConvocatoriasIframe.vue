@@ -179,25 +179,11 @@ const handleFilter = () => {
                         <div class="p-6 border rounded-lg" v-show="selectedItem.postulations.length > 0 ">
                             <!-- Tabs -->
                             <div class="flex mb-6">
-                                <button
-                                    :class="currentView === 'estado' ? 'bg-blueFigma text-white' : 'bg-blueFigma bg-opacity-60 text-white'"
-                                    class="px-4 py-2 font-semibold  focus:outline-none rounded-l-xl"
-                                    @click="currentView = 'estado'"
-                                >
+                                <div class=" bg-blueFigma text-white px-4 py-2 font-semibold  focus:outline-none rounded-xl">
                                     Estado
-                                </button>
-                                <button
-                                    type="button"
-                                    :class="currentView === 'documentos' ? 'bg-blueFigma text-white' : 'bg-blueFigma bg-opacity-60 text-white'"
-                                    class="px-4 py-2 font-semibold  focus:outline-none rounded-r-xl"
-                                    @click="currentView = 'documentos'"
-                                >
-                                    Documentos
-                                </button>
+                                </div>
                             </div>
 
-                            <!-- Vista del historial de postulacion (estado) -->
-                            <div v-if="currentView === 'estado'">
                                 <div class="relative">
                                     <!-- Postulado -->
                                     <div class="flex flex-col mb-8 align-baseline h-fit">
@@ -235,14 +221,6 @@ const handleFilter = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div v-if="currentView === 'documentos'">
-                                <div class="border p-4 rounded-lg bg-gray-100">
-                                    <h3 class="text-lg font-semibold">Documentos Subidos</h3>
-
-                                </div>
-                            </div>
 
                         </div>
                     </div>

@@ -61,83 +61,83 @@ const handleFileUpload = (event) => {
 
                         <div class="grid grid-cols-2 gap-6 mb-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="first-name">Tipo
+                                <label class="block text-xxs font-medium text-gray-700" for="first-name">Tipo
                                     persona</label>
                                 <select id="first-name" v-model="form.person_type"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs">
                                     <option>Natural</option>
                                     <option>Juridica</option>
 
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="last-name">Razon
+                                <label class="block text-xxs font-medium text-gray-700" for="last-name">Razon
                                     Social</label>
                                 <input id="last-name" type="text" v-model="form.company_name"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="zip">Nombre Comercial
+                                <label class="block text-xxs font-medium text-gray-700" for="zip">Nombre Comercial
                                 </label>
                                 <input id="zip" type="text" v-model="form.comercial_name"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="state">Pagina web</label>
+                                <label class="block text-xxs font-medium text-gray-700" for="state">Pagina web</label>
                                 <input id="state" type="text" v-model="form.web_page"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                             </div>
 
 
                         </div>
                         <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="zip">Regimen
+                                <label class="block text-xxs font-medium text-gray-700" for="zip">Regimen
                                 </label>
                                 <input id="zip" type="text" v-model="form.regimen"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="city">Auto Retenedor</label>
-                                <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
+                                <label class="block text-xxs font-medium text-gray-700" for="city">Auto Retenedor</label>
+                                <label class=" text-xxs font-medium text-gray-700" for="city">Si</label>
                                 <input class="mr-4" id="city" type="radio" v-model="form.retainer" value="Si" required/>
-                                <label class=" text-sm font-medium text-gray-700" for="city">No</label>
+                                <label class=" text-xxs font-medium text-gray-700" for="city">No</label>
                                 <input id="city" type="radio" v-model="form.retainer" value="No" required
                                        class=""/>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="state">Gran
+                                <label class="block text-xxs font-medium text-gray-700" for="state">Gran
                                     contribuyente</label>
-                                <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
+                                <label class=" text-xxs font-medium text-gray-700" for="city">Si</label>
                                 <input class="mr-4" id="city" type="radio" v-model="form.contributor" value="Si" required/>
-                                <label class=" text-sm font-medium text-gray-700" for="city">No</label>
+                                <label class=" text-xxs font-medium text-gray-700" for="city">No</label>
                                 <input id="city" type="radio" v-model="form.contributor" value="No" required
                                        class=""/>
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="zip">Contribuyente de Ica
+                                <label class="block text-xxs font-medium text-gray-700" for="zip">Contribuyente de Ica
                                 </label>
-                                <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
+                                <label class=" text-xxs font-medium text-gray-700" for="city">Si</label>
                                 <input class="mr-4" id="city" type="radio" v-model="form.ica" value="Si" required/>
-                                <label class=" text-sm font-medium text-gray-700" for="city">No</label>
+                                <label class=" text-xxs font-medium text-gray-700" for="city">No</label>
                                 <input id="city" type="radio" v-model="form.ica" value="No" required
                                        class=""/>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="city">Telefono</label>
+                                <label class="block text-xxs font-medium text-gray-700" for="city">Telefono</label>
                                 <input id="city" type="text" v-model="form.phone"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="city">ciuu</label>
+                                <label class="block text-xxs font-medium text-gray-700" for="city">ciuu</label>
                                 <input id="city" type="text" v-model="form.ciuu"
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                             </div>
 
 
@@ -151,28 +151,28 @@ const handleFileUpload = (event) => {
                     </div>
 
                     <div class="col-span-1">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="rut">RUT</label>
+                        <label class="block mb-2 text-xxs font-medium text-gray-900 dark:text-white" for="rut">RUT</label>
                         <input
-                            required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required class="block w-full text-xxs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="rut" type="file" accept="application/pdf" ref="file" @input="form.rut=$event.target.files[0]"/>
 
 
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="certificacion">Certificacion
+                        <label class="block mb-2 text-xxs font-medium text-gray-900 dark:text-white" for="certificacion">Certificacion
                             Bancaria</label>
                         <input
-                            required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required class="block w-full text-xxs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="certificacion" id="user_avatar" type="file"accept="application/pdf" @input="form.bank_certification=$event.target.files[0]"/>
                     </div>
                     <div class="col-span-1">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="copia">Copia
+                        <label class="block mb-2 text-xxs font-medium text-gray-900 dark:text-white" for="copia">Copia
                             documento representante legal</label>
                         <input
-                            required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required class="block w-full text-xxs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="copia" type="file" accept="application/pdf" @input="form.copy_doc_represent=$event.target.files[0]"/>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="iso">Calidad
+                        <label class="block mb-2 text-xxs font-medium text-gray-900 dark:text-white" for="iso">Calidad
                             ISO 9001</label>
                         <input
-                            required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required class="block w-full text-xxs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help" id="iso" type="file" accept="application/pdf" @input="form.iso_9001=$event.target.files[0]"/>
                     </div>
                 </div>

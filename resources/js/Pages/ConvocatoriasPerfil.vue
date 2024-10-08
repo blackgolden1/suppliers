@@ -78,39 +78,39 @@ const handleFileChange = (event) => {
 
                             <div class="col-span-2">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700"
+                                    <label class="block text-xxs font-medium text-gray-700"
                                            for="first-name">Nombre</label>
                                     <input id="first-name" type="text" v-model="form.name"
-                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                                 </div>
                                 <div class="grid grid-cols-2 gap-6 mb-4">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700" for="last-name">Fecha de
+                                        <label class="block text-xxs font-medium text-gray-700" for="last-name">Fecha de
                                             inicio</label>
                                         <input id="last-name" type="date" v-model="form.date_start"
-                                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700" for="street-address">Fecha
+                                        <label class="block text-xxs font-medium text-gray-700" for="street-address">Fecha
                                             final</label>
                                         <input id="street-address" type="date" v-model="form.date_finish"
-                                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700" for="state">Descripcion</label>
+                                    <label class="block text-xxs font-medium text-gray-700" for="state">Descripcion</label>
                                     <textarea id="state" v-model="form.description"
-                                              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"
                                               rows="6"></textarea>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-4 mb-4 items-center">
                                     <div> Activa:
-                                        <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
+                                        <label class=" text-xxs font-medium text-gray-700" for="city">Si</label>
                                         <input class="mr-4" id="city" type="radio" v-model="form.active" value="1"
                                         />
-                                        <label class=" text-sm font-medium text-gray-700" for="city">No</label>
+                                        <label class=" text-xxs font-medium text-gray-700" for="city">No</label>
                                         <input id="city" type="radio" v-model="form.active" value="0"
                                                class=""/>
 
@@ -119,9 +119,9 @@ const handleFileChange = (event) => {
 
 
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700" for="zip">Cuantia</label>
+                                        <label class="block text-xxs font-medium text-gray-700" for="zip">Cuantia</label>
                                         <input id="zip" type="number" v-model="form.quantity"
-                                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                                     </div>
                                 </div>
 
@@ -131,20 +131,20 @@ const handleFileChange = (event) => {
                         <div class="grid grid-cols-2 gap-6 mt-8 items-center">
                             <div class="col-span-1">
                                 <h2 class="text-2xl font-semibold">Archivos solicitados</h2>
-                                <p class="mt-2 text-sm text-gray-600">Documentos adicionales requeridos para la
+                                <p class="mt-2 text-xxs text-gray-600">Documentos adicionales requeridos para la
                                     postulacion.</p>
                             </div>
                             <div>
                                 <div v-for="(requirement, index) in form.requirements" :key="index" class="mb-2 ">
 
-                                    <label for="requirementName" class="text-sm font-medium text-gray-700">Descripcion
+                                    <label for="requirementName" class="text-xxs font-medium text-gray-700">Descripcion
                                         {{ index + 1 }}</label>
                                     <input
 
                                         v-model="form.requirements[index].description"
                                         type="text"
                                         id="requirementName"
-                                        class="px-3 py-2 mx-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        class="px-3 py-2 mx-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"
                                         placeholder="Nombre del archivo"
                                     />
 
@@ -185,7 +185,7 @@ const handleFileChange = (event) => {
                                     leave-active-class="transition ease-in-out"
                                     leave-to-class="opacity-0"
                                 >
-                                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Guardado</p>
+                                    <p v-if="form.recentlySuccessful" class="text-xxs text-gray-600">Guardado</p>
                                 </Transition>
                             </div>
                         </div>
@@ -194,8 +194,8 @@ const handleFileChange = (event) => {
 
                 <div v-if="selectedTab === 'billing'">
                     <!-- Billing Content -->
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table class="w-full text-xxs text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xxs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
 
                             <th scope="col" class="px-6 py-3">

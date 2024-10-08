@@ -25,7 +25,9 @@ class SupplierController extends Controller
 
     public function create(Request $request): void
     {
-        $currentTime = Carbon::now();
+        $currentTime = Carbon::now()->format('Ymd_His');;
+        //$currentTime = '1';
+//        dd($currentTime);
         $rutPath = $request->file('rut')->storeAs(
             'public/proveedores/' . $request->comercial_name, 'RUT' . '_' . $currentTime . '.pdf');
         $isoPath = $request->file('iso_9001')->storeAs(

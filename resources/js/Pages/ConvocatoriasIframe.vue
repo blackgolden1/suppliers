@@ -126,7 +126,7 @@ const handleFilter = () => {
                     <p v-if="invitation.active"
                        class="rounded-3xl bg-lblue font-semibold text-black w-fit p-2 mb-4">
                         Activa</p>
-                    <h3 class="text-lg font-semibold">{{ invitation.name }}</h3>
+                    <h3 class="text-xs font-semibold">{{ invitation.name }}</h3>
                     <p class="text-gray-500">Fecha Limite: {{ invitation.date_finish }}</p>
                 </div>
             </div>
@@ -189,7 +189,7 @@ const handleFilter = () => {
                                     <div class="flex flex-col mb-8 align-baseline h-fit">
                                         <div class="flex  items-center">
                                             <span class="w-4 h-4 bg-green-500 rounded-full inline-block"></span>
-                                            <h3 class="text-lg font-semibold">Radicado</h3>
+                                            <h3 class="text-xs font-semibold">Radicado</h3>
                                         </div>
                                         <div class="flex relative items-center">
                                             <p class="text-gray-500 border p-3 rounded-lg bg-gray-100 ml-6">
@@ -207,7 +207,7 @@ const handleFilter = () => {
                                             <span class="w-4 h-4 bg-blue-500 rounded-full inline-block"></span>
                                         </div>
                                         <div class="ml-4">
-                                            <h3 class="text-lg font-semibold">En proceso</h3>
+                                            <h3 class="text-xs font-semibold">En proceso</h3>
                                         </div>
                                     </div>
 
@@ -217,7 +217,7 @@ const handleFilter = () => {
                                             <span class="w-4 h-4 bg-blue-500 rounded-full inline-block"></span>
                                         </div>
                                         <div class="ml-4">
-                                            <h3 class="text-lg font-semibold">Notificacion</h3>
+                                            <h3 class="text-xs font-semibold">Notificacion</h3>
                                         </div>
                                     </div>
                                 </div>

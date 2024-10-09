@@ -109,53 +109,53 @@ const submit = () => {
 
                         <div class="mb-4">
                             <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700" for="name">Nombre</label>
+                                <label class="block text-xxs font-medium text-gray-700" for="name">Nombre</label>
                                 <input id="name" type="text" v-model="form.name" required
                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
-               focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+               focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700" for="date-start">Fecha de
+                                    <label class="block text-xxs font-medium text-gray-700" for="date-start">Fecha de
                                         inicio</label>
                                     <input id="date-start" type="datetime-local" v-model="form.date_start" required
                                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
-                   focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                   focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                                 </div>
 
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700" for="date-finish">Fecha
+                                    <label class="block text-xxs font-medium text-gray-700" for="date-finish">Fecha
                                         final</label>
                                     <input id="date-finish" type="datetime-local" v-model="form.date_finish" required
                                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
-                   focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                   focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700" for="state">Descripcion</label>
+                            <label class="block text-xxs font-medium text-gray-700" for="state">Descripcion</label>
                             <input type="text" id="state"  v-model="form.description" required
                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
-                                      focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                      focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs">
 <!--                            <textarea id="state" type="textarea" v-model="form.description" required-->
 <!--                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none -->
-<!--                                      focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"> </textarea>-->
+<!--                                      focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"> </textarea>-->
                         </div>
 
                         <div class="grid grid-cols-2 gap-4 mb-4 items-center">
                             <div> Activa:
-                                <label class=" text-sm font-medium text-gray-700" for="city">Si</label>
+                                <label class=" text-xxs font-medium text-gray-700" for="city">Si</label>
                                 <input class="mr-4" id="city" type="radio" v-model="form.active" value="1" required/>
-                                <label class=" text-sm font-medium text-gray-700" for="city">No</label>
+                                <label class=" text-xxs font-medium text-gray-700" for="city">No</label>
                                 <input id="city" type="radio" v-model="form.active" value="0" required
                                        class=""/>
 
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700" for="zip">Cuantia</label>
+                                <label class="block text-xxs font-medium text-gray-700" for="zip">Cuantia</label>
                                 <input id="zip" type="number" v-model="form.quantity" required
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                             </div>
                         </div>
 
@@ -165,7 +165,7 @@ const submit = () => {
                 <div class="grid grid-cols-2 gap-6 mt-8 items-center ">
                     <div class="col-span-1">
                         <h2 class="text-2xl font-semibold">Adjuntar archivos</h2>
-                        <p class="mt-2 text-sm text-gray-600">Documentos de informacion sobre la postulacion.</p>
+                        <p class="mt-2 text-xxs text-gray-600">Documentos de informacion sobre la postulacion.</p>
                     </div>
                     <div class="col-span-1">
                         <label for="file">Adjuntar archivo</label>
@@ -195,20 +195,20 @@ const submit = () => {
                 <div class="grid grid-cols-2 gap-6 mt-8 items-center">
                     <div class="col-span-1">
                         <h2 class="text-2xl font-semibold">Solicitar archivos</h2>
-                        <p class="mt-2 text-sm text-gray-600">Solicite documentos adicionales requeridos para la
+                        <p class="mt-2 text-xxs text-gray-600">Solicite documentos adicionales requeridos para la
                             postulacion.</p>
                     </div>
                     <div>
                         <div v-for="(requirement, index) in form.requirements" :key="index" class="mb-2 ">
 
-                            <label for="requirementName" class="text-sm font-medium text-gray-700">Descripcion
+                            <label for="requirementName" class="text-xxs font-medium text-gray-700">Descripcion
                                 {{ index + 1 }}</label>
                             <input
                                 required
                                 v-model="form.requirements[index].description"
                                 type="text"
                                 id="requirementName"
-                                class="px-3 py-2 mx-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                class="px-3 py-2 mx-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"
                                 placeholder="Nombre del archivo"
                             />
 

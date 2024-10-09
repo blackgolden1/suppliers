@@ -21,7 +21,7 @@ Route::get('/getRadicado', [\App\Modules\Applications\Adapters\In\ApplicationCon
 
 
 Route::get('/register-supplier', function () {
-    return Inertia::render('ProveedoresRegistro');
+    return Inertia::render('Proveedores/ProveedoresRegistro');
 })->name('registerSupplier');
 Route::post('/register-supplier', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'create'])->name('supplier.create');
 
@@ -39,12 +39,12 @@ Route::get('/postulaciones', [\App\Modules\Invitations\Adapters\In\InvitationCon
 
 
 Route::get('/register-invitation', function () {
-    return Inertia::render('ConvocatoriasCreacion');
+    return Inertia::render('Convocatorias/ConvocatoriasCreacion');
 })->name('registerInvitation')->middleware('can:isAdmin');
 
 
 Route::get('/login-prov', function () {
-    return Inertia::render('LoginProv');
+    return Inertia::render('Proveedores/LoginProv');
 })->name('loginProv');
 Route::post('/register-invitation', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'create'])->name('invitation.create');
 

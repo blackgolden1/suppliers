@@ -66,9 +66,9 @@ class InvitationController extends Controller
         $isAdmin = Auth::user()->isAdmin();
 
         if (!$isAdmin) {
-            return Inertia::render('ConvocatoriasIframe', ['invitations' => $activeInvitations]);
+            return Inertia::render('Convocatorias/ConvocatoriasIframe', ['invitations' => $activeInvitations]);
         }
-        return Inertia::render('Convocatorias', ['invitations' => $allInvitations]);
+        return Inertia::render('Convocatorias/Convocatorias', ['invitations' => $allInvitations]);
 
     }
 
@@ -84,14 +84,14 @@ class InvitationController extends Controller
     public function myPostulations(): \Inertia\Response
     {
         $postulations = $this->invitationService->myPostulations();
-        return Inertia::render('MisConvocatorias', ['postulations' => $postulations]);
+        return Inertia::render('Convocatorias/MisConvocatorias', ['postulations' => $postulations]);
     }
 
     public function iframe(): \Inertia\Response
     {
         $activeInvitations = $this->invitationService->getActiveInvitations();
 
-        return Inertia::render('ConvoIframe', ['invitations' => $activeInvitations]);
+        return Inertia::render('Convocatorias/ConvoIframe', ['invitations' => $activeInvitations]);
     }
 
     public function index(): array
@@ -111,8 +111,8 @@ class InvitationController extends Controller
         $user = Auth::user()->isAdmin();
 
         if ($user) {
-            return Inertia::render('ConvocatoriasPerfil', ['invitation' => $invitation]);
-        } else return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+            return Inertia::render('Convocatorias/ConvocatoriasPerfil', ['invitation' => $invitation]);
+        } else return Inertia::render('Convocatorias/ConvocatoriasIframe', ['invitations' => $invitations]);
 
 
     }

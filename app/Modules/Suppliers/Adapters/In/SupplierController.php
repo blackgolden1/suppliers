@@ -78,7 +78,7 @@ class SupplierController extends Controller
     {
         $suppliers = $this->supplierService->search();
         // dd($suppliers);
-        return Inertia::render('Proveedores', ['suppliers' => $suppliers]);
+        return Inertia::render('Proveedores/Proveedores', ['suppliers' => $suppliers]);
     }
 
     public function index(): array
@@ -94,7 +94,7 @@ class SupplierController extends Controller
     public function find($id): \Inertia\Response
     {
         $supplier = $this->supplierService->find($id);
-        return Inertia::render('ProveedorPerfil', ['supplier' => $supplier]);
+        return Inertia::render('Proveedores/ProveedorPerfil', ['supplier' => $supplier]);
     }
 
     public function apply($invitation_id, $supplier_id, $status, $description, $payload): void

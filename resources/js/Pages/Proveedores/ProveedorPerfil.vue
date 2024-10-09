@@ -112,11 +112,11 @@ const directorioAfiliados = async () => {
                         </div>
                         <p class="text-gray-500">{{ filter }}</p>
                     </div>
-                    <div>
-                        <button @click="getToken">Consultar</button>
-                        <button @click="directorioAfiliados">directorio</button>
-                        <input type="text">
-                    </div>
+<!--                    <div>-->
+<!--                        <button @click="getToken">Consultar</button>-->
+<!--                        <button @click="directorioAfiliados">directorio</button>-->
+<!--                        <input type="text">-->
+<!--                    </div>-->
 
                 </div>
 
@@ -124,7 +124,7 @@ const directorioAfiliados = async () => {
                 <div v-if="selectedTab === 'billing'">
                     <!-- Billing Content -->
                     <div class="flex flex-col text-blue font-bold">
-                        <a :href="'/storage/' + supplier.rut" target="_blank">RUT</a>
+                        <a v-if="supplier.rut !== null" :href="'/storage/' + supplier.rut" target="_blank">RUT</a>
                         <a :href="'/storage/' + supplier.bank_certification" target="_blank">Certificado Bancario</a>
                         <a :href="'/storage/' + supplier.copy_doc_represent" target="_blank">Copia del documento del
                             representante</a>

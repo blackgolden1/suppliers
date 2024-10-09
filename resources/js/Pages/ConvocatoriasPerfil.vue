@@ -87,13 +87,13 @@ const handleFileChange = (event) => {
                                     <div>
                                         <label class="block text-xxs font-medium text-gray-700" for="last-name">Fecha de
                                             inicio</label>
-                                        <input id="last-name" type="date" v-model="form.date_start"
+                                        <input id="last-name" type="datetime-local" v-model="form.date_start"
                                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                                     </div>
                                     <div>
                                         <label class="block text-xxs font-medium text-gray-700" for="street-address">Fecha
                                             final</label>
-                                        <input id="street-address" type="date" v-model="form.date_finish"
+                                        <input id="street-address" type="datetime-local" v-model="form.date_finish"
                                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"/>
                                     </div>
                                 </div>
@@ -241,12 +241,8 @@ const handleFileChange = (event) => {
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4">
-                                <a href="#"
-                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
 
+                        </tr>
                         </tbody>
                     </table>
                 </div>

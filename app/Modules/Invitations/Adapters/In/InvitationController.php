@@ -59,20 +59,16 @@ class InvitationController extends Controller
         $this->invitationService->edit($request->name, $request->date_start, $request->date_finish, $request->active, $request->quantity, $request->description, $request->requirements, $paths, $id);
     }
 
-    public function search(): \Inertia\Response
+    public function getActiveInvitations(): \Inertia\Response
     {
-        $invitations = $this->invitationService->search();
+        $allInvitations = $this->invitationService->index();
+        $activeInvitations = $this->invitationService->getActiveInvitations();
         $isAdmin = Auth::user()->isAdmin();
-        $user = Auth::user()->isAdmin();
-        $isSupplier = Auth::user()->isSupplier();
 
         if (!$isAdmin) {
-            if (!$isSupplier) {
-                return Inertia::render('ProveedoresRegistro');
-            }
-            return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+            return Inertia::render('Convocatorias/ConvocatoriasIframe', ['invitations' => $activeInvitations]);
         }
-        return Inertia::render('Convocatorias', ['invitations' => $invitations]);
+        return Inertia::render('Convocatorias/Convocatorias', ['invitations' => $allInvitations]);
 
     }
 
@@ -85,33 +81,17 @@ class InvitationController extends Controller
         $invitation->save();
     }
 
-    public function show(): \Inertia\Response //convo-iframe
-    {
-        $invitations = $this->invitationService->search();
-        $isAdmin = Auth::user()->isAdmin();
-        $isSupplier = Auth::user()->isSupplier();
-        //dd($isSupplier);
-        if (!$isAdmin) {
-            if (!$isSupplier) {
-                return Inertia::render('ProveedoresRegistro');
-            }
-            return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
-        }
-        return Inertia::render('Convocatorias', ['invitations' => $invitations]);
-    }
-
     public function myPostulations(): \Inertia\Response
     {
         $postulations = $this->invitationService->myPostulations();
-        return Inertia::render('MisConvocatorias', ['postulations' => $postulations]);
+        return Inertia::render('Convocatorias/MisConvocatorias', ['postulations' => $postulations]);
     }
 
     public function iframe(): \Inertia\Response
     {
-        $invitations = $this->invitationService->search();
-        $authh = Auth::user();
+        $activeInvitations = $this->invitationService->getActiveInvitations();
 
-        return Inertia::render('ConvoIframe', ['invitations' => $invitations]);
+        return Inertia::render('Convocatorias/ConvoIframe', ['invitations' => $activeInvitations]);
     }
 
     public function index(): array
@@ -127,12 +107,12 @@ class InvitationController extends Controller
     public function find($id): \Inertia\Response
     {
         $invitation = $this->invitationService->find($id);
-        $invitations = $this->invitationService->search();
+        $invitations = $this->invitationService->getActiveInvitations();
         $user = Auth::user()->isAdmin();
 
         if ($user) {
-            return Inertia::render('ConvocatoriasPerfil', ['invitation' => $invitation]);
-        } else return Inertia::render('ConvocatoriasIframe', ['invitations' => $invitations]);
+            return Inertia::render('Convocatorias/ConvocatoriasPerfil', ['invitation' => $invitation]);
+        } else return Inertia::render('Convocatorias/ConvocatoriasIframe', ['invitations' => $invitations]);
 
 
     }

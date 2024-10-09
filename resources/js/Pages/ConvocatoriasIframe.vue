@@ -2,6 +2,7 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import {ref, watch, onMounted} from 'vue'
 import {Head} from "@inertiajs/vue3";
+import Swal from 'sweetalert2'
 
 const props = defineProps({invitations: Array, errors: Object,});
 console.log(props.invitations);
@@ -51,24 +52,7 @@ const openFile = (file) => {
     const url = URL.createObjectURL(file);
     window.open(url, '_blank');
 };
-// const base64ToArrayBuffer = (base64Str) => {
-//     const binaryString = window.atob(base64Str);
-//     const binaryLen = binaryString.length;
-//     const bytes = new Uint8Array(binaryLen);
-//
-//     for (let i = 0; i < binaryLen; i++) {
-//         bytes[i] = binaryString.charCodeAt(i);
-//     }
-//
-//     return bytes;
-// };
-// const showDocument = (base64Str, contentType) => {
-//     const byteArray = base64ToArrayBuffer(base64Str);
-//     const blob = new Blob([byteArray], {type: contentType});
-//     const url = URL.createObjectURL(blob);
-//
-//     window.open(url, '_blank');
-// };
+
 const submit = async () => {
     try {
         let formData = new FormData();
@@ -83,14 +67,27 @@ const submit = async () => {
                 'Content-Type': 'multipart/form-data'
             }
         });
-        if (window.confirm('Gracias por postularte. Revisa tus postulaciones')) {
-            location.reload();
-        }
+        const getRadicado = await axios.get('/getRadicado', {
+            params: {
+                invitation_id: invitation_id.value,
+            }
+        })
+        await Swal.fire({
+            title: 'Postulado',
+            text: 'Gracias, se ha postulado con exito. Tu numero de radicado es ' + getRadicado.data,
+            icon: 'success',
+            confirmButtonText: 'Cerrar'
+        })
+        window.location.assign('/postulaciones');
 
     } catch (error) {
-        window.confirm('No fue posible realizar la postulacion')
-        console.log('no pude')
-        console.error(error);
+        await Swal.fire({
+            title: 'Error',
+            text: 'No fue posible realizar la postulacion',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+        })
+        console.log(error)
     }
 };
 const fetchInvitations = async (query) => {
@@ -129,7 +126,7 @@ const handleFilter = () => {
                     <p v-if="invitation.active"
                        class="rounded-3xl bg-lblue font-semibold text-black w-fit p-2 mb-4">
                         Activa</p>
-                    <h3 class="text-lg font-semibold">{{ invitation.name }}</h3>
+                    <h3 class="text-xs font-semibold">{{ invitation.name }}</h3>
                     <p class="text-gray-500">Fecha Limite: {{ invitation.date_finish }}</p>
                 </div>
             </div>
@@ -182,31 +179,17 @@ const handleFilter = () => {
                         <div class="p-6 border rounded-lg" v-show="selectedItem.postulations.length > 0 ">
                             <!-- Tabs -->
                             <div class="flex mb-6">
-                                <button
-                                    :class="currentView === 'estado' ? 'bg-blueFigma text-white' : 'bg-blueFigma bg-opacity-60 text-white'"
-                                    class="px-4 py-2 font-semibold  focus:outline-none rounded-l-xl"
-                                    @click="currentView = 'estado'"
-                                >
+                                <div class=" bg-blueFigma text-white px-4 py-2 font-semibold  focus:outline-none rounded-xl">
                                     Estado
-                                </button>
-                                <button
-                                    type="button"
-                                    :class="currentView === 'documentos' ? 'bg-blueFigma text-white' : 'bg-blueFigma bg-opacity-60 text-white'"
-                                    class="px-4 py-2 font-semibold  focus:outline-none rounded-r-xl"
-                                    @click="currentView = 'documentos'"
-                                >
-                                    Documentos
-                                </button>
+                                </div>
                             </div>
 
-                            <!-- Vista del historial de postulacion (estado) -->
-                            <div v-if="currentView === 'estado'">
                                 <div class="relative">
                                     <!-- Postulado -->
                                     <div class="flex flex-col mb-8 align-baseline h-fit">
                                         <div class="flex  items-center">
                                             <span class="w-4 h-4 bg-green-500 rounded-full inline-block"></span>
-                                            <h3 class="text-lg font-semibold">Postulado</h3>
+                                            <h3 class="text-xs font-semibold">Radicado</h3>
                                         </div>
                                         <div class="flex relative items-center">
                                             <p class="text-gray-500 border p-3 rounded-lg bg-gray-100 ml-6">
@@ -224,7 +207,7 @@ const handleFilter = () => {
                                             <span class="w-4 h-4 bg-blue-500 rounded-full inline-block"></span>
                                         </div>
                                         <div class="ml-4">
-                                            <h3 class="text-lg font-semibold">Documentos aprobados</h3>
+                                            <h3 class="text-xs font-semibold">En proceso</h3>
                                         </div>
                                     </div>
 
@@ -234,40 +217,11 @@ const handleFilter = () => {
                                             <span class="w-4 h-4 bg-blue-500 rounded-full inline-block"></span>
                                         </div>
                                         <div class="ml-4">
-                                            <h3 class="text-lg font-semibold">En contacto</h3>
+                                            <h3 class="text-xs font-semibold">Notificacion</h3>
                                         </div>
                                     </div>
-
-                                    <!-- Contratado -->
-                                    <div class="flex items-start mb-8">
-                                        <div class="flex-shrink-0">
-                                            <span class="w-4 h-4 bg-blue-500 rounded-full inline-block"></span>
-                                        </div>
-                                        <div class="ml-4">
-                                            <h3 class="text-lg font-semibold">Contratado</h3>
-                                        </div>
-                                    </div>
-
-                                    <!-- Line -->
-                                    <!--                                    <div class="absolute top-4 left-2.5 h-full w-0.5 bg-gray-300"></div>-->
                                 </div>
-                            </div>
 
-                            <!-- Vista de documentos -->
-                            <div v-if="currentView === 'documentos'">
-                                <div class="border p-4 rounded-lg bg-gray-100">
-                                    <h3 class="text-lg font-semibold">Documentos Subidos</h3>
-                                    <!--                                    <div v-for="file in JSON.parse(selectedItem)">-->
-
-                                    <!--                                    </div>-->
-
-                                </div>
-                            </div>
-
-                            <!-- Cancelar postulación button -->
-                            <button class="mt-6 px-6 py-3 bg-red-600 text-white font-bold rounded-full">
-                                Cancelar postulación
-                            </button>
                         </div>
                     </div>
                     <div v-else>

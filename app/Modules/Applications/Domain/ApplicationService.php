@@ -18,4 +18,8 @@ private IApplicationRepository $applicationRepository;
     {
         $this->applicationRepository->apply($invitation_id, $supplier_id, $status, $payload);
     }
+    public function getRadicado($invitation_id): int
+    {
+        return $this->applicationRepository->getRadicado($invitation_id);
+    }
 }

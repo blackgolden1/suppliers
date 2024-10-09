@@ -32,7 +32,40 @@ const filteredObject = computed(() => {
         }, {});
 
 });
-console.log(filteredObject.value);
+const getToken = async () => {
+    try {
+        const response = await axios.get('/consulta', {
+            params: {},
+        });
+        if (response.data.mensajeerror === "") {
+            const token = response.data.token;
+            localStorage.setItem('authToken', token);
+
+        }
+    } catch (error) {
+        console.error('Error fetching invitations:', error);
+    }
+}
+
+const directorioAfiliados = async () => {
+    try {
+        const token = localStorage.getItem('authToken');
+
+        if (!token) {
+            console.error('No hay token almacenado');
+            return;
+        }
+        const response = await axios.get('/directorioAfiliados', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        console.log('Datos recibidos:', response.data);
+
+    } catch (error) {
+        console.error('Error haciendo la petición con el token:', error);
+    }
+}
 </script>
 <template>
     <MainLayout>
@@ -68,7 +101,8 @@ console.log(filteredObject.value);
 
                 <div v-if="selectedTab === 'personal-info'"
                      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <div v-for="(filter,key) in filteredObject" :key="key" class="bg-white p-4 rounded-lg shadow-md border border-gray-400">
+                    <div v-for="(filter,key) in filteredObject" :key="key"
+                         class="bg-white p-4 rounded-lg shadow-md border border-gray-400">
                         <div class="flex items-center mb-2">
                             <svg class="w-6 h-6 text-blue" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -78,13 +112,19 @@ console.log(filteredObject.value);
                         </div>
                         <p class="text-gray-500">{{ filter }}</p>
                     </div>
+<!--                    <div>-->
+<!--                        <button @click="getToken">Consultar</button>-->
+<!--                        <button @click="directorioAfiliados">directorio</button>-->
+<!--                        <input type="text">-->
+<!--                    </div>-->
+
                 </div>
 
                 <!-- You can add similar sections for Billing, Order History, and Gift Cards -->
                 <div v-if="selectedTab === 'billing'">
                     <!-- Billing Content -->
                     <div class="flex flex-col text-blue font-bold">
-                        <a :href="'/storage/' + supplier.rut" target="_blank">RUT</a>
+                        <a v-if="supplier.rut !== null" :href="'/storage/' + supplier.rut" target="_blank">RUT</a>
                         <a :href="'/storage/' + supplier.bank_certification" target="_blank">Certificado Bancario</a>
                         <a :href="'/storage/' + supplier.copy_doc_represent" target="_blank">Copia del documento del
                             representante</a>

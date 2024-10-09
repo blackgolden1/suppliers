@@ -81,7 +81,7 @@ const submit = () => {
                     <div class="block mt-4 flex justify-between">
                         <label class="flex items-center">
                             <Checkbox name="remember" v-model:checked="form.remember"/>
-                            <span class="ms-2 text-sm text-gray-600">Recordar</span>
+                            <span class="ms-2 text-xxs text-gray-600">Recordar</span>
                         </label>
 
                     </div>
@@ -101,7 +101,7 @@ const submit = () => {
                         </Link>
                     </div>
                     <Link :href="route('password.request')"
-                        class="underline text-sm text-blueFigma font-semibold mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="underline text-xxs text-blueFigma font-semibold mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     > Olvide mi contrasena
                     </Link>
                 </form>

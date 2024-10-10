@@ -12,6 +12,7 @@ const payload = ref([]);
 const isModalOpen = ref(false);
 const selectedItem = ref(null);
 const previews = ref([]);
+const prueba  = 0;
 const searchQuery = ref('');
 const currentView = ref('estado')
 

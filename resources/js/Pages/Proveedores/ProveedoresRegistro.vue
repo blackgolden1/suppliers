@@ -161,7 +161,7 @@ const handleFileUpload = (event) => {
                             Bancaria</label>
                         <input
                             required class="block w-full text-xxs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="certificacion" id="user_avatar" type="file"accept="application/pdf" @input="form.bank_certification=$event.target.files[0]"/>
+                            aria-describedby="certificacion" id="user_avatar" type="file" accept="application/pdf" @input="form.bank_certification=$event.target.files[0]"/>
                     </div>
                     <div class="col-span-1">
                         <label class="block mb-2 text-xxs font-medium text-gray-900 dark:text-white" for="copia">Copia

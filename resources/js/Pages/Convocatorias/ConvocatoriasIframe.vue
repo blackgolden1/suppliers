@@ -39,7 +39,7 @@ const getFileName = (file) => {
     const words = file.split('/');
     return words[words.length - 1]
 }
-const handleFileChange = (event, name, convocatoriaId) => {
+const handleFileChange = (event, name) => {
 
     let selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -118,7 +118,7 @@ const handleFilter = () => {
             <!-- Sidebar con tarjetas -->
             <div class="w-2/5  overflow-y-auto pr-4">
                 <div
-                    v-for="(invitation, index) in actualInvitations"
+                    v-for="(invitation) in actualInvitations"
 
                     @click="selectItem(invitation)"
                     :class="['p-4 mb-4 border-2 rounded-lg cursor-pointer', selectedItem && selectedItem.id === invitation.id ? 'border-blueFigma' : 'border-gray-400']"
@@ -147,7 +147,7 @@ const handleFilter = () => {
                         </div>
                         <div v-show="selectedItem.postulations.length === 0">
                             <div class="mb-4" v-if="selectedItem.active">
-                                <div v-for="(requirement, index) in selectedItem.requirements">
+                                <div v-for="(requirement) in selectedItem.requirements">
 
                                     <label for="file" class="mr-2">Cargar el documento:
                                         {{ requirement.description }}</label>

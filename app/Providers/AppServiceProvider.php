@@ -28,19 +28,6 @@ class AppServiceProvider extends ServiceProvider
             return $user -> role -> name == 'admin';
         });
 
-//        Gate::define('supplierToLogin',function($user){
-//            return $user -> role -> name  == 'proveedor';
-//        });
-//
-//        Gate::define('adminToLogin',function($user){
-//            return $user -> role -> name  == 'proveedor';
-//        });
-//        if (Gate::denies('supplierToLogin')){
-//            redirect('/convocatorias');
-//        }
-//        if (Gate::denies('adminToLogin')){
-//        redirect('/convocatorias');
-//    }
 
     }
 }

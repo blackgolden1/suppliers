@@ -2,8 +2,8 @@
 import {Head, useForm} from '@inertiajs/vue3';
 import Postularse from "@/Layouts/MainLayout.vue";
 import 'filepond/dist/filepond.min.css';
-import {ref} from "vue";
-
+import {ref,watch} from "vue";
+import MultiSelect from 'primevue/multiselect';
 import vueFilePond from 'vue-filepond';
 
 // Import plugins
@@ -16,11 +16,13 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 
 // Create FilePond component
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
-const previews = ref([]);
 
+const previews = ref([]);
+const props = defineProps({suppliers: Array})
+console.log(props.suppliers);
 const handleFilePondUpdateFile = (files) => {
     const map = files.map(files => files.file)
-    console.log(map);
+
 }
 const form = useForm({
     name: '',
@@ -30,8 +32,11 @@ const form = useForm({
     quantity: '',
     description: '',
     requirements: [{description: '', type: 'archivo'}],
-    files: [{}]
+    files: [{}],
+    invitedSuppliers: [{}],
 });
+console.log(form.invitedSuppliers)
+console.log(form.name)
 const addRequirement = () => {
     form.requirements.push({description: '', type: 'archivo'});
 
@@ -170,17 +175,6 @@ const submit = () => {
                     <div class="col-span-1">
                         <label for="file">Adjuntar archivo</label>
                         <input type="file" id="file" accept="*/*" multiple @change="handleFileChange" required>
-                        <!--                                                <FilePond allowMultiple="true" ref="pond" v-on:updatefiles="handleFilePondUpdateFile" />-->
-
-                        <!-- Previsualización de las imágenes seleccionadas -->
-                        <!--                        <div v-if="previews.length">-->
-                        <!--                            <h3>Previsualización:</h3>-->
-                        <!--                            <div v-for="(file, index) in previews" :key="index" class="preview-container">-->
-                        <!--                                <img v-if="file.type.startsWith('image/')" :src="file.url" alt="Previsualización de imagen" class="preview-image" />-->
-                        <!--                                <iframe v-if="file.type === 'application/pdf'" :src="file.url" class="preview-pdf">{{file.url}}</iframe>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-
                         <div v-if="previews.length">
                             <h3>Archivos seleccionados:</h3>
                             <div v-for="(file, index) in previews" :key="index" class="preview-container">
@@ -190,6 +184,25 @@ const submit = () => {
                             </div>
                         </div>
 
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-8 items-center ">
+                    <div class="col-span-1">
+                        <h2 class="text-2xl font-semibold">Invitar proveedores</h2>
+                    </div>
+                    <div class="col-span-1">
+                            <div class="card flex justify-center">
+                                <MultiSelect
+                                    v-model="form.invitedSuppliers"
+                                    :options="props.suppliers"
+                                    optionLabel="name"
+                                    filter
+                                    placeholder="Selecciona proveedores"
+                                    :maxSelectedLabels="3"
+                                    class="w-full md:w-80"
+                                />
+
+                            </div>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-6 mt-8 items-center">

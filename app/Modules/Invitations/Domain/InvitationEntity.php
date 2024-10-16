@@ -14,6 +14,7 @@ class InvitationEntity
     public string $description;
     public string $files;
     public float $quantity;
+    public string $invitedSuppliers;
 
     public function __construct(array $attributes = [])
     {

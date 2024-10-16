@@ -3,11 +3,14 @@
 namespace App\Modules\Invitations\Adapters\In;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MiCorreoMailable;
 use App\Modules\Invitations\Adapters\Out\Invitation;
 use App\Modules\Invitations\Domain\InvitationService;
 use App\Modules\Invitations\Domain\Ports\In\IInvitationService;
+use App\Modules\Suppliers\Adapters\Out\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class InvitationController extends Controller
@@ -21,9 +24,7 @@ class InvitationController extends Controller
 
     public function create(Request $request): void
     {
-
         $paths = [];
-        //dd($request->all());
         if ($request->hasFile('files')) {
 
             foreach ($request->file('files') as $file) {
@@ -34,8 +35,10 @@ class InvitationController extends Controller
                 $paths[] = $path;
             }
         };
-
-        $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->quantity, $request->description, $request->requirements, $paths);
+        foreach ($request->invitedSuppliers as $invitedSupplier) {
+            Mail::to($invitedSupplier['email'] )->send(new MiCorreoMailable($invitedSupplier['name']));
+        }
+        $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->quantity, $request->description, $request->requirements, $paths, $request->invitedSuppliers);
 
     }
 
@@ -114,14 +117,17 @@ class InvitationController extends Controller
             return Inertia::render('Convocatorias/ConvocatoriasPerfil', ['invitation' => $invitation]);
         } else return Inertia::render('Convocatorias/ConvocatoriasIframe', ['invitations' => $invitations]);
 
-
     }
 
     public function filter(Request $request): array
     {
         return $this->invitationService->filter($request->name);
     }
-
+public function viewCreation (): \Inertia\Response
+{
+    $suppliers = Supplier::select(['name', 'email'])->get();
+    return Inertia::render('Convocatorias/ConvocatoriasCreacion', ['suppliers' => $suppliers]);
+}
     /**
      * @param Request $request
      * @return array

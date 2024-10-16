@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('quantity');
             $table->longText('description');
             $table->json('files');
+            $table->json('invitedSuppliers')->nullable();
             $table->timestamps();
         });
     }

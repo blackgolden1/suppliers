@@ -37,10 +37,7 @@ Route::delete('convocatoria/{id}/files/{index}', [\App\Modules\Invitations\Adapt
 
 Route::get('/postulaciones', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'myPostulations'])->name('misPostulaciones')->middleware('can:isSupplier'); //aun no
 
-
-Route::get('/register-invitation', function () {
-    return Inertia::render('Convocatorias/ConvocatoriasCreacion');
-})->name('registerInvitation')->middleware('can:isAdmin');
+Route::get('/register-invitation', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'viewCreation'])->name('registerInvitation')->middleware('can:isAdmin');
 
 
 Route::get('/login-prov', function () {

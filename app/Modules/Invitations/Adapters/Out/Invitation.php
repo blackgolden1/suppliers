@@ -48,6 +48,7 @@ class Invitation extends Model
          'quantity',
          'description',
          'files',
+         'invitedSuppliers',
      ];
 
 

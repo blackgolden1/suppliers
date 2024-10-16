@@ -16,9 +16,9 @@ private IInvitationRepository $invitationRepository;
         $this->invitationRepository = new InvitationMysqlRepository();
     }
 
-    public function create($name, $date_start, $date_finish, $active, $quantity,$description,$requirements,$files): void
+    public function create($name, $date_start, $date_finish, $active, $quantity,$description,$requirements,$files,$invitedSuppliers): void
     {
-        $this->invitationRepository->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files);
+        $this->invitationRepository->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files,$invitedSuppliers);
     }
     public function filter($name): array
     {
@@ -27,6 +27,9 @@ private IInvitationRepository $invitationRepository;
     public function edit($name, $date_start, $date_finish, $active,$quantity, $description, $requirements,$files,$id): void
     {
         $this->invitationRepository->edit($name, $date_start, $date_finish, $active,$quantity, $description, $requirements,$files,$id);
+    }
+    public function sendEmailInvitation(): void{
+
     }
 
     public function getActiveInvitations(): array

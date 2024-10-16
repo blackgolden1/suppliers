@@ -2,6 +2,7 @@
 
 namespace App\Modules\Invitations\Adapters\Out;
 
+use App\Mail\MiCorreoMailable;
 use App\Models\Requirement;
 use App\Modules\Applications\Adapters\Out\Postulation;
 use App\Modules\Invitations\Domain\InvitationEntity;
@@ -11,16 +12,17 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Mail;
 use function Laravel\Prompts\error;
 
 class InvitationMysqlRepository implements IInvitationRepository
 {
 
-    public function create($name, $date_start, $date_finish, $active, $quantity, $description, $requirements, $files): void
+    public function create($name, $date_start, $date_finish, $active, $quantity, $description, $requirements, $files,$invitedSuppliers): void
     {
-
-        $invitation = Invitation::create(['name' => $name, 'date_start' => $date_start, 'date_finish' => $date_finish, 'active' => $active, 'quantity' => $quantity, 'description' => $description, 'files' => json_encode($files)]);
+        $invitation = Invitation::create(['name' => $name, 'date_start' => $date_start, 'date_finish' => $date_finish, 'active' => $active, 'quantity' => $quantity, 'description' => $description, 'files' => json_encode($files), 'invitedSuppliers' => json_encode($invitedSuppliers)]);
         $invitationId = $invitation->id;
+
         foreach ($requirements as $req) {
             Requirement::create(['invitation_id' => $invitationId, 'type' => $req['type'], 'description' => $req['description']]);
         }

@@ -231,7 +231,7 @@ const handleFileChange = (event) => {
                                 </div>
                             </div>
                             <div class="col-span-1">
-                                <label for="file">Adjuntar archivo</label>
+                                <label for="file">Adjuntar archivos</label>
                                 <input type="file" id="file" accept="*/*" multiple @change="handleFileChange" >
                             </div>
                         </div>

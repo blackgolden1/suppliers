@@ -54,11 +54,20 @@ class RegisteredUserController extends Controller
             'identification_number' => $request->identification_number,
             'password' => Hash::make($request->password),
         ]);
+        $supplier = Supplier::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'id_type' => $request->type_id,
+            'identification_number' => $request->identification_number,
+            'user_id' => $user->id,
+
+        ]);
 
         event(new Registered($user));
+        event(new Registered($supplier));
 
         Auth::login($user);
 
-        return redirect(route('registerSupplier', absolute: false));
+        return redirect(route('convocatorias', absolute: false));
     }
 }

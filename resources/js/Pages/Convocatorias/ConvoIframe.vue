@@ -28,10 +28,10 @@ watch(() => props.invitations.value, (newSelectedItem) => {
         invitation_id.value = newSelectedItem.id;
     }
 });
-const openModal = (invitation) => {
+const openModal = () => {
     isModalOpen.value = true;
 }
-const closeModal = (invitation) => {
+const closeModal = () => {
     isModalOpen.value = false;
 }
 const getFileName = (file) => {
@@ -70,14 +70,14 @@ const handleFilter = () => {
         <!-- Sidebar con tarjetas -->
         <div class="w-2/5 overflow-y-auto mr-8">
             <div
-                v-for="(invitation, index) in actualInvitations"
+                v-for="(invitation) in actualInvitations"
 
                 @click="selectItem(invitation)"
                 :class="['p-4 mb-4 border-2 border-blueFigma  rounded-lg cursor-pointer', selectedItem && selectedItem.id === invitation.id ? 'border-blueFigma' : 'border-gray-300']"
             >
                 <!--                    <p v-if="invitation.active" class="rounded-lg bg-blue opacity-75 text-white w-fit p-2">Activa</p>-->
-                <h3 class="text-lg font-semibold">{{ invitation.name }}</h3>
-                <h3 class="text-lg line-clamp-4">{{ invitation.description }}</h3>
+                <h3 class="text-xs font-semibold mb-2">{{ invitation.name }}</h3>
+                <h3 class="text-xxs line-clamp-4 mb-2">{{ invitation.description }}</h3>
                 <div class="flex flex-col">
                     <div class="flex justify-around font-bold">
                         <h3>Fecha Inicio </h3>
@@ -96,24 +96,22 @@ const handleFilter = () => {
         <div class="w-2/3 p-6 border border-gray-400 rounded-2xl ">
 
             <div v-if="selectedItem">
-                <p class="text-gray-700 mb-4">{{ selectedItem.description }}</p>
+                <p class="text-gray-700 mb-4 text-xs">{{ selectedItem.description }}</p>
 
-                <div class="flex gap-4 mx-auto">
-
-                    <button class="bg-blueFigma text-white px-4 py-2 rounded-xl"><a
-                        :href="route('convocatoriasIframe')">Ir a postularse</a>
-                    </button>
-                    <button @click="openModal"
-                            class="bg-white text-blueFigma border border-blueFigma px-4 py-2 rounded-xl">Ver documentos
-                    </button>
-                </div>
-                <div v-if="isModalOpen">
-                    <ul>
-                        <li v-for="file in JSON.parse(selectedItem.files)" class="text-blue font-semibold cursor-pointer" >
+                <div >
+                    <ul v-for="file in JSON.parse(selectedItem.files)">
+                        <li class="text-blue font-semibold cursor-pointer" >
                             <a :href="'/storage/'+file"
                                target="_blank">{{ getFileName(file) }}</a>
                         </li>
                     </ul>
+                </div>
+                <div class="flex gap-4 mx-auto">
+
+                    <button class="bg-blueFigma text-white px-4 py-2 rounded-xl"><a
+                        :href="route('convocatorias')">Ir a postularse</a>
+                    </button>
+
                 </div>
 
             </div>

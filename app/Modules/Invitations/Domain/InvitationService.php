@@ -29,9 +29,9 @@ private IInvitationRepository $invitationRepository;
         $this->invitationRepository->edit($name, $date_start, $date_finish, $active,$quantity, $description, $requirements,$files,$id);
     }
 
-    public function search(): array
+    public function getActiveInvitations(): array
     {
-        return $this->invitationRepository->search();
+        return $this->invitationRepository->getActiveInvitations();
 
     }
     public function myPostulations(): array

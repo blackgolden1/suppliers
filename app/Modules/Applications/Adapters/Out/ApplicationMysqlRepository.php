@@ -9,6 +9,9 @@ use function PHPUnit\Framework\throwException;
 
 class ApplicationMysqlRepository implements IApplicationRepository
 {
+    /**
+     * @throws \Exception
+     */
     public function apply($invitation_id, $supplier_id, $status, $payload): void
     {
         $existingApplication = Postulation::where('invitation_id', $invitation_id)
@@ -20,11 +23,17 @@ class ApplicationMysqlRepository implements IApplicationRepository
                 'invitation_id' => $invitation_id,
                 'supplier_id'   => $supplier_id,
                 'status'        => $status,
-                'radicado'      => $invitation_id,
+                'radicado'      => random_int(1,100),
                 'payload'       => json_encode($payload)
             ]);
         }
         else error('errorrrrrrr');
     }
 
+    public function getRadicado($invitation_id): int
+    {
+        $supplierId = auth()->user()->supplier->id;
+        return Postulation::where('invitation_id','=',$invitation_id)
+            ->where('supplier_id', $supplierId)->value('radicado');
+    }
 }

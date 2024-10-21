@@ -15,7 +15,7 @@ class SupplierSeeder extends Seeder
     {
         DB::table('suppliers')->insert([
             'name'=>'hola',
-            'id_type'=>'cedula',
+            'id_type'=>'rut',
             'identification_number'=>'1111111',
             'person_type'=>'natural',
             'company_name'=>'natural',

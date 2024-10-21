@@ -18,7 +18,7 @@ use function Laravel\Prompts\error;
 class InvitationMysqlRepository implements IInvitationRepository
 {
 
-    public function create($name, $date_start, $date_finish, $active, $quantity, $description, $requirements, $files,$invitedSuppliers): void
+    public function create($name, $date_start, $date_finish, $active, $quantity, $description, $requirements, $files, $invitedSuppliers): array
     {
         $invitation = Invitation::create(['name' => $name, 'date_start' => $date_start, 'date_finish' => $date_finish, 'active' => $active, 'quantity' => $quantity, 'description' => $description, 'files' => json_encode($files), 'invitedSuppliers' => json_encode($invitedSuppliers)]);
         $invitationId = $invitation->id;
@@ -26,6 +26,7 @@ class InvitationMysqlRepository implements IInvitationRepository
         foreach ($requirements as $req) {
             Requirement::create(['invitation_id' => $invitationId, 'type' => $req['type'], 'description' => $req['description']]);
         }
+        return $invitation->toArray();
     }
 
 
@@ -72,7 +73,7 @@ class InvitationMysqlRepository implements IInvitationRepository
     {
         $supplier = Auth::user()->supplier;
         $supplierId = $supplier->id;
-        return Postulation::with('invitations')->where('supplier_id','=',$supplierId)->get()->toArray();
+        return Postulation::with('invitations')->where('supplier_id', '=', $supplierId)->get()->toArray();
     }
 
     public function index(): array

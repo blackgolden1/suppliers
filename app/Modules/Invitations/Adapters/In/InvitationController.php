@@ -5,6 +5,7 @@ namespace App\Modules\Invitations\Adapters\In;
 use App\Http\Controllers\Controller;
 use App\Mail\MiCorreoMailable;
 use App\Modules\Invitations\Adapters\Out\Invitation;
+use App\Modules\Invitations\Domain\InvitationEntity;
 use App\Modules\Invitations\Domain\InvitationService;
 use App\Modules\Invitations\Domain\Ports\In\IInvitationService;
 use App\Modules\Suppliers\Adapters\Out\Supplier;
@@ -36,9 +37,10 @@ class InvitationController extends Controller
             }
         };
         foreach ($request->invitedSuppliers as $invitedSupplier) {
-            Mail::to($invitedSupplier['email'] )->send(new MiCorreoMailable($invitedSupplier['name']));
+            Mail::to($invitedSupplier['email'] )->send(new MiCorreoMailable($request->name, $request->date_start, $request->date_finish));
         }
-        $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->quantity, $request->description, $request->requirements, $paths, $request->invitedSuppliers);
+
+         $this->invitationService->create($request->name, $request->date_start, $request->date_finish, $request->active, $request->quantity, $request->description, $request->requirements, $paths, $request->invitedSuppliers);
 
     }
 

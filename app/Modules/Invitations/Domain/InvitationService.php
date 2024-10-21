@@ -2,10 +2,12 @@
 
 namespace App\Modules\Invitations\Domain;
 
+use App\Mail\MiCorreoMailable;
 use App\Modules\Invitations\Adapters\Out\InvitationMysqlRepository;
 use App\Modules\Invitations\Domain\Ports\In\IInvitationService;
 use App\Modules\Invitations\Domain\Ports\Out\IInvitationRepository;
 use App\Modules\Suppliers\Domain\SupplierEntity;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class InvitationService implements IInvitationService
@@ -16,9 +18,9 @@ private IInvitationRepository $invitationRepository;
         $this->invitationRepository = new InvitationMysqlRepository();
     }
 
-    public function create($name, $date_start, $date_finish, $active, $quantity,$description,$requirements,$files,$invitedSuppliers): void
+    public function create($name, $date_start, $date_finish, $active, $quantity,$description,$requirements,$files,$invitedSuppliers): array
     {
-        $this->invitationRepository->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files,$invitedSuppliers);
+        return $this->invitationRepository->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files,$invitedSuppliers);
     }
     public function filter($name): array
     {
@@ -29,7 +31,10 @@ private IInvitationRepository $invitationRepository;
         $this->invitationRepository->edit($name, $date_start, $date_finish, $active,$quantity, $description, $requirements,$files,$id);
     }
     public function sendEmailInvitation(): void{
-
+        $invitation = $this->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files,$invitedSuppliers);
+        foreach ($invitedSuppliers as $invitedSupplier) {
+            Mail::to($invitedSupplier['email'] )->send(new MiCorreoMailable($request->name, $request->date_start, $request->date_finish));
+        }
     }
 
     public function getActiveInvitations(): array

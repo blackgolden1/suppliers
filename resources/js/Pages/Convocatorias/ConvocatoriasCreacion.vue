@@ -2,8 +2,9 @@
 import {Head, useForm} from '@inertiajs/vue3';
 import Postularse from "@/Layouts/MainLayout.vue";
 import 'filepond/dist/filepond.min.css';
-import {ref,watch} from "vue";
+import {ref, watch} from "vue";
 import MultiSelect from 'primevue/multiselect';
+import ToggleSwitch from 'primevue/toggleswitch';
 import vueFilePond from 'vue-filepond';
 
 // Import plugins
@@ -18,6 +19,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
 const previews = ref([]);
+const checked = ref(false);
 const props = defineProps({suppliers: Array})
 console.log(props.suppliers);
 const handleFilePondUpdateFile = (files) => {
@@ -28,7 +30,7 @@ const form = useForm({
     name: '',
     date_start: '',
     date_finish: '',
-    active: '',
+    active: false,
     quantity: '',
     description: '',
     requirements: [{description: '', type: 'archivo'}],
@@ -140,22 +142,19 @@ const submit = () => {
                         </div>
                         <div class="mb-4">
                             <label class="block text-xxs font-medium text-gray-700" for="state">Descripcion</label>
-                            <input type="text" id="state"  v-model="form.description" required
+                            <input type="text" id="state" v-model="form.description" required
                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
                                       focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs">
-<!--                            <textarea id="state" type="textarea" v-model="form.description" required-->
-<!--                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none -->
-<!--                                      focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"> </textarea>-->
+                            <!--                            <textarea id="state" type="textarea" v-model="form.description" required-->
+                            <!--                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none -->
+                            <!--                                      focus:ring-indigo-500 focus:border-indigo-500 sm:text-xxs"> </textarea>-->
                         </div>
 
                         <div class="grid grid-cols-2 gap-4 mb-4 items-center">
-                            <div> Activa:
-                                <label class=" text-xxs font-medium text-gray-700" for="city">Si</label>
-                                <input class="mr-4" id="city" type="radio" v-model="form.active" value="1" required/>
-                                <label class=" text-xxs font-medium text-gray-700" for="city">No</label>
-                                <input id="city" type="radio" v-model="form.active" value="0" required
-                                       class=""/>
+                            <div>
 
+                                <label class=" text-xxs font-medium text-gray-700 mr-4" for="city">Activa</label>
+                                <ToggleSwitch v-model="form.active"/>
                             </div>
                             <div>
                                 <label class="block text-xxs font-medium text-gray-700" for="zip">Cuantia</label>
@@ -191,18 +190,18 @@ const submit = () => {
                         <h2 class="text-2xl font-semibold">Invitar proveedores</h2>
                     </div>
                     <div class="col-span-1">
-                            <div class="card flex justify-center">
-                                <MultiSelect
-                                    v-model="form.invitedSuppliers"
-                                    :options="props.suppliers"
-                                    optionLabel="name"
-                                    filter
-                                    placeholder="Selecciona proveedores"
-                                    :maxSelectedLabels="3"
-                                    class="w-full md:w-80"
-                                />
+                        <div class="card flex justify-center">
+                            <MultiSelect
+                                v-model="form.invitedSuppliers"
+                                :options="props.suppliers"
+                                optionLabel="name"
+                                filter
+                                placeholder="Selecciona proveedores"
+                                :maxSelectedLabels="3"
+                                class="w-full md:w-80"
+                            />
 
-                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-6 mt-8 items-center">

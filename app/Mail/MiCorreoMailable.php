@@ -17,10 +17,14 @@ class MiCorreoMailable extends Mailable
      * Create a new message instance.
      */
     public $name;
-    public function __construct($name)
+    public $date_start;
+    public $date_finish;
+    public function __construct($name, $date_start, $date_finish)
     {
 
         $this->name = $name;
+        $this->date_start = $date_start;
+        $this->date_finish = $date_finish;
     }
 
     /**
@@ -41,7 +45,9 @@ class MiCorreoMailable extends Mailable
     {
         return new Content(
             view: 'mail.mail',
-            with: ['name' => $this->name],
+            with: ['name' => $this->name,
+                'date_start' => $this->date_start,
+                'date_finish' => $this->date_finish],
         );
     }
 

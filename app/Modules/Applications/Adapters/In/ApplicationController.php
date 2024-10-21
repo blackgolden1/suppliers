@@ -23,6 +23,11 @@ class ApplicationController extends Controller
         $this->applicationService = new ApplicationService();
     }
 
+    public function getRadicado(Request $request): int
+    {
+       return $this->applicationService->getRadicado($request->invitation_id);
+    }
+
     public function apply(Request $request): void
     {
         $supplierId = Auth::user()->supplier->id;
@@ -32,16 +37,15 @@ class ApplicationController extends Controller
 
         $paths = [];
 
-            foreach ($request->file('files') as $file) {
+        foreach ($request->file('files') as $file) {
 
-                $filename = $file->getClientOriginalName();
-                $filename = str_replace(' ', '_', $filename);
-                $path = $file->storeAs('public/convocatorias/' . $request->name, $filename);
-                $paths[] = $path;
-            }
-        if (!$existingApplication) {
-            $this->applicationService->apply($request->invitation_id, $supplierId, 'pending', $paths);
+            $filename = $file->getClientOriginalName();
+            $filename = str_replace(' ', '_', $filename);
+            $path = $file->storeAs('public/convocatorias/' . $request->name, $filename);
+            $paths[] = $path;
         }
-        else error('errorrrrrrr');
+        if (!$existingApplication) {
+            $this->applicationService->apply($request->invitation_id, $supplierId, 'postulado', $paths);
+        } else error('errorrrrrrr');
     }
 }

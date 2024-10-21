@@ -39,7 +39,7 @@ const getFileName = (file) => {
                         :key="postulation.id"
                         class="border-b border-gray-200 hover:bg-gray-100 transition-colors"
                     >
-                        <td class="p-4 text-center">{{ postulation.id }}</td>
+                        <td class="p-4 text-center">{{ postulation.radicado }}</td>
                         <td class="p-4">
             <span
                 :class="{

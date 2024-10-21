@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('invitations', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('name');
-            $table->date('date_start');
-            $table->date('date_finish');
+            $table->timestamp('date_start');
+            $table->timestamp('date_finish');
             $table->boolean('active');
             $table->float('quantity');
             $table->longText('description');

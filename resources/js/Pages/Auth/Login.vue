@@ -7,6 +7,8 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import {Head, Link, useForm} from '@inertiajs/vue3';
 
+import Password from 'primevue/password';
+
 defineProps({
     canResetPassword: {
         type: Boolean,
@@ -59,23 +61,27 @@ const submit = () => {
 
                     <InputError class="mt-2" :message="form.errors.email"/>
                 </div>
-
                 <div class="mt-4">
-                    <InputLabel for="password"/>
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        placeholder="Contraseña"
-
-                        class="mt-1 block w-full"
-                        v-model="form.password"
-                        required
-                        autocomplete="current-password"
-                    />
-
-                    <InputError class="mt-2" :message="form.errors.password"/>
+                    <Password v-model="form.password" toggleMask class="mt-1  w-full"
+                              placeholder="Contraseña" required autocomplete="current-password" fluid
+                              meter="false" id="password"/>
                 </div>
+<!--                <div class="mt-4">-->
+<!--                    <InputLabel for="password"/>-->
+
+<!--                    <TextInput-->
+<!--                        id="password"-->
+<!--                        type="password"-->
+<!--                        placeholder="Contraseña"-->
+
+<!--                        class="mt-1 block w-full"-->
+<!--                        v-model="form.password"-->
+<!--                        required-->
+<!--                        autocomplete="current-password"-->
+<!--                    />-->
+
+<!--                    <InputError class="mt-2" :message="form.errors.password"/>-->
+<!--                </div>-->
 
                 <div class="block mt-4 flex justify-between">
                     <label class="flex items-center">

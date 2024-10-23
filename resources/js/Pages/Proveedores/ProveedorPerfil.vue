@@ -1,7 +1,5 @@
 <script setup>
 import {ref, computed} from 'vue'
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Link} from '@inertiajs/vue3';
 import MainLayout from "@/Layouts/MainLayout.vue";
 
 const selectedTab = ref('personal-info')
@@ -32,20 +30,7 @@ const filteredObject = computed(() => {
         }, {});
 
 });
-const getToken = async () => {
-    try {
-        const response = await axios.get('/consulta', {
-            params: {},
-        });
-        if (response.data.mensajeerror === "") {
-            const token = response.data.token;
-            localStorage.setItem('authToken', token);
 
-        }
-    } catch (error) {
-        console.error('Error fetching invitations:', error);
-    }
-}
 
 const directorioAfiliados = async () => {
     try {
@@ -112,11 +97,9 @@ const directorioAfiliados = async () => {
                         </div>
                         <p class="text-gray-500">{{ filter }}</p>
                     </div>
-<!--                    <div>-->
-<!--                        <button @click="getToken">Consultar</button>-->
-<!--                        <button @click="directorioAfiliados">directorio</button>-->
-<!--                        <input type="text">-->
-<!--                    </div>-->
+                    <div>
+
+                    </div>
 
                 </div>
 

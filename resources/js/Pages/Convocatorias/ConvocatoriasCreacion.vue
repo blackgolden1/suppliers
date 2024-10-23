@@ -2,7 +2,7 @@
 import {Head, useForm} from '@inertiajs/vue3';
 import Postularse from "@/Layouts/MainLayout.vue";
 import 'filepond/dist/filepond.min.css';
-import {ref, watch} from "vue";
+import {onMounted, ref} from "vue";
 import MultiSelect from 'primevue/multiselect';
 import ToggleSwitch from 'primevue/toggleswitch';
 import vueFilePond from 'vue-filepond';
@@ -16,16 +16,49 @@ import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 // Create FilePond component
-const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
-
+vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 const previews = ref([]);
 const checked = ref(false);
 const props = defineProps({suppliers: Array})
-console.log(props.suppliers);
-const handleFilePondUpdateFile = (files) => {
-    const map = files.map(files => files.file)
 
+
+const getToken = async () => {
+    try {
+        const response = await axios.get('/consulta', {
+            params: {},
+        });
+        console.log('hola');
+        if (response.data.mensajeerror === "") {
+            console.log('hola2');
+            const token = response.data.token;
+            localStorage.setItem('authToken', token);
+            const TokenFromStorage = localStorage.getItem('authToken');
+
+            await getSuppliers(TokenFromStorage);
+        }
+    } catch (error) {
+        console.error('Error fetching invitations:', error);
+    }
 }
+const getSuppliers = async (TokenFromStorage) => {
+    try {
+        if (!TokenFromStorage) {
+            console.error('No hay token almacenado');
+            return;
+        }
+        const response = await axios.get('/suppliersList', {
+            headers: {
+                'Authorization': `Bearer ${TokenFromStorage}`
+            }
+        });
+        console.log('Datos recibidos:', response.data);
+    } catch (error) {
+        console.error('Error haciendo la petición con el token:', error);
+    }
+}
+onMounted(() => {
+    getToken()
+})
 const form = useForm({
     name: '',
     date_start: '',
@@ -34,11 +67,10 @@ const form = useForm({
     quantity: '',
     description: '',
     requirements: [{description: '', type: 'archivo'}],
-    files: [{}],
-    invitedSuppliers: [{}],
+    files: [],
+    invitedSuppliers: [],
 });
-console.log(form.invitedSuppliers)
-console.log(form.name)
+
 const addRequirement = () => {
     form.requirements.push({description: '', type: 'archivo'});
 
@@ -193,8 +225,8 @@ const submit = () => {
                         <div class="card flex justify-center">
                             <MultiSelect
                                 v-model="form.invitedSuppliers"
-                                :options="props.suppliers"
-                                optionLabel="name"
+                                :options=JSON.parse(props.suppliers)
+                                optionLabel="razonsocial"
                                 filter
                                 placeholder="Selecciona proveedores"
                                 :maxSelectedLabels="3"
@@ -231,10 +263,13 @@ const submit = () => {
                             <button type="button" @click="addRequirement"
                                     class="bg-blueFigma text-white px-2 rounded-lg text-lg py-1 ml-4">+
                             </button>
+
                         </div>
 
 
                     </div>
+
+
                 </div>
                 <div class="flex justify-end ">
                     <button class="bg-blueFigma text-white rounded-lg px-8 py-2 mt-8" type="submit">Enviar</button>

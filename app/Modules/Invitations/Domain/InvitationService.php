@@ -30,12 +30,12 @@ private IInvitationRepository $invitationRepository;
     {
         $this->invitationRepository->edit($name, $date_start, $date_finish, $active,$quantity, $description, $requirements,$files,$id);
     }
-    public function sendEmailInvitation(): void{
-        $invitation = $this->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files,$invitedSuppliers);
-        foreach ($invitedSuppliers as $invitedSupplier) {
-            Mail::to($invitedSupplier['email'] )->send(new MiCorreoMailable($request->name, $request->date_start, $request->date_finish));
-        }
-    }
+//    public function sendEmailInvitation(): void{
+//        $invitation = $this->create($name, $date_start, $date_finish, $active,$quantity, $description,$requirements,$files,$invitedSuppliers);
+//        foreach ($invitedSuppliers as $invitedSupplier) {
+//            Mail::to($invitedSupplier['email'] )->send(new MiCorreoMailable($request->name, $request->date_start, $request->date_finish));
+//        }
+//    }
 
     public function getActiveInvitations(): array
     {

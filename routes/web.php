@@ -14,8 +14,9 @@ Route::get('/', function () {
 Route::get('/proveedores', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'search'])->name('proveedores');
 Route::get('/proveedores/{id}',[\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'find'])->name('proveedor.perfil');
 
-Route::get('/consulta', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'getToken'])->name('consulta');
-Route::get('/directorioAfiliados', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'directorioAfiliados'])->name('directorio');
+Route::get('/consulta', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'getToken'])->name('consulta');
+Route::get('/suppliersList', [\App\Modules\Invitations\Adapters\In\InvitationController::class, 'getSuppliersList'])->name('consultaLista');
+//Route::get('/directorioAfiliados', [\App\Modules\Suppliers\Adapters\In\SupplierController::class, 'directorioAfiliados'])->name('directorio');
 
 Route::get('/getRadicado', [\App\Modules\Applications\Adapters\In\ApplicationController::class, 'getRadicado'])->name('radicado');
 

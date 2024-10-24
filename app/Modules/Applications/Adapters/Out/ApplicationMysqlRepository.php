@@ -12,6 +12,12 @@ class ApplicationMysqlRepository implements IApplicationRepository
     /**
      * @throws \Exception
      */
+    public function setNewState($id, $status): void
+    {
+        $application = Postulation::find($id);
+        $application->status = $status;
+        $application->save();
+    }
     public function apply($invitation_id, $supplier_id, $status, $payload): void
     {
         $existingApplication = Postulation::where('invitation_id', $invitation_id)

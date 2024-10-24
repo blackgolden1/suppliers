@@ -14,6 +14,10 @@ private IApplicationRepository $applicationRepository;
     {
         $this->applicationRepository = new ApplicationMysqlRepository();
     }
+    public function setNewState($id, $status): void
+    {
+        $this->applicationRepository->setNewState($id, $status);
+    }
     public function apply($invitation_id, $supplier_id, $status, $payload): void
     {
         $this->applicationRepository->apply($invitation_id, $supplier_id, $status, $payload);

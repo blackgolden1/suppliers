@@ -16,6 +16,10 @@ const role = page.props.auth.user.role_id;
 <Postularse>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full center px-16 py-4">
+
+            <div class="bg-blue text-white rounded-lg w-fit p-3 mb-4 right-0">
+                <Link :href="route('registerInvitation')"> Nueva + </Link>
+            </div>
             <table class="w-full text-xxs rounded-lg text-left rtl:text-right text-gray-500 rounded-lg">
                 <thead class=" rounded-lg text-xxs text-white uppercase bg-blueFigma text-center opacity-100 dark:text-gray-400 w-full">
                 <tr>
@@ -61,9 +65,6 @@ const role = page.props.auth.user.role_id;
                 </tbody>
             </table>
 
-            <div class="bg-blue text-white rounded-lg w-fit p-3 mt-4">
-                <Link :href="route('registerInvitation')"> Nueva + </Link>
-            </div>
         </div>
 </Postularse>
 <!--    </AuthenticatedLayout>-->

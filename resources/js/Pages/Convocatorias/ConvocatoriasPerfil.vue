@@ -3,11 +3,12 @@ import {ref} from 'vue'
 import MainLayout from "@/Layouts/MainLayout.vue";
 import {Link, useForm} from '@inertiajs/vue3';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Swal from 'sweetalert2'
+import Select from 'primevue/select';
 
 const selectedTab = ref('personal-info')
 
 const props = defineProps({invitation: Object});
-console.log(props.invitation);
 
 const form = useForm({
     name: props.invitation.name,
@@ -21,6 +22,27 @@ const form = useForm({
     }),
     files: [{}]
 });
+const newPostulationState = ref('');
+const status = ref([{status: 'Documentos Aprobados'},{status: 'En contacto'},{status: 'Aprobado'},{status: 'Rechazado'}]);
+
+
+const setNewPostulationState = async (applicationId) => {
+    await Swal.fire({
+        title: 'Actualizar estado de postulacion',
+        text: 'Esta seguro de cambiar el estado de la postulacion a ' + newPostulationState.value.status + '?',
+        icon: 'question',
+        showDenyButton: true,
+        confirmButtonText: 'Aceptar',
+        denyButtonText: 'Rechazar',
+
+    }).then(async (result) => {
+        console.log(newPostulationState.value.status);
+        if (result.isConfirmed) {
+            await axios.patch(route('postulacion.estado', {id: applicationId, status: newPostulationState.value.status}))
+        }
+    })
+}
+
 const addRequirement = () => {
     form.requirements.push({description: '', type: 'archivo'});
 
@@ -221,8 +243,20 @@ const handleFileChange = (event) => {
                                     {{ invitation.suppliers[index].name }}
                                 </Link>
                             </th>
+
                             <td class="px-6 py-4">
-                                {{ application.status }}
+
+                                <Select v-model="newPostulationState" optionLabel="status" :options="status" @change="setNewPostulationState(application.id)" :placeholder=application.status  class="w-full md:w-56" />
+
+<!--                                <select name="newState" id="newState" class="border-none rounded-xl"-->
+<!--                                        v-model="newPostulationState" @change="setNewPostulationState(application.id)">-->
+<!--                                    <option  value="">{{ application.status }}</option>-->
+<!--                                    <option  value="docs_aprobados">Documentos aprobados </option>-->
+<!--                                    <option  value="contacto">En contacto</option>-->
+<!--                                    <option  value="aprobado">Aprobado</option>-->
+<!--                                    <option  value="rechazado">Rechazado</option>-->
+<!--                                </select>-->
+
                             </td>
                             <td v-show="application.description !== null" class="px-6 py-4">
                                 {{ application.description }}

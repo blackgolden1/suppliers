@@ -23,6 +23,10 @@ class ApplicationController extends Controller
         $this->applicationService = new ApplicationService();
     }
 
+    public function setNewState(Request $request): void
+    {
+        $this->applicationService->setNewState($request->id, $request->status);
+    }
     public function getRadicado(Request $request): int
     {
        return $this->applicationService->getRadicado($request->invitation_id);
